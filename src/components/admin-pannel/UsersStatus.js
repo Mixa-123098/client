@@ -4,7 +4,7 @@ const UsersStatus = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/users`)
+    fetch(`https://server-2gn8.onrender.com/users`)
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
@@ -29,7 +29,7 @@ const UsersStatus = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
   
-    const response = await fetch(`http://localhost:3001/users`);
+    const response = await fetch(`https://server-2gn8.onrender.com/users`);
     const updatedData = await response.json();
   
     const isDataChanged = JSON.stringify(updatedData) !== JSON.stringify(users);
@@ -39,7 +39,7 @@ const UsersStatus = () => {
         const currentUser = users.find((user) => user.id === updatedUser.id);
         const role = currentUser !== undefined ? currentUser.role : updatedUser.role;
   
-        const putResponse = await fetch(`http://localhost:3001/update_user_role/${updatedUser.username}`, {
+        const putResponse = await fetch(`https://server-2gn8.onrender.com/update_user_role/${updatedUser.username}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const UsersStatus = () => {
   // const handleFormSubmit = async (e) => {
   //   e.preventDefault();
 
-  //   const response = await fetch(`http://localhost:3001/users`);
+  //   const response = await fetch(`https://server-2gn8.onrender.com/users`);
   //   const updatedData = await response.json();
 
   //   const isDataChanged = JSON.stringify(updatedData) !== JSON.stringify(users);
@@ -73,7 +73,7 @@ const UsersStatus = () => {
   //     });
 
   //     changedUsers.forEach(async (changedUser) => {
-  //       const putResponse = await fetch(`http://localhost:3001/update_user_role/${changedUser.username}`, {
+  //       const putResponse = await fetch(`https://server-2gn8.onrender.com/update_user_role/${changedUser.username}`, {
   //         method: 'PUT',
   //         headers: {
   //           'Content-Type': 'application/json',

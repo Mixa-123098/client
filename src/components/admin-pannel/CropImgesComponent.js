@@ -45,10 +45,10 @@ const CropHeaderAndPrewImg = ({ data }) => {
     setLoading(true);
 
     Promise.all([
-      fetch(`http://localhost:3001/projects`).then((response) =>
+      fetch(`https://server-2gn8.onrender.com/projects`).then((response) =>
         response.json()
       ),
-      fetch(`http://localhost:3001/blueprints`).then((response) =>
+      fetch(`https://server-2gn8.onrender.com/blueprints`).then((response) =>
         response.json()
       ),
     ])
@@ -109,7 +109,7 @@ const CroppedImges = ({ project_id }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/project_imges")
+    fetch("https://server-2gn8.onrender.com/project_imges")
       .then((response) => response.json())
       .then((data) => {
         setImges(
@@ -173,7 +173,7 @@ const CropImgesComponent = () => {
   // console.log(editedProject);
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/projects`)
+    fetch(`https://server-2gn8.onrender.com/projects`)
       .then((response) => response.json())
       .then((data) => {
         setProjects(data);

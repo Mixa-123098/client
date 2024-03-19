@@ -35,7 +35,7 @@ class AuthStore {
   updateUserStatus = async (status) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/update_user_status/${this.user.username}`,
+        `https://server-2gn8.onrender.com/update_user_status/${this.user.username}`,
         {
           method: "PUT",
           headers: {
@@ -93,7 +93,7 @@ export default authStore;
 //   updateUserStatus = async (status) => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3001/update_user_status/${this.user.username}`,
+//         `https://server-2gn8.onrender.com/update_user_status/${this.user.username}`,
 //         {
 //           method: "PUT",
 //           headers: {
@@ -278,7 +278,7 @@ export default authStore;
 //   }
 
 //   checkAuthentication() {
-//     fetch(`http://localhost:3001/users`)
+//     fetch(`https://server-2gn8.onrender.com/users`)
 //       .then((response) => response.json())
 //       .then((data) => {
 //         const loggedUser = data.find((user) => user.status === "online");

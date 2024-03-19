@@ -94,7 +94,7 @@ export default CropImg;
 //   useEffect(() => {
 //     const fetchFile = async () => {
 //       const fileName = "photo_2023-12-28_15-19-25.jpg";
-//       const url = `http://localhost:3001/get-file/${fileName}`;
+//       const url = `https://server-2gn8.onrender.com/get-file/${fileName}`;
 
 //       try {
 //         const response = await fetch(url);

@@ -17,7 +17,7 @@ const AuthForm = observer(() => {
   const { isAuthenticated } = authStore;
 
   useEffect(() => {
-    fetch("http://localhost:3001/users")
+    fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
         const onlineUser =
@@ -29,7 +29,7 @@ const AuthForm = observer(() => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-    fetch(`http://localhost:3001/users`)
+    fetch(`https://server-2gn8.onrender.com/users`)
       .then((response) => response.json())
       .then((data) => setUsersData(data));
   });
@@ -64,7 +64,7 @@ const AuthForm = observer(() => {
           "This email is already associated with an account. Please use a different email."
         );
       } else {
-        fetch("http://localhost:3001/users", {
+        fetch("https://server-2gn8.onrender.com/users", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {

@@ -90,7 +90,7 @@ const ProjectArticlePlanning = ({ id }) => {
   const [blueprints, setBlueprint] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:3001/blueprints`)
+    fetch(`https://server-2gn8.onrender.com/blueprints`)
       .then((response) => response.json())
       // eslint-disable-next-line eqeqeq
       .then((data) => setBlueprint(data.find((item) => item.project_id == id)));
@@ -120,7 +120,7 @@ const ProjectArticleImges = ({ id }) => {
   const [projectImges, setProjectImges] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/project_imges`)
+    fetch(`https://server-2gn8.onrender.com/project_imges`)
       .then((response) => response.json())
       .then((data) =>
         setProjectImges(
@@ -157,7 +157,7 @@ const PrevAndNextProject = ({ id }) => {
   const [currentIndex, setCurrentIndex] = useState(null);
   console.log(dataList);
   useEffect(() => {
-    fetch(`http://localhost:3001/projects`)
+    fetch(`https://server-2gn8.onrender.com/projects`)
       .then((response) => response.json())
       .then((data) => {
         setDataList(data);
@@ -202,7 +202,7 @@ const PrevAndNextProject = ({ id }) => {
 //   console.log(dataList);
 
 //   useEffect(() => {
-//     fetch(`http://localhost:3001/projects`)
+//     fetch(`https://server-2gn8.onrender.com/projects`)
 //       .then((response) => response.json())
 //       .then((data) => setDataList(data));
 //   }, [id]);
@@ -244,7 +244,7 @@ const ProjectArticle = () => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/projects`)
+    fetch(`https://server-2gn8.onrender.com/projects`)
       .then((response) => response.json())
       // .then((data) => setDataList(data[id - 6]));
       .then((data) =>

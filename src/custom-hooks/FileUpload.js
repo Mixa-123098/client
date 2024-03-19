@@ -7,7 +7,7 @@ const FileUpload = () => {
     return (
       <div>
         <input type="file" onChange={handleFileChange} />
-        <button onClick={() => handleUpload('http://localhost:3001/upload')}>Uploadd</button>
+        <button onClick={() => handleUpload('https://server-2gn8.onrender.com/upload')}>Uploadd</button>
       </div>
     );
   };

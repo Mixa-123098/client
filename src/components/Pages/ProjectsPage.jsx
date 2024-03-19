@@ -44,7 +44,7 @@ const Projects = ({ indexFromSecBlock }) => {
   const [dataList, setDataList] = useState([]);
   const index = indexFromSecBlock || 0;
   useEffect(() => {
-    fetch("http://localhost:3001/projects")
+    fetch("https://server-2gn8.onrender.com/projects")
       .then((response) => response.json())
       .then((data) => setDataList(data))
       .catch((error) => {

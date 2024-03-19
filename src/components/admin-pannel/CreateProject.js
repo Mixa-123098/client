@@ -43,7 +43,7 @@ const CreateProject = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:3001/create_post", {
+      const response = await fetch("https://server-2gn8.onrender.com/create_post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const CreateProject = () => {
     } catch (error) {
       console.error("Error sending request:", error);
     }
-    handleUpload("http://localhost:3001/upload");
+    handleUpload("https://server-2gn8.onrender.com/upload");
   };
 
   return (

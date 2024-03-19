@@ -40,10 +40,10 @@ const EditHeaderAndPrewImg = ({ data, handleFileChange }) => {
     setLoading(true);
 
     Promise.all([
-      fetch(`http://localhost:3001/projects`).then((response) =>
+      fetch(`https://server-2gn8.onrender.com/projects`).then((response) =>
         response.json()
       ),
-      fetch(`http://localhost:3001/blueprints`).then((response) =>
+      fetch(`https://server-2gn8.onrender.com/blueprints`).then((response) =>
         response.json()
       ),
     ])

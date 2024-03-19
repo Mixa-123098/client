@@ -19,7 +19,7 @@ const CropModalForm = observer(() => {
     } else {
       window.confirm("Зберегти зміни?");
       setTimeout(() => {
-        handleUpload("http://localhost:3001/upload");
+        handleUpload("https://server-2gn8.onrender.com/upload");
       }, 1000);
     }
   };

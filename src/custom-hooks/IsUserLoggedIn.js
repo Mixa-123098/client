@@ -6,7 +6,7 @@ const IsUserLoggedIn = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/users`);
+        const response = await fetch(`https://server-2gn8.onrender.com/users`);
         const data = await response.json();
         const user = data.find((user) => user.status === "online");
         setIsAuth(user ? true : false);
@@ -31,7 +31,7 @@ export default IsUserLoggedIn;
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3001/users`);
+//         const response = await fetch(`https://server-2gn8.onrender.com/users`);
 //         const data = await response.json();
 //         const user = data.find((user) => user.status === "online");
 //         setIsAuth(user ? true : false);
@@ -56,7 +56,7 @@ export default IsUserLoggedIn;
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3001/users`);
+//         const response = await fetch(`https://server-2gn8.onrender.com/users`);
 //         const data = await response.json();
 //         const user = data.find((user) => user.status === "online");
 //         setIsAuth(user ? true : false);
@@ -80,7 +80,7 @@ export default IsUserLoggedIn;
 //   const [isAuth, setIsAuth] = useState(false);
 
 //   useEffect(() => {
-//     fetch(`http://localhost:3001/users`)
+//     fetch(`https://server-2gn8.onrender.com/users`)
 //       .then((response) => response.json())
 //       .then((data) => {
 //         const user = data.find((user) => user.status === "online");
@@ -100,7 +100,7 @@ export default IsUserLoggedIn;
 //     const [isAuth, setIsAuth] = useState([]);
 
 //   useEffect(() => {
-//     fetch(`http://localhost:3001/users`)
+//     fetch(`https://server-2gn8.onrender.com/users`)
 //       .then((response) => response.json())
 //       .then((data) =>
 //         setUsersData(data.find((user) => user.status === "online"))
@@ -124,7 +124,7 @@ export default IsUserLoggedIn;
 // //   const navigate = useNavigate();
 
 //   useEffect(() => {
-//     fetch(`http://localhost:3001/users`)
+//     fetch(`https://server-2gn8.onrender.com/users`)
 //       .then((response) => response.json())
 //       .then((data) => {
 //         const user = data.find((user) => user.status === "online");
