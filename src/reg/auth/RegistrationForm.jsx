@@ -15,13 +15,14 @@ const AuthForm = observer(() => {
   const [usersData, setUsersData] = useState([]);
   const navigate = useNavigate();
   const { isAuthenticated } = authStore;
-  console.log(sessionStorage.getItem("user"));
+ console.log(usersData);
   useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
         const onlineUser =
           // data.find((user) => user.status === "online" && user.username===authStore.user.username) || isAuthenticated;
+          console.log(sessionStorage.getItem("user"));
           data.find(
             (user) =>
               user.status === "online" &&
