@@ -21,8 +21,13 @@ const AuthForm = observer(() => {
       .then((response) => response.json())
       .then((data) => {
         const onlineUser =
-          data.find((user) => user.status === "online" && user.username===authStore.user.username) || isAuthenticated;
-          // data.find((user) => user.status === "online" && user.username===sessionStorage.getItem(user)) || isAuthenticated;
+          // data.find((user) => user.status === "online" && user.username===authStore.user.username) || isAuthenticated;
+          data.find(
+            (user) =>
+              user.status === "online" &&
+              user.username === sessionStorage.getItem("user")
+          );
+        // data.find((user) => user.status === "online") || isAuthenticated;
         if (onlineUser) {
           navigate("/");
         }
