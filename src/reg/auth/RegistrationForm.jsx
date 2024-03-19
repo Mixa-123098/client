@@ -21,7 +21,8 @@ const AuthForm = observer(() => {
       .then((response) => response.json())
       .then((data) => {
         const onlineUser =
-          data.find((user) => user.status === "online" && user.username===sessionStorage.getItem(user)) || isAuthenticated;
+          data.find((user) => user.status === "online" && user.username===authStore.user.username) || isAuthenticated;
+          // data.find((user) => user.status === "online" && user.username===sessionStorage.getItem(user)) || isAuthenticated;
         if (onlineUser) {
           navigate("/");
         }
@@ -32,7 +33,7 @@ const AuthForm = observer(() => {
     fetch(`https://server-2gn8.onrender.com/users`)
       .then((response) => response.json())
       .then((data) => setUsersData(data));
-  });
+  }, [isAuthenticated, navigate]);
 
   const [isRegistration, setIsRegistration] = useState(true);
 
