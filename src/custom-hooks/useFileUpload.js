@@ -3,7 +3,6 @@ import dataURLtoFile from "./dataURLtoFile";
 
 const useFileUpload = (updateProjectData, projectData, project_id) => {
   const [files, setFiles] = useState([]);
-  console.log(files);
 
   const handleFileChange = (e, fileDataUrlName) => {
     if (typeof e === "string") {
