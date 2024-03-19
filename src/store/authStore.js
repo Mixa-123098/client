@@ -28,6 +28,7 @@ class AuthStore {
   }
 
   updateUserStatus = async (status) => {
+    console.log(status);
     try {
       const response = await fetch(
         `https://server-2gn8.onrender.com/update_user_status/${this.user.username}`,
