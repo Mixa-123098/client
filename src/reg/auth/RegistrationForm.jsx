@@ -14,7 +14,7 @@ const AuthForm = observer(() => {
 
   const [usersData, setUsersData] = useState([]);
   const navigate = useNavigate();
-  const { isAuthenticated } = authStore;
+  const { isAuthenticated } = authStore
  console.log(usersData);
   useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
