@@ -1,0 +1,48 @@
+.first-block {
+    position: relative;
+    min-height: 100vh;
+}
+.bg-color{
+    background-color: var(--notMainColor);
+}
+.first-block-content-container {
+    position: absolute;
+    width: 50vw;
+    
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.first-block-button {
+    text-transform: uppercase;
+    width: max(250px, 20vw);
+    height: 50px;
+    border: 1px solid black !important;
+    background-color: #fff;
+}
+.first-block-button-invert {
+    text-transform: uppercase;
+    width: max(250px, 20vw);
+    height: 50px;
+    border: 1px solid rgb(255, 255, 255) !important;
+    background-color: var(--notMainColor);
+}
+
+@media screen and (max-width:999px) {
+    .first-block-content-container {
+        width: 75vw;
+    }
+}
+@media screen and (max-width:400px) {
+    .first-block{
+        height: 125vh;
+    }
+}
+
+@media screen and (max-width:555px) {
+    .first-block .row {
+        flex-direction: column;
+        /* Кастыль, поэтому могут быть баги */
+    }
+}

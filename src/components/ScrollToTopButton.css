@@ -1,0 +1,12 @@
+.button-style {
+    position: fixed;
+    bottom: 2.5vh;
+    right: 2.5vh;
+    width: 75px;
+    height: 45px;
+    font-size: 1.5rem;
+    font-weight: 1000;
+    color: white;
+    z-index: 999999999999;
+    
+}

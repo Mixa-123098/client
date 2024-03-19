@@ -1,0 +1,13 @@
+.philosophy{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: auto;
+    /* height: max(50vh,50vw); */
+}
+.cinnosti{
+    width: 100%;
+}
+.cinnosti-two{
+    width: 50%;
+}
