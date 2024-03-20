@@ -83,12 +83,13 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
       </a>
     </li>
   ));
-
+console.log(isAuthenticated);
   return (
     <>
       <nav className="navbar">
         {navbar}
-        {onlineUser || isAuthenticated ? (
+        {/* {onlineUser || isAuthenticated ? ( */}
+        {isAuthenticated ? (
           <h6
             onClick={handleLogout}
             style={{ color: fontColor }}
