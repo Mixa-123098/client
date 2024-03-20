@@ -18,15 +18,15 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
-        const onlineUser =
-          data.find((user) => user.status === "online") || isAuthenticated;
+        const onlineUser = data.find((user) => user.status === "online");
+        // data.find((user) => user.status === "online") || isAuthenticated;
         setOnlineUser(onlineUser);
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
   }, [isAuthenticated]);
-
+  console.log(sessionStorage.getItem("user"));
   if (onlineUser && onlineUser.role === "user") {
     navbarItemsWays.push(
       " ",
@@ -83,7 +83,7 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
       </a>
     </li>
   ));
-console.log(isAuthenticated);
+  console.log(isAuthenticated);
   return (
     <>
       <nav className="navbar">
