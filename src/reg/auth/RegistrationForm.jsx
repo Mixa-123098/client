@@ -25,8 +25,7 @@ const AuthForm = observer(() => {
           // console.log(sessionStorage.getItem("user"));
           data.find(
             (user) =>
-              user.status === "online" &&
-              user.username === sessionStorage.getItem("user")
+              user.status === "online"  
           );
           console.log(onlineUser);
         // data.find((user) => user.status === "online") || isAuthenticated;
