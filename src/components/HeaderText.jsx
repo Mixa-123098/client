@@ -10,13 +10,13 @@ class HeaderText extends Component {
     // const subtitlePage = ["подзаголовок 1", "подзаголовок 2", "подзаголовок 3"];
     const subtitlePage = [
       {
-        link: "http://localhost:3000/projects/6",
+        link: "https://client-1-lolb.onrender.com/projects/6",
       },
       {
-        link: "http://localhost:3000/projects/7",
+        link: "https://client-1-lolb.onrender.com/projects/7",
       },
       {
-        link: "http://localhost:3000/projects/8",
+        link: "https://client-1-lolb.onrender.com/projects/8",
       },
     ];
     return (
