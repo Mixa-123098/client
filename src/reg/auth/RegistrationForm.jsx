@@ -24,17 +24,36 @@ const AuthForm = observer(() => {
   const navigate = useNavigate();
   const { isAuthenticated } = authStore;
   // console.log(usersData);
+  // useEffect(() => {
+  //   fetch("https://server-2gn8.onrender.com/users")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const onlineUser =
+  //         data.find((user) => user.status === "online");
+  //       console.log(onlineUser);
+  //       if (onlineUser) {
+  //         navigate("/");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching user data:", error);
+  //     });
+  //   fetch(`https://server-2gn8.onrender.com/users`)
+  //     .then((response) => response.json())
+  //     .then((data) => setUsersData(data));
+  // }, [isAuthenticated, navigate]);
   useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
-        const onlineUser =
-          // data.find((user) => user.status === "online" && user.username===authStore.user.username) || isAuthenticated;
-          // console.log(sessionStorage.getItem("user"));
-          data.find((user) => user.status === "online");
+        const onlineUser = data.find((user) => user.status === "online");
         console.log(onlineUser);
-        // data.find((user) => user.status === "online") || isAuthenticated;
         if (onlineUser) {
+          // Сравниваем имя пользователя в куках с именем онлайн пользователя
+          const usernameCookie = getCookie('username');
+          if (usernameCookie === onlineUser.username) {
+            authStore.isAuthenticated = true; // Устанавливаем isAuthenticated в true
+          }
           navigate("/");
         }
       })
@@ -44,8 +63,7 @@ const AuthForm = observer(() => {
     fetch(`https://server-2gn8.onrender.com/users`)
       .then((response) => response.json())
       .then((data) => setUsersData(data));
-  }, [isAuthenticated, navigate]);
-
+  }, [navigate]);
   const [isRegistration, setIsRegistration] = useState(true);
 
   const handleInputChange = (e) => {
