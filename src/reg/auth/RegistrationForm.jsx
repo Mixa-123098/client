@@ -11,7 +11,7 @@ const AuthForm = observer(() => {
     password: "",
     role: "user",
   });
-
+  console.log(formData);
   const [usersData, setUsersData] = useState([]);
   const navigate = useNavigate();
   const { isAuthenticated } = authStore
@@ -22,7 +22,7 @@ const AuthForm = observer(() => {
       .then((data) => {
         const onlineUser =
           // data.find((user) => user.status === "online" && user.username===authStore.user.username) || isAuthenticated;
-          console.log(sessionStorage.getItem("user"));
+          // console.log(sessionStorage.getItem("user"));
           data.find(
             (user) =>
               user.status === "online" &&

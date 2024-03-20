@@ -8,7 +8,7 @@ const ProjectsEdit = () => {
   const [projectData, setProjectData] = useState({
     project_name: "",
   });
-  console.log(editedProject);
+  // console.log(editedProject);
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
   // console.log(order);
@@ -21,7 +21,7 @@ const ProjectsEdit = () => {
     projectData,
     editedProject && editedProject.id
   );
-  console.log(editedProject);
+  // console.log(editedProject);
   useEffect(() => {
     setLoading(true);
 
@@ -36,25 +36,11 @@ const ProjectsEdit = () => {
       .then(([projectsData, otherData]) => {
         projectsData.ffskfkdskfds = true;
         setProjects(projectsData);
-        // console.log(projectsData);
-        // console.log(otherData);
-        // setOtherData(otherData);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetch(`https://server-2gn8.onrender.com/projects`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setProjects(data);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // }, []);
 
   const handleEditClick = (project) => {
     setEditedProject({ ...project });
