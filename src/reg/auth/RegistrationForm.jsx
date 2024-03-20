@@ -19,7 +19,7 @@ const AuthForm = observer(() => {
     password: "",
     role: "user",
   });
-  console.log(formData);
+  // console.log(formData);
   const [usersData, setUsersData] = useState([]);
   const navigate = useNavigate();
   const { isAuthenticated } = authStore;

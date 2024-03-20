@@ -9,6 +9,7 @@ class AuthStore {
   }
 
   login(username) {
+    console.log(username);
     this.isAuthenticated = true;
     this.user = { username };
     this.updateUserStatus("online");
