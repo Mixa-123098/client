@@ -18,7 +18,11 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
-        const onlineUser = data.find((user) => user.status === "online");
+        const onlineUser = data.find(
+          (user) =>
+            user.status === "online" &&
+            user.username === sessionStorage.getItem("user")
+        );
         // data.find((user) => user.status === "online") || isAuthenticated;
         setOnlineUser(onlineUser);
       })
