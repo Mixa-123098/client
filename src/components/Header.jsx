@@ -13,15 +13,16 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
   const navbarItemsWays = [];
 
   const [onlineUser, setOnlineUser] = useState();
-
+console.log(onlineUser);
   useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
         const onlineUser = data.find(
           (user) =>
-            user.status === "online" &&
-            user.username === sessionStorage.getItem("user")
+            user.status === "online"
+            //  &&
+            // user.username === sessionStorage.getItem("user")
         );
         // data.find((user) => user.status === "online") || isAuthenticated;
         setOnlineUser(onlineUser);
