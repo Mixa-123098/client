@@ -5,6 +5,14 @@ import authStore from "../../store/authStore";
 import "./RegistrationForm.css";
 
 const AuthForm = observer(() => {
+  const getCookie = (name) => {
+    const cookieValue = document.cookie.match(
+      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+    );
+    return cookieValue ? cookieValue.pop() : "";
+  };
+  const usernameCookie = getCookie('username');
+  console.log(usernameCookie);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -23,11 +31,8 @@ const AuthForm = observer(() => {
         const onlineUser =
           // data.find((user) => user.status === "online" && user.username===authStore.user.username) || isAuthenticated;
           // console.log(sessionStorage.getItem("user"));
-          data.find(
-            (user) =>
-              user.status === "online"  
-          );
-          console.log(onlineUser);
+          data.find((user) => user.status === "online");
+        console.log(onlineUser);
         // data.find((user) => user.status === "online") || isAuthenticated;
         if (onlineUser) {
           navigate("/");
