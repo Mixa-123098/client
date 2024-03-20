@@ -20,7 +20,7 @@ console.log(onlineUser);
       .then((data) => {
         const onlineUser = data.find(
           (user) =>
-            user.username === "mixa"
+            user.username === sessionStorage.getItem("user")
             // user.status === "online"
             //  &&
             // user.username === sessionStorage.getItem("user")
