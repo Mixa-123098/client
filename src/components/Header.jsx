@@ -13,17 +13,16 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
   const navbarItemsWays = [];
 
   const [onlineUser, setOnlineUser] = useState();
-console.log(onlineUser);
+  console.log(onlineUser);
   useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
         const onlineUser = data.find(
-          (user) =>
-            user.username === sessionStorage.getItem("user")
-            // user.status === "online"
-            //  &&
-            // user.username === sessionStorage.getItem("user")
+          (user) => user.username === sessionStorage.getItem("user")
+          // user.status === "online"
+          //  &&
+          // user.username === sessionStorage.getItem("user")
         );
         // data.find((user) => user.status === "online") || isAuthenticated;
         setOnlineUser(onlineUser);
@@ -95,7 +94,7 @@ console.log(onlineUser);
       <nav className="navbar">
         {navbar}
         {/* {onlineUser || isAuthenticated ? ( */}
-        {isAuthenticated ? (
+        {onlineUser || isAuthenticated ? (
           <h6
             onClick={handleLogout}
             style={{ color: fontColor }}
@@ -116,7 +115,18 @@ console.log(onlineUser);
           >
             <span></span>
           </label>
-          <ul className="menu__box">{hamburgerMenu}</ul>
+          <ul className="menu__box">
+            {hamburgerMenu}
+            {onlineUser || isAuthenticated ? (
+              <h6
+                onClick={handleLogout}
+                style={{ color: fontColor }}
+                className="bg-dark text-light p-2 rounded"
+              >
+                Вийти
+              </h6>
+            ) : null}
+          </ul>
         </div>
       </nav>
     </>
