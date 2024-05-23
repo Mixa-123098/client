@@ -36,7 +36,7 @@ const AuthForm = observer(() => {
           if (usernameCookie === onlineUser.username) {
             authStore.isAuthenticated = true; // Устанавливаем isAuthenticated в true
           }
-          alert(`${onlineUser}`)
+         // alert(`${onlineUser}`)
           navigate("/");
         }
       })
