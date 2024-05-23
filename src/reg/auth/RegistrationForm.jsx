@@ -23,25 +23,7 @@ const AuthForm = observer(() => {
   const [usersData, setUsersData] = useState([]);
   const navigate = useNavigate();
   const { isAuthenticated } = authStore;
-  // console.log(usersData);
-  // useEffect(() => {
-  //   fetch("https://server-2gn8.onrender.com/users")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       const onlineUser =
-  //         data.find((user) => user.status === "online");
-  //       console.log(onlineUser);
-  //       if (onlineUser) {
-  //         navigate("/");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching user data:", error);
-  //     });
-  //   fetch(`https://server-2gn8.onrender.com/users`)
-  //     .then((response) => response.json())
-  //     .then((data) => setUsersData(data));
-  // }, [isAuthenticated, navigate]);
+
   useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
@@ -54,6 +36,7 @@ const AuthForm = observer(() => {
           if (usernameCookie === onlineUser.username) {
             authStore.isAuthenticated = true; // Устанавливаем isAuthenticated в true
           }
+          alert(`${onlineUser}`)
           navigate("/");
         }
       })
