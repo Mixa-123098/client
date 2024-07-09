@@ -34,21 +34,13 @@ import NotFoundPage from "./components/Pages/NotFoundPage";
 const MainPageContainer = ({ updateIndexFromSecBlock }) => {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className="main">
         <div className="overlay"></div>
 
         <img src={bgvideo2} alt="" className="img video active " />
-        {/* <video
-          src={bgvideo2}
-          autoPlay
-          loop
-          muted
-          className={` video active `}
-        /> */}
         <video src={cheh} autoPlay loop muted className="video a" />
         <img src={bgvideo3} alt="" className="img video a" />
-        {/* <video src={bgvideo3} autoPlay loop muted className=" video a" /> */}
 
         <div className="header-content">
           <BottomHeader />
