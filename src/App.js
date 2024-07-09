@@ -34,7 +34,7 @@ import NotFoundPage from "./components/Pages/NotFoundPage";
 const MainPageContainer = ({ updateIndexFromSecBlock }) => {
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       <div className="main">
         <div className="overlay"></div>
 
