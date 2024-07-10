@@ -95,19 +95,23 @@ html {
 
 .main {
   width: var(--fullWidth);
-  height: 100vmax;
+  height: 100svh;
   /* height: var(--fullHeight); */
 }
 
 video {
-  width: var(--fullWidth);
-  height: var(--fullHeight);
+  /* width:100%; */
+  /* height: var(--fullHeight);  */
+  width: 100%;
+  height: 100svh;
+  /* max-height: 100vmin; */
   object-fit: cover;
 }
 
 .img {
   width: var(--fullWidth);
-  height: var(--fullHeight);
+  height: 100svh;
+  /* height: var(--fullHeight); */
   object-fit: cover;
 }
 
@@ -126,7 +130,7 @@ video {
   position: absolute;
   top: 0;
   width: var(--fullWidth);
-  height: var(--fullHeight);
+  height: 100svh;
   color: var(--mainColor);
   z-index: 2;
 }
