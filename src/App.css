@@ -95,7 +95,8 @@ html {
 
 .main {
   width: var(--fullWidth);
-  height: var(--fullHeight);
+  height: 100vmax;
+  /* height: var(--fullHeight); */
 }
 
 video {
