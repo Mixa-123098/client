@@ -2,13 +2,15 @@
     position: relative;
     min-height: 100vh;
 }
-.bg-color{
-    background-color: var(--notMainColor);
+
+.bg-color {
+    background-color: var(--notMainDarkColor);
 }
+
 .first-block-content-container {
     position: absolute;
     width: 50vw;
-    
+
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -21,6 +23,7 @@
     border: 1px solid black !important;
     background-color: #fff;
 }
+
 .first-block-button-invert {
     text-transform: uppercase;
     width: max(250px, 20vw);
@@ -34,8 +37,9 @@
         width: 75vw;
     }
 }
+
 @media screen and (max-width:400px) {
-    .first-block{
+    .first-block {
         height: 125vh;
     }
 }

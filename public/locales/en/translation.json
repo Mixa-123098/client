@@ -6,7 +6,7 @@
     "contactsPage": "Contact us",
     "pricesPage": "Prices",
     "editPage": "Edit",
-    "logoutButton": "Logout"
+    "logoutButton": "Log out"
   },
   "mainPage": {
     "goToTheProject": "To the project",
@@ -65,5 +65,73 @@
       "apartments": "Apartments",
       "privateHouses": "Private houses"
     }
+  },
+  "aboutPage": {
+    "aboutUs": "About Us",
+    "block1": {
+      "title": "Our History",
+      "mainTextPartOne": "For over 20 years, our team of professionals has been working in the field of interior design, attracting clients through reviews and recommendations. It is time to keep up with scientific and technical progress and create our own information resource.",
+      "mainTextPartTwo": "Working separately and occasionally implementing successful joint projects, our team of designers and architects decided to unite and create a community. In modern conditions, it is simply necessary to have a platform for storing and viewing design projects."
+    },
+    "block2": {
+      "Marina": {
+        "name": "Marina Prokhorova",
+        "jobTitle": "Interior Designer, Architect"
+      },
+      "Olha": {
+        "name": "Olha Taran",
+        "jobTitle": "Interior Designer"
+      },
+      "Kateryna": {
+        "name": "Kateryna Sytnyk",
+        "jobTitle": "Architect"
+      },
+      "Leonid": {
+        "name": "Leonid Startsev",
+        "jobTitle": "Interior Designer, Visualizer"
+      }
+    },
+    "block3": {
+      "title": "Team Ideology",
+      "mainTextPartOne": "We provide detailed information about the cost of our services, taking into account the individual needs of each client. Every project is important to us, and we carefully analyze your requirements and questions to offer the best solutions that meet your goals.",
+      "mainTextPartTwo": "Contact us for a personalized consultation and an accurate cost estimate for your project. We strive to provide high-quality solutions that will help you achieve success and implement your ideas efficiently and on time."
+    },
+    "block4": {
+      "ourValues": "Our Values",
+      "valuesList": [
+        {
+          "title": "PROFESSIONALISM",
+          "content": "We are experts in our field; We build systematic work; We build effective communication; We apply an individual approach to each client; We continuously develop professionally and learn."
+        },
+        {
+          "title": "INNOVATIONS",
+          "content": "We are open to new ideas and technologies; We are proactive; We create an atmosphere that stimulates creative search, the birth of creative ideas; We strive to offer what others cannot."
+        },
+        {
+          "title": "REPUTATION",
+          "content": "This is transparency, honesty, and reliability; This is clear fulfillment of contractual obligations; This is positive client feedback; This is compliance with legislation."
+        },
+        {
+          "title": "TEAM",
+          "content": "We are united by a single goal; We are focused on a common final result; We are cohesive and support each other in achieving set tasks."
+        },
+        {
+          "title": "SAFETY",
+          "content": "This is the guarantee of preventing threats and risks for employees, partners, and the environment; This is a comprehensive approach to safety issues; This is a one hundred percent backup for all vital systems; This is high-tech engineering of the warehouse complex."
+        },
+        {
+          "title": "QUALITY",
+          "content": "We perform work according to the existing quality system; We control every stage of the process and its compliance with existing quality standards; All processes comply with international standards and are regulated by written instructions; A risk analysis system is implemented."
+        }
+      ]
+    }
+  },
+  "contactsPage": {
+    "contacts": "Contacts",
+    "telegram": "Telegram",
+    "instagram": "Instagram",
+    "viber": "Viber",
+    "email": "Email",
+    "telephone": "Telephone"
   }
 }
