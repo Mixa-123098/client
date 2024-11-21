@@ -18,8 +18,10 @@
 
   --mainColor: #ffff;
   --mainBgColor: #e7e7e7;
+  /* --notMainColor: #666666; */
   --notMainColor: #6f6f6f;
-  --notMainDarkColor: #2b2b2b;
+  /* --notMainColor: #6f6f6f; */
+  --notMainDarkColor: #5c5c5c;
   --hoverCursor: pointer;
 
   --transitionTimerBased: 1s;
@@ -388,7 +390,8 @@ video {
   position: fixed;
   width: 100%;
   min-height: 100px;
-  background-color: var(--notMainColor);
+  background-color: var(--notMainDarkColor);
+  /* background-color: var(--notMainColor); */
   opacity: 100%;
   z-index: 2;
 }

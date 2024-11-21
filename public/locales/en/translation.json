@@ -1,0 +1,69 @@
+{
+  "navbar": {
+    "mainPage": "Home",
+    "projectsPage": "Projects",
+    "aboutPage": "About",
+    "contactsPage": "Contact us",
+    "pricesPage": "Prices",
+    "editPage": "Edit",
+    "logoutButton": "Logout"
+  },
+  "mainPage": {
+    "goToTheProject": "To the project",
+    "projects": {
+      "loft": "Apartment in complex «Loft»",
+      "chehova": "A house on Dnipro's slopes",
+      "karaoke": "Karaoke bar in Steampunk style"
+    },
+    "block1": {
+      "titlePartOne": "Each project we develop",
+      "titlePartTwo": "as the most important one",
+      "mainTextPartOne": "Every project we develop is the most important task for us. We approach each job with great enthusiasm and responsibility, regardless of its scope or complexity. Our approach is based on the belief that every project has the potential to change our clients' lives and contribute to their success.",
+      "mainTextPartTwo": "Our goal is not just to meet clients' expectations but to exceed them by creating solutions that help them reach new heights in their activities. We believe that only such an approach can create truly meaningful and lasting results in the field of project development.",
+      "button": "Learn more"
+    },
+    "block2": {
+      "categories": {
+        "publicInteriors": {
+          "title": "Public Interiors",
+          "subtitle": "Restaurants, offices and commercial spaces"
+        },
+        "residentialInteriorsOne": {
+          "title": "Residential Interiors",
+          "subtitle": "Apartments"
+        },
+        "residentialInteriorsTwo": {
+          "title": "Residential Interiors",
+          "subtitle": "Private houses"
+        }
+      }
+    },
+    "block3": {
+      "title": "Our Team - Your Success",
+      "mainTextPartOne": "We are a team of experts who understand that every project is a significant undertaking. Our approach is to treat every project as the most important task, regardless of its scope or complexity. We bring passion and responsibility to our work because we believe that every project has the potential to change our clients' lives and contribute to their success.",
+      "mainTextPartTwo": "Our goal is not just to meet clients' expectations but to exceed them. We create solutions that help clients reach new heights in their activities. We believe that only such an approach can deliver truly meaningful and lasting results in the field of project development.",
+      "button": "Learn more about us"
+    },
+    "block4": {
+      "title": "Join Our Team",
+      "mainTextPartOne": "Welcome to our team! We are looking for talented and energetic individuals ready to make a significant contribution to our projects. We offer diverse tasks and opportunities for growth.",
+      "mainTextPartTwo": "If you share our mission and are ready to work in a friendly environment, don’t hesitate to join us!",
+      "button": "Contact Us"
+    },
+    "block5": {
+      "title": "Find Out the Cost of Our Services",
+      "mainTextPartOne": "We are ready to provide you with information about the cost of our services. Every project is important to us, and we are eager to consider your needs and questions.",
+      "mainTextPartTwo": "Contact us for a personalized consultation and cost estimate. We strive to provide you with the best solutions to achieve your goals.",
+      "button": "Get a Quote"
+    }
+  },
+  "projectsPage": {
+    "ourProjects": "Our projects",
+    "categories": {
+      "all": "All",
+      "publicInteriors": "Public interiors",
+      "apartments": "Apartments",
+      "privateHouses": "Private houses"
+    }
+  }
+}

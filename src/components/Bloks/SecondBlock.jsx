@@ -6,6 +6,8 @@ import Resident from "../../assets/msedge_YN25gnaTlM.png";
 import Architecture from "../../assets/aero5-1.png";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 function mouseOver(index) {
   let element = document.querySelectorAll(".projects-img");
 
@@ -49,9 +51,19 @@ function mouseOut() {
 }
 
 const Blocks = ({ updateIndexFromSecBlock }) => {
-  const projectsList = ["Громадські інтер'єри", "Житлові інтер'єри", "Житлові інтер'єри"];
-  const interiorList = ["Ресторани, офіси та комерційні приміщення", "КВАРТИРИ", "ПРИВАТНІ БУДИНКИ"];
-  
+  const { t } = useTranslation();
+
+  const projectsList = [
+    t("mainPage.block2.categories.publicInteriors.title"),
+    t("mainPage.block2.categories.residentialInteriorsOne.title"),
+    t("mainPage.block2.categories.residentialInteriorsTwo.title"),
+  ];
+  const interiorList = [
+    t("mainPage.block2.categories.publicInteriors.subtitle"),
+    t("mainPage.block2.categories.residentialInteriorsOne.subtitle"),
+    t("mainPage.block2.categories.residentialInteriorsTwo.subtitle"),
+  ];
+
   useEffect(() => {
     const element = document.querySelectorAll(".projects-img");
     element[0].src = Commercial;
@@ -85,10 +97,9 @@ const Blocks = ({ updateIndexFromSecBlock }) => {
         onMouseOver={() => mouseOver(index)}
         onMouseOut={() => mouseOut()}
         onClick={() => updateIndexFromSecBlock(index)}
-
       >
         <Link to="/projects" className="block-container">
-          <div style={{position:"relative"}}>
+          <div style={{ position: "relative" }}>
             <h1 className="projects-text">{project}</h1>
             <h2 className="projects-subtext">{interiorList[index]}</h2>
 
@@ -105,12 +116,10 @@ const Blocks = ({ updateIndexFromSecBlock }) => {
   return <div className="blocks">{projects}</div>;
 };
 
-
 const SecondBlock = ({ updateIndexFromSecBlock }) => {
   return (
     <div className="blocks-container">
       <Blocks updateIndexFromSecBlock={updateIndexFromSecBlock} />
-  
 
       {/* Подогнать текст под адаптивность через ширину экрана */}
       {/* Адаптивный размер текста  */}

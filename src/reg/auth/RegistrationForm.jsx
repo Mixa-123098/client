@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore";
@@ -11,43 +11,63 @@ const AuthForm = observer(() => {
     );
     return cookieValue ? cookieValue.pop() : "";
   };
-  const usernameCookie = getCookie('username');
-  console.log(usernameCookie);
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     role: "user",
   });
-  // console.log(formData);
+
   const [usersData, setUsersData] = useState([]);
   const navigate = useNavigate();
-  const { isAuthenticated } = authStore;
 
-  useLayoutEffect(() => {
+  // useEffect(() => {
+  //   fetch("https://server-2gn8.onrender.com/users")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const onlineUser = data.find((user) => user.status === "online");
+  //       console.log(onlineUser);
+  //       const usernameCookie = getCookie('username');
+  //       // console.log(onlineUser);
+  //       if (onlineUser) {
+  //         if (usernameCookie === onlineUser.username) {
+  //           authStore.isAuthenticated = true;
+  //         }
+  //         navigate("/");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching user data:", error);
+  //     });
+  //   fetch(`https://server-2gn8.onrender.com/users`)
+  //     .then((response) => response.json())
+  //     .then((data) => setUsersData(data));
+  // }, [navigate]);
+
+  useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         const onlineUser = data.find((user) => user.status === "online");
-        console.log(onlineUser);
-        if (onlineUser) {
-          // Сравниваем имя пользователя в куках с именем онлайн пользователя
-          const usernameCookie = getCookie('username');
-          if (usernameCookie === onlineUser.username) {
-            authStore.isAuthenticated = true; // Устанавливаем isAuthenticated в true
-          }
-         // alert(`${onlineUser}`)
+        const usernameCookie = getCookie("username");
+        if (onlineUser && usernameCookie === onlineUser.username) {
+          authStore.isAuthenticated = true;
           navigate("/");
         }
+        setUsersData(data);
       })
       .catch((error) => {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching user data:", error.message);
       });
-    fetch(`https://server-2gn8.onrender.com/users`)
-      .then((response) => response.json())
-      .then((data) => setUsersData(data));
   }, [navigate]);
-  const [isRegistration, setIsRegistration] = useState(true);
+
+  const [isRegistration, setIsRegistration] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

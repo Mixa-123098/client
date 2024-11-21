@@ -2,6 +2,8 @@ import { makeAutoObservable, runInAction } from "mobx";
 
 class AuthStore {
   isAuthenticated = false;
+  isAdmin = false;
+
   user = null;
 
   constructor() {
@@ -13,16 +15,21 @@ class AuthStore {
     this.isAuthenticated = true;
     this.user = { username };
     this.updateUserStatus("online");
-    sessionStorage.setItem("user", username)
-    document.cookie = `username=${username}; expires=${new Date(Date.now() + 86400e3).toUTCString()}`;
+    sessionStorage.setItem("user", username);
+    document.cookie = `username=${username}; expires=${new Date(
+      Date.now() + 86400e3
+    ).toUTCString()}`;
   }
 
   logout(username) {
     this.isAuthenticated = false;
+    // console.log(this.isAuthenticated);
+
     this.user = { username };
     this.updateUserStatus(" ");
-    sessionStorage.removeItem("user")
-    document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    sessionStorage.removeItem("user");
+    document.cookie =
+      "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   }
 
   setUsername(params) {
@@ -59,9 +66,6 @@ class AuthStore {
 
 const authStore = new AuthStore();
 export default authStore;
-
-
-
 
 // import { makeAutoObservable, runInAction } from "mobx";
 

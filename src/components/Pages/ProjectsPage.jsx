@@ -7,6 +7,7 @@ import Header from "../Header";
 import ProjectsPagesNav from "./ProjectsPagesNav";
 import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
+import { useTranslation } from "react-i18next";
 
 const ProjectsList = ({ focusedPage, itemsPerPage, filteredData }) => {
   const startIndex = (focusedPage - 1) * itemsPerPage;
@@ -51,13 +52,13 @@ const Projects = ({ indexFromSecBlock }) => {
         console.error("Ошибка получения данных:", error);
       });
   }, []);
-
+  const { t } = useTranslation();
   const categoriesList = [
     //можно взять категории из бд, но пока так
-    "Всі",
-    "Громадські інтер'єри",
-    "Квартири",
-    "Приватні будинки",
+    t("projectsPage.categories.all"),
+    t("projectsPage.categories.publicInteriors"),
+    t("projectsPage.categories.apartments"),
+    t("projectsPage.categories.privateHouses"),
   ];
 
   const [focusedIndex, setFocusedIndex] = useState(index);
@@ -115,14 +116,16 @@ const Projects = ({ indexFromSecBlock }) => {
 };
 
 const ProjectsPage = ({ indexFromSecBlock }) => {
+  const { t } = useTranslation();
   return (
     <div className="projects">
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
-      <PagesHeader title="Наші проєкти" />
+      <PagesHeader title={t("projectsPage.ourProjects")} />
       <Projects indexFromSecBlock={indexFromSecBlock} />
       <Footer settings={{ color: `black`, bgColor: `white`, shadow: true }} />
     </div>
   );
 };
 
-export { ProjectsPage };
+// export { ProjectsPage };
+export default ProjectsPage;

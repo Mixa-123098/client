@@ -5,33 +5,51 @@ import { observer } from "mobx-react-lite";
 import authStore from "../store/authStore";
 import logo from "../assets/logo-removebg.png";
 import ScrollToTop from "../custom-hooks/ScrollToTop";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 const Navbar = observer(({ fontColor, scroll, rep }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isAuthenticated } = authStore;
-  const navbarItemsList = ["Головна", "Проекти", "Про нас", "Контакти", "Ціни"];
-  const navbarItemsWays = [];
+  const navbarItemsList = [
+    t("navbar.mainPage"),
+    t("navbar.projectsPage"),
+    t("navbar.aboutPage"),
+    t("navbar.contactsPage"),
+    t("navbar.pricesPage"),
+  ];
 
-  const [onlineUser, setOnlineUser] = useState();
-  // console.log(onlineUser);
+  const navbarItemsWays = [];
+  const [onlineUser, setOnlineUser] = useState(null);
+
+  const getCookie = (name) => {
+    const cookieValue = document.cookie.match(
+      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+    );
+    return cookieValue ? cookieValue.pop() : "";
+  };
+
   useEffect(() => {
     fetch("https://server-2gn8.onrender.com/users")
       .then((response) => response.json())
       .then((data) => {
-        const onlineUser = data.find(
-          (user) => user.username === sessionStorage.getItem("user")
-          // user.status === "online"
-          //  &&
-          // user.username === sessionStorage.getItem("user")
-        );
-        // data.find((user) => user.status === "online") || isAuthenticated;
-        setOnlineUser(onlineUser);
+        const onlineUser = data.find((user) => user.status === "online");
+        const usernameCookie = getCookie("username");
+        if (onlineUser && onlineUser.username === usernameCookie) {
+          authStore.isAuthenticated = true;
+          if (onlineUser.role === "admin") {
+            authStore.isAdmin = true;
+          }
+
+          setOnlineUser(onlineUser);
+        }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, [isAuthenticated]);
-  // console.log(sessionStorage.getItem("user"));
+  }, []);
+
   if (onlineUser && onlineUser.role === "user") {
     navbarItemsWays.push(
       " ",
@@ -42,7 +60,7 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
       "|there must be a search|"
     );
   } else if (onlineUser || isAuthenticated === true) {
-    navbarItemsList.push("Редагувати");
+    navbarItemsList.push(t("navbar.editPage"));
     navbarItemsWays.push(
       " ",
       "projects",
@@ -63,13 +81,44 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
     );
   }
 
+  // if (onlineUser && onlineUser.role === "user") {
+  //   navbarItemsWays.push(
+  //     " ",
+  //     "projects",
+  //     "about",
+  //     "contacts",
+  //     "price",
+  //     "|there must be a search|"
+  //   );
+  // } else if (onlineUser || isAuthenticated === true) {
+  //   navbarItemsList.push("Редагувати");
+  //   navbarItemsWays.push(
+  //     " ",
+  //     "projects",
+  //     "about",
+  //     "contacts",
+  //     "price",
+  //     "edit",
+  //     "|there must be a search|"
+  //   );
+  // } else {
+  //   navbarItemsWays.push(
+  //     " ",
+  //     "projects",
+  //     "about",
+  //     "contacts",
+  //     "price",
+  //     "|there must be a search|"
+  //   );
+  // }
+
   const navbar = navbarItemsList.map((item, index) => {
     return (
       <Link
         key={index}
         to={`/${navbarItemsWays[index]}`}
         className="nav-link nav-styles"
-        onClick={<ScrollToTop />}
+        onClick={ScrollToTop}
       >
         <h6 style={{ color: fontColor }}>{navbarItemsList[index]}</h6>
       </Link>
@@ -78,6 +127,8 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
 
   const handleLogout = (e) => {
     authStore.logout(onlineUser.username);
+    // console.log(onlineUser.username);
+
     navigate("/login");
   };
 
@@ -93,17 +144,18 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
     <>
       <nav className="navbar">
         {navbar}
-        {/* {onlineUser || isAuthenticated ? ( */}
+        <LanguageSelector />
         {onlineUser || isAuthenticated ? (
           <h6
             onClick={handleLogout}
             style={{ color: fontColor }}
             className="bg-dark text-light p-2 rounded"
           >
-            Вийти
+            {t("navbar.logoutButton")}
           </h6>
         ) : null}
       </nav>
+
       <nav className="navbar-hamburger">
         <div className="d-flex align-items-center justify-content-between">
           <input id="menu__toggle" type="checkbox" />
@@ -115,17 +167,19 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
           >
             <span></span>
           </label>
+
           <ul className="menu__box">
             {hamburgerMenu}
-            {onlineUser || isAuthenticated ? (
+            {isAuthenticated ? (
               <h6
                 onClick={handleLogout}
                 style={{ color: fontColor }}
                 className="bg-dark text-light p-2 rounded"
               >
-                Вийти
+                {t("navbar.logoutButton")}
               </h6>
             ) : null}
+            <LanguageSelector />
           </ul>
         </div>
       </nav>
@@ -158,7 +212,7 @@ function Header({ fontColor, invert, rep }) {
       <div className="smooth-background" style={{ opacity }}></div>
       <header className="header">
         <div className="d-flex align-items-center justify-content-between">
-          <Link to="/" onClick={<ScrollToTop />}>
+          <Link to="/" onClick={ScrollToTop}>
             <img
               src={logo}
               alt="logo"

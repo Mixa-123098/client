@@ -9,12 +9,13 @@ import ProjectsEdit from "./ProjectsEdit";
 import Footer from "../Footer";
 import CropModalForm from "./CropModalForm";
 import CropImgesComponent from "./CropImgesComponent";
-import CropImg from "./CropImg";
+// import CropImg from "./CropImg";
 
 const AdminPage = () => {
-  const { isAuthenticated } = authStore;
+  const { isAuthenticated, isAdmin } = authStore;
   const navigate = useNavigate();
-  const [onlineUser, setOnlineUser] = useState();
+  // const [onlineUser, setOnlineUser] = useState();
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState({
     createProject: false,
     usersList: false,
@@ -31,13 +32,20 @@ const AdminPage = () => {
           isAuthenticated;
 
         if (!onlineUser || onlineUser.role === "user") {
-          navigate("/login");
+          navigate("/");
         }
+        console.log(onlineUser.role);
 
-        setOnlineUser(onlineUser);
+        if (onlineUser.role === "admin") {
+          authStore.isAdmin = true;
+          console.log(1);
+        }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [navigate, isAuthenticated]);
 
@@ -60,10 +68,14 @@ const AdminPage = () => {
       </button>
     </div>
   );
+  if (loading) {
+    return <div> Loading... </div>;
+  }
+  console.log(isAdmin);
 
   return (
     <>
-      <Header fontColor="#000000" invert="invert(0%)" rep={true}/>
+      <Header fontColor="#000000" invert="invert(0%)" rep={true} />
       <PagesHeader title="Панель адміністрування" />
 
       <div className="collapse" id="CreateProject">
@@ -72,10 +84,10 @@ const AdminPage = () => {
       {renderButton("CreateProject", "створення проєкту", "createProject")}
 
       <div className="collapse" id="usersList">
-        {onlineUser && onlineUser.role === "admin" && <UsersStatus />}
+        {isAdmin && isAdmin === true && <UsersStatus />}
       </div>
-      {onlineUser &&
-        onlineUser.role === "admin" &&
+      {isAdmin &&
+        isAdmin === true &&
         renderButton("usersList", "список користувачів", "usersList")}
 
       <div className="collapse" id="projectsEdit">

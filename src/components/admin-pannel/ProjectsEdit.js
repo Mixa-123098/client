@@ -25,12 +25,12 @@ const ProjectsEdit = () => {
   useEffect(() => {
     setLoading(true);
 
-    const fetchProjects = fetch(`https://server-2gn8.onrender.com/projects`).then(
-      (response) => response.json()
-    );
-    const fetchOtherData = fetch(`https://server-2gn8.onrender.com/blueprints`).then(
-      (response) => response.json()
-    );
+    const fetchProjects = fetch(
+      `https://server-2gn8.onrender.com/projects`
+    ).then((response) => response.json());
+    const fetchOtherData = fetch(
+      `https://server-2gn8.onrender.com/blueprints`
+    ).then((response) => response.json());
 
     Promise.all([fetchProjects, fetchOtherData])
       .then(([projectsData, otherData]) => {

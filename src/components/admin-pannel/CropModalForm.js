@@ -10,7 +10,8 @@ const CropModalForm = observer(() => {
   // console.log(projectData);
   const { handleFileChange, handleUpload } = useFileUpload(
     setProjectData,
-    projectData, fileStore.croppedProjectId
+    projectData,
+    fileStore.croppedProjectId
   );
 
   const handleSaveClick = (e) => {

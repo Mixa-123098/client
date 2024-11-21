@@ -1,31 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ScrollToTop from "../../custom-hooks/ScrollToTop";
+import { useTranslation } from "react-i18next";
 
 const FifthBlock = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="first-block">
       <div className="first-block-content-container">
-        <h1>Дізнайтеся ціну нашого сервісу</h1>
+        <h1>{t("mainPage.block5.title")}</h1>
         <div className="row pt-4 pb-2">
           <div className="col">
-            <p>
-              Ми готові надати вам інформацію про вартість наших послуг. Кожен
-              проект для нас важливий, і ми готові розглянути ваші потреби та
-              запитання.
-            </p>
+            <p>{t("mainPage.block5.mainTextPartOne")}</p>
           </div>
           <div className="col">
-            <p className="">
-              Звертайтеся до нас для отримання індивідуальної консультації та
-              розрахунку вартості. Ми прагнемо забезпечити вас найкращими
-              рішеннями для досягнення ваших цілей.
-            </p>
+            <p>{t("mainPage.block5.mainTextPartTwo")}</p>
           </div>
         </div>
         <button className="first-block-button">
-          <Link to="/price" className="link-style" onClick={<ScrollToTop />}>
-            Дізнатися ціну
+          <Link to="/price" className="link-style" onClick={ScrollToTop}>
+            {t("mainPage.block5.button")}
           </Link>
         </button>
       </div>
@@ -34,6 +29,7 @@ const FifthBlock = () => {
 };
 
 export default FifthBlock;
+
 // import React from "react";
 
 // const FifthBlock = () => {

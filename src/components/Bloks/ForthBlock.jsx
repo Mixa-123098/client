@@ -1,26 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ScrollToTop from "../../custom-hooks/ScrollToTop";
+import { useTranslation } from "react-i18next";
 
 const ForthBlock = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="first-block bg-color">
         <div className="first-block-content-container">
-          <h1 className="text-light">Вступити до команди</h1>
+          <h1 className="text-light"> {t("mainPage.block4.title")}</h1>
           <div className="row pt-4 pb-2">
             <div className="col">
               <p className="text-light">
-                Вітаємо тебе у нашій команді! Ми шукаємо талановитих та
-                енергійних індивідів, готових зробити важливий внесок у наш
-                проєкт. У нас є різноманітні завдання та можливості для
-                розвитку.
+                {t("mainPage.block4.mainTextPartOne")}
               </p>
             </div>
             <div className="col">
               <p className="text-light">
-                Якщо ти цікавишся нашою місією і готовий працювати в дружньому
-                колективі, не соромся приєднатися!
+                {t("mainPage.block4.mainTextPartTwo")}
               </p>
             </div>
           </div>
@@ -28,9 +27,9 @@ const ForthBlock = () => {
             <Link
               to="/contacts"
               className="link-style text-light"
-              onClick={<ScrollToTop />}
+              onClick={ScrollToTop}
             >
-              Напишіть нам
+              {t("mainPage.block4.button")}
             </Link>
           </button>
         </div>

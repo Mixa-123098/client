@@ -1,28 +1,64 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
-const IsUserLoggedIn = () => {
-  const [isAuth, setIsAuth] = useState(false);
+// const IsUserLoggedIn = () => {
+//   const [isAuth, setIsAuth] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://server-2gn8.onrender.com/users`);
-        const data = await response.json();
-        const user = data.find((user) => user.status === "online");
-        setIsAuth(user ? true : false);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setIsAuth(false); 
-      }
-    };
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await fetch(`https://server-2gn8.onrender.com/users`);
+//         const data = await response.json();
+//         const user = data.find((user) => user.status === "online");
+//         setIsAuth(user ? true : false);
+//       } catch (error) {
+//         console.error("Error fetching user data:", error);
+//         setIsAuth(false);
+//       }
+//     };
 
-    fetchData();
-  }, []); 
+//     fetchData();
+//   }, []);
 
-  return isAuth;
-};
+//   return isAuth;
+// };
 
-export default IsUserLoggedIn;
+// export default IsUserLoggedIn;
+
+// import { useState, useEffect } from "react";
+
+// const IsUserLoggedIn = () => {
+//   const [isAuth, setIsAuth] = useState(false);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const cookies = document.cookie;
+//         const hasAuthCookie = cookies.split("; ").some((cookie) => cookie.startsWith("authToken="));
+
+//         if (!hasAuthCookie) {
+//           setIsAuth(false);
+//           return;
+//         }
+
+//         const response = await fetch(`https://server-2gn8.onrender.com/users`);
+//         const data = await response.json();
+//         const user = data.find((user) => user.status === "online");
+
+//         setIsAuth(user ? true : false);
+//       } catch (error) {
+//         console.error("Error fetching user data:", error);
+//         setIsAuth(false);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   return isAuth;
+// };
+
+// export default IsUserLoggedIn;
+
 // import { useState, useEffect } from "react";
 
 // const IsUserLoggedIn = () => {

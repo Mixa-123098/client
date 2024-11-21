@@ -135,7 +135,10 @@ const ProjectArticleImges = ({ id }) => {
   const imges =
     projectImges &&
     projectImges.map((element, index) => (
-      <div key={index} className="col-lg-5 col-sm-6  p-lg-3 p-2 d-flex justify-content-center">
+      <div
+        key={index}
+        className="col-lg-5 col-sm-6  p-lg-3 p-2 d-flex justify-content-center"
+      >
         <img
           src={`/img/main_imges_folder/${element.img}`}
           alt="planning"
@@ -176,7 +179,7 @@ const PrevAndNextProject = ({ id }) => {
         {prevIndex !== null && (
           <Link
             to={`/projects/${dataList[prevIndex].id}`}
-            onClick={<ScrollToTop />}
+            onClick={ScrollToTop}
             className="text-decoration-none text-light"
           >
             <h4>Попередній проєкт</h4>
@@ -185,7 +188,7 @@ const PrevAndNextProject = ({ id }) => {
         {nextIndex !== null && (
           <Link
             to={`/projects/${dataList[nextIndex].id}`}
-            onClick={<ScrollToTop />}
+            onClick={ScrollToTop}
             className="text-decoration-none text-light"
           >
             <h4>Наступний проєкт</h4>

@@ -47,7 +47,8 @@
 
 .our-projects {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
     width: var(--containerWidth);
 }

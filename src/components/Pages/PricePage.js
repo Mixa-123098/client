@@ -21,7 +21,7 @@ const PriceCard = ({ title, text, price }) => {
               <Link
                 className="btn btn-dark price-button"
                 to={"/contacts"}
-                onClick={<ScrollToTop />}
+                onClick={ScrollToTop}
               >
                 Зв'язатися з нами
               </Link>
