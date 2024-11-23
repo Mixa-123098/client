@@ -10,6 +10,7 @@ import Footer from "../Footer";
 import CropModalForm from "./CropModalForm";
 import CropImgesComponent from "./CropImgesComponent";
 import { useTranslation } from "react-i18next";
+import Loader from "../../loader/Loader";
 // import CropImg from "./CropImg";
 
 const AdminPage = () => {
@@ -74,8 +75,11 @@ const AdminPage = () => {
     </div>
   );
   if (loading) {
-    return <div> Loading... </div>;
+    return <Loader />;
   }
+  // if (loading) {
+  //   return <div> Loading... </div>;
+  // }
   // console.log(open_close);
 
   return (

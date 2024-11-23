@@ -18,7 +18,7 @@
     "block1": {
       "titlePartOne": "Každý projekt, ktorý vyvíjame",
       "titlePartTwo": "ako najdôležitejší",
-      "mainTextPartOne": "Každý projekt, ktorý vyvíjame, je pre nás najdôležitejšou úlohou. K každej práci pristupujeme s veľkým nadšením a zodpovednosťou, bez ohľadu na jej rozsah alebo zložitosť. Náš prístup je založený na presvedčení, že každý projekt má potenciál zmeniť životy našich klientov a prispieť k ich úspechu.",
+      "mainTextPartOne": "Každý projekt, ktorý vyvíjame, je pre nás najdôležitejšou úlohou. Ku každej práci pristupujeme s veľkým nadšením a zodpovednosťou, bez ohľadu na jej rozsah alebo zložitosť. Náš prístup je založený na presvedčení, že každý projekt má potenciál zmeniť životy našich klientov a prispieť k ich úspechu.",
       "mainTextPartTwo": "Náš cieľ nie je len splniť očakávania klientov, ale ich prekročiť vytváraním riešení, ktoré im pomáhajú dosiahnuť nové výšky v ich činnostiach. Veríme, že len takýto prístup dokáže vytvoriť skutočne zmysluplné a trvalé výsledky v oblasti vývoja projektov.",
       "button": "Zistiť viac"
     },
@@ -308,5 +308,11 @@
       "invalidPassword": "Neplatné heslo. Prosím skontrolujte svoje údaje",
       "userNotFound": "Používateľ s týmto používateľským menom nebol nájdený"
     }
-  }
+  },
+  "loader": [
+    "Načítavanie...",
+    "Čoskoro bude pripravené...",
+    "Urobili ste čaj?",
+    "Trpezlivosť je cnosť!"
+  ]
 }

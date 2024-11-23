@@ -310,5 +310,11 @@
       "invalidPassword": "Invalid password. Please check your credentials",
       "userNotFound": "User with this username not found"
     }
-  }
+  },
+  "loader": [
+    "Loading...",
+    "Almost ready...",
+    "Did you make tea?",
+    "Patience is a virtue!"
+  ]
 }
