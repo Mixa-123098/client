@@ -7,7 +7,7 @@ const HeaderText = ({ count }) => {
   const titlePage = [
     t("mainPage.projects.loft"),
     t("mainPage.projects.chehova"),
-    t("mainPage.projects.loft"),
+    t("mainPage.projects.karaoke"),
   ];
 
   // const subtitlePage = [
