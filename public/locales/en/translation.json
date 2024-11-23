@@ -133,5 +133,182 @@
     "viber": "Viber",
     "email": "Email",
     "telephone": "Telephone"
+  },
+  "pricesPage": {
+    "ourPrices": "Our Prices",
+    "tariff1": {
+      "size": "Premises up to 40m²",
+      "price": "Price: $30/m²"
+    },
+    "tariff2": {
+      "size": "Premises 40-100m²",
+      "price": "Price: $25/m²"
+    },
+    "tariff3": {
+      "size": "Premises from 100m²*",
+      "price": "Price: $20/m²"
+    },
+    "tariff4": {
+      "size": "Author's Support",
+      "price": "Price: $250/month"
+    },
+    "button": "Contact Us",
+    "additionalInfo": "*Price for projects with large areas is discussed individually"
+  },
+  "editPage": {
+    "adminPanel": "Administration Panel",
+    "createNewProject": {
+      "open": "Open",
+      "close": "Close",
+      "open_close": "project creation",
+      "create": "Create project",
+      "title": "Create a new project",
+      "name": "Name",
+      "city": "City",
+      "country": "Country",
+      "specialization": {
+        "title": "Specialization",
+        "choose": "Choose a specialization",
+        "publicInteriors": "Public Interiors",
+        "apartments": "Apartments",
+        "privateHouses": "Private Houses"
+      },
+      "previewImage": "Image (Preview)",
+      "topProjectImage": "Image (Top of the project page)",
+      "projectDescription": "Project Description",
+      "endDate": "End Date",
+      "square": "Area (in square meters)",
+      "team": "Team",
+      "blueprintImage": "Blueprint (Image)",
+      "blueprintDescription": "Blueprint Description",
+      "imagesInsideTheProject": "Images (Inside the Project)",
+
+      "feedbacks": {
+        "name": {
+          "true": "Project name is suitable",
+          "false": "Project name is required"
+        },
+        "city": {
+          "true": "City name is suitable",
+          "false": "City name is required"
+        },
+        "country": {
+          "true": "Country name is suitable",
+          "false": "Country name is required"
+        },
+        "chooseSpecialization": "Choose specialization",
+        "projectDescription": {
+          "true": "Project description is suitable",
+          "false": "Project description is required"
+        },
+        "endDate": {
+          "true": "End date is suitable",
+          "false": "End date is required"
+        },
+        "square": {
+          "true": "Area is suitable",
+          "false": "Area is required"
+        },
+        "team": {
+          "true": "Team is suitable",
+          "false": "Team is required"
+        },
+        "blueprintDescriprion": {
+          "true": "Blueprint description is suitable",
+          "false": "Blueprint description is required"
+        }
+      }
+    },
+    "usersList": {
+      "open_close": "users list",
+      "users": "Users List",
+      "username": "Username",
+      "role": "Role",
+      "actions": "Actions",
+      "confirm": "Confirm changes",
+      "makeAdministrator": "Make Administrator",
+      "makeModerator": "Make Moderator",
+      "makeUser": "Make Regular User",
+      "itsYou": "it's you",
+      "noChanges": "You have not made any changes"
+    },
+    "editProject": {
+      "open_close": "editing project",
+      "editProject": "Edit Projects",
+      "save": "Save",
+      "cancel": "Cancel",
+      "projectName": "Project Name",
+      "city": "City",
+      "country": "Country",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleMassage": "Do you want to delete",
+      "projectDescription": "Project Description",
+      "endDate": "End Date",
+      "square": "Area",
+      "team": "Team",
+      "projectHeader": "Project Header Image",
+      "preview": "Project Preview",
+      "blueprintImage": "Blueprint Image",
+      "ifYouWantToChangeImage1": "If you want to",
+      "ifYouWantToChangeImage2": "change the image, please select a file",
+      "ifYouWantToChangeImage3": "change",
+      "ifYouWantToChangeImage4": "add",
+      "imagesInsideTheProject": "Images inside the project"
+    },
+    "cropImages": {
+      "open_close": "cropping images",
+      "cropImages": "Crop Images in Projects",
+      "edit": "Edit",
+      "projectHeader": "Project Header",
+      "projectPreview": "Project Preview",
+      "projectBlueprint": "Blueprint",
+      "imagesInsideTheProject": "Images inside the project",
+      "close": "Close"
+    }
+  },
+  "footer": {
+    "contacts": {
+      "title": "Contacts",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "social_media": {
+      "title": "Social Media",
+      "viber": "Viber",
+      "instagram": "Instagram",
+      "telegram": "Telegram"
+    },
+    "working_hours": {
+      "title": "Working Hours",
+      "Monday-Friday": "Monday - Friday",
+      "Saturday": "Saturday",
+      "Sunday": "Sunday",
+      "closed": "Closed"
+    },
+    "map": "We are on the map",
+    "copyright": "All rights reserved"
+  },
+  "authForm": {
+    "auth": "Authorization",
+    "registration": "Registration",
+    "login1": "Login",
+    "login2": "Log In",
+    "register1": "Register",
+    "register2": "Sign Up",
+    "username": "Username",
+    "password": "Password",
+    "dontHaveAnAccount": "Don't have an account?",
+    "haveAnAccount": "Already have an account?",
+    "toTheHomePage": "Go to Home Page",
+
+    "feedbacks": {
+      "usernameTaken": "This username is already taken. Please choose a different one",
+      "emailTaken": "This email is already associated with an account. Please use a different email",
+      "registrationSuccess": "You are now registered - please log in to your account",
+      "invalidPassword": "Invalid password. Please check your credentials",
+      "userNotFound": "User with this username not found"
+    }
   }
 }

@@ -9,12 +9,15 @@ import ProjectsEdit from "./ProjectsEdit";
 import Footer from "../Footer";
 import CropModalForm from "./CropModalForm";
 import CropImgesComponent from "./CropImgesComponent";
+import { useTranslation } from "react-i18next";
 // import CropImg from "./CropImg";
 
 const AdminPage = () => {
+  const { t } = useTranslation();
+  const open_close = t("editPage.createNewProject.open_close");
+
   const { isAuthenticated, isAdmin } = authStore;
   const navigate = useNavigate();
-  // const [onlineUser, setOnlineUser] = useState();
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState({
     createProject: false,
@@ -38,7 +41,7 @@ const AdminPage = () => {
 
         if (onlineUser.role === "admin") {
           authStore.isAdmin = true;
-          console.log(1);
+          // console.log(1);
         }
       })
       .catch((error) => {
@@ -64,36 +67,50 @@ const AdminPage = () => {
         aria-controls="collapseExample"
         onClick={() => handleclick(isOpenKey)}
       >
-        {!isOpen[isOpenKey] ? `Відкрити ${text}` : `Закрити ${text}`}
+        {!isOpen[isOpenKey]
+          ? `${t("editPage.createNewProject.open")} ${text}`
+          : `${t("editPage.createNewProject.close")} ${text}`}
       </button>
     </div>
   );
   if (loading) {
     return <div> Loading... </div>;
   }
-  console.log(isAdmin);
+  // console.log(open_close);
 
   return (
     <>
       <Header fontColor="#000000" invert="invert(0%)" rep={true} />
-      <PagesHeader title="Панель адміністрування" />
+      <PagesHeader title={t("editPage.adminPanel")} />
 
       <div className="collapse" id="CreateProject">
         <CreateProject />
       </div>
-      {renderButton("CreateProject", "створення проєкту", "createProject")}
+      {renderButton(
+        "CreateProject",
+        t("editPage.createNewProject.open_close"),
+        "createProject"
+      )}
 
       <div className="collapse" id="usersList">
         {isAdmin && isAdmin === true && <UsersStatus />}
       </div>
       {isAdmin &&
         isAdmin === true &&
-        renderButton("usersList", "список користувачів", "usersList")}
+        renderButton(
+          "usersList",
+          t("editPage.usersList.open_close"),
+          "usersList"
+        )}
 
       <div className="collapse" id="projectsEdit">
         <ProjectsEdit />
       </div>
-      {renderButton("projectsEdit", "редагування проєкту", "projectsEdit")}
+      {renderButton(
+        "projectsEdit",
+        t("editPage.editProject.open_close"),
+        "projectsEdit"
+      )}
 
       <div className="collapse" id="cropProjectsImges">
         <CropImgesComponent />
@@ -101,7 +118,7 @@ const AdminPage = () => {
       <div className="mb-5">
         {renderButton(
           "cropProjectsImges",
-          "обрізку фотографій проєкту",
+          t("editPage.cropImages.open_close"),
           "cropProjectsImges"
         )}
       </div>

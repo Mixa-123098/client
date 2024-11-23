@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import DragAndDropImges from "./DragAndDropImges";
 import useFileUpload from "../../custom-hooks/useFileUpload";
+import { useTranslation } from "react-i18next";
 
 const ProjectsEdit = () => {
+  const { t } = useTranslation();
+
   const [projects, setProjects] = useState([]);
   const [editedProject, setEditedProject] = useState(null);
   const [projectData, setProjectData] = useState({
@@ -104,7 +107,9 @@ const ProjectsEdit = () => {
 
   const handleDeleteClick = async (projectId, project_name) => {
     const name = project_name.trimEnd();
-    const isConfirmed = window.confirm(`Бажаєте видали "${name}?"`);
+    const isConfirmed = window.confirm(
+      `${t("editPage.editProject.deleMassage")} "${name}?"`
+    );
 
     if (isConfirmed) {
       try {
@@ -146,14 +151,14 @@ const ProjectsEdit = () => {
   return (
     <>
       <div className="container mt-4 mb-4">
-        <h1>Редагувати проєкти</h1>
+        <h1>{t("editPage.editProject.editProject")}</h1>
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Назва проєкту</th>
-              <th scope="col">Місто</th>
-              <th scope="col">Країна</th>
-              <th scope="col">Дії</th>
+              <th scope="col">{t("editPage.editProject.projectName")}</th>
+              <th scope="col">{t("editPage.editProject.city")}</th>
+              <th scope="col">{t("editPage.editProject.country")}</th>
+              <th scope="col">{t("editPage.editProject.actions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -162,21 +167,21 @@ const ProjectsEdit = () => {
                 {editedProject && editedProject.id === project.id ? (
                   <td colSpan="4">
                     <div>
-                      <label>Назва проєкту:</label>
+                      <label>{t("editPage.editProject.projectName")}:</label>
                       <input
                         type="text"
                         value={editedProject.project_name}
                         onChange={(e) => handleInputChange(e, "project_name")}
                         className="form-control"
                       />
-                      <label>Місто:</label>
+                      <label>{t("editPage.editProject.city")}:</label>
                       <input
                         type="text"
                         value={editedProject.project_city}
                         onChange={(e) => handleInputChange(e, "project_city")}
                         className="form-control"
                       />
-                      <label>Країна:</label>
+                      <label>{t("editPage.editProject.country")}:</label>
                       <input
                         type="text"
                         value={editedProject.project_country}
@@ -199,14 +204,16 @@ const ProjectsEdit = () => {
                         <option value="3">Приватні будинки</option>
                       </select> */}
 
-                      <label>Опис проєкту:</label>
+                      <label>
+                        {t("editPage.editProject.projectDescription")}:
+                      </label>
                       <input
                         type="text"
                         value={editedProject.project_brief}
                         onChange={(e) => handleInputChange(e, "project_brief")}
                         className="form-control"
                       />
-                      <label>Дата завершення:</label>
+                      <label>{t("editPage.editProject.endDate")}:</label>
                       <input
                         type="text"
                         value={editedProject.project_finish_date}
@@ -215,14 +222,14 @@ const ProjectsEdit = () => {
                         }
                         className="form-control"
                       />
-                      <label>Площа:</label>
+                      <label>{t("editPage.editProject.square")}:</label>
                       <input
                         type="text"
                         value={editedProject.project_square}
                         onChange={(e) => handleInputChange(e, "project_square")}
                         className="form-control"
                       />
-                      <label>Команда:</label>
+                      <label>{t("editPage.editProject.team")}:</label>
                       <input
                         type="text"
                         value={editedProject.project_team}
@@ -247,13 +254,13 @@ const ProjectsEdit = () => {
                         onClick={(e) => handleSaveClick(e)}
                         className="btn btn-primary mt-2"
                       >
-                        Зберегти
+                        {t("editPage.editProject.save")}
                       </button>
                       <button
                         onClick={handleCancelClick}
                         className="btn btn-secondary mt-2 ml-2"
                       >
-                        Скасувати
+                        {t("editPage.editProject.cancel")}
                       </button>
                     </div>
                   </td>
@@ -267,7 +274,7 @@ const ProjectsEdit = () => {
                         className="btn btn-dark"
                         onClick={() => handleEditClick(project)}
                       >
-                        Редагувати
+                        {t("editPage.editProject.edit")}
                       </button>
                       <button
                         className="btn btn-danger ms-3"
@@ -275,7 +282,7 @@ const ProjectsEdit = () => {
                           handleDeleteClick(project.id, project.project_name)
                         }
                       >
-                        Видалити
+                        {t("editPage.editProject.delete")}
                       </button>
                     </td>
                   </>

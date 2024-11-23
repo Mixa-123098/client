@@ -3,6 +3,7 @@ import useImageUploader from "../../custom-hooks/useImageUploader";
 
 import modalStore from "../../store/ModalStore";
 import fileStore from "../../store/cropImgStore";
+import { useTranslation } from "react-i18next";
 
 const CropImgDisplay = ({ label, src }) => {
   const { imagePreview } = useImageUploader({ src });
@@ -36,6 +37,8 @@ const CropImgDisplay = ({ label, src }) => {
 };
 
 const CropHeaderAndPrewImg = ({ data }) => {
+  const { t } = useTranslation();
+
   const { project_id } = data;
   const [imgList, setImgList] = useState([]);
   const [blueprint, setBlueprint] = useState([]);
@@ -78,17 +81,17 @@ const CropHeaderAndPrewImg = ({ data }) => {
   return (
     <div>
       <CropImgDisplay
-        label="Шапка проєкту"
+        label={t("editPage.cropImages.projectHeader")}
         name="header_img"
         src={currentImg && currentImg.project_header_img}
       />
       <CropImgDisplay
-        label="Превью проєкту"
+        label={t("editPage.cropImages.projectPreview")}
         name="header_prew"
         src={currentImg && currentImg.project_img_src}
       />
       <CropImgDisplay
-        label="Планування"
+        label={t("editPage.cropImages.projectBlueprint")}
         name="blueprint"
         src={currentBlueprint && currentBlueprint.img}
       />
@@ -97,6 +100,8 @@ const CropHeaderAndPrewImg = ({ data }) => {
 };
 
 const CroppedImges = ({ project_id }) => {
+  const { t } = useTranslation();
+
   const [imges, setImges] = useState([]);
 
   const handleModalClose = (currentImg) => {
@@ -134,7 +139,7 @@ const CroppedImges = ({ project_id }) => {
           margin: "0 5px 0 5px",
         }}
       >
-        Картинки всередині проєкту
+        {t("editPage.cropImages.imagesInsideTheProject")}
       </div>
 
       <div className="d-flex flex-wrap" style={{ maxWidth: "75vw" }}>
@@ -166,6 +171,8 @@ const CroppedImges = ({ project_id }) => {
 };
 
 const CropImgesComponent = () => {
+  const { t } = useTranslation();
+
   const [projects, setProjects] = useState([]);
   const [editedProject, setEditedProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -198,16 +205,8 @@ const CropImgesComponent = () => {
   return (
     <>
       <div className="container mt-4 mb-4">
-        <h1>Обрізати фотографії в проєктах</h1>
+        <h1>{t("editPage.cropImages.cropImages")}</h1>
         <table className="table">
-          {/* <thead>
-            <tr>
-              <th scope="col">Назва проєкту</th>
-              <th scope="col">Місто</th>
-              <th scope="col">Країна</th>
-              <th scope="col">Дії</th>
-            </tr>
-          </thead> */}
           <tbody>
             {projects.map((project) => (
               <tr key={project.id}>
@@ -219,7 +218,7 @@ const CropImgesComponent = () => {
                         onClick={handleCancelClick}
                         className="btn btn-secondary mt-2 ml-2"
                       >
-                        Закрити
+                        {t("editPage.cropImages.close")}
                       </button>
                     </div>
                   </td>
@@ -233,7 +232,7 @@ const CropImgesComponent = () => {
                         className="btn btn-dark"
                         onClick={() => handleEditClick(project)}
                       >
-                        Редагувати
+                        {t("editPage.cropImages.edit")}
                       </button>
                     </td>
                   </>

@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore";
 import "./RegistrationForm.css";
+import { useTranslation } from "react-i18next";
 
 const AuthForm = observer(() => {
+  const { t } = useTranslation();
+
   const getCookie = (name) => {
     const cookieValue = document.cookie.match(
       "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
@@ -91,11 +94,9 @@ const AuthForm = observer(() => {
       );
 
       if (isUsernameTaken) {
-        alert("This username is already taken. Please choose a different one.");
+        alert(t("authForm.feedbacks.usernameTaken"));
       } else if (isEmailTaken) {
-        alert(
-          "This email is already associated with an account. Please use a different email."
-        );
+        alert(t("authForm.feedbacks.emailTaken"));
       } else {
         fetch("https://server-2gn8.onrender.com/users", {
           method: "POST",
@@ -111,7 +112,7 @@ const AuthForm = observer(() => {
               setFormData({ username: "", email: "", password: "" });
             }
           });
-        alert("Тепер ви зареєстровані - увійдіть в аккаунт");
+        alert(t("authForm.feedbacks.registrationSuccess"));
       }
     } else {
       const { username, password } = formData;
@@ -123,20 +124,22 @@ const AuthForm = observer(() => {
 
           authStore.login(user.username);
         } else {
-          alert("Невірний пароль. Будь ласка, перевірте свої облікові дані.");
+          alert(t("authForm.feedbacks.invalidPassword"));
         }
       } else {
-        alert("Користувача з таким ім'ям користувача не знайдено.");
+        alert(t("authForm.feedbacks.userNotFound"));
       }
     }
   };
 
   return (
     <div className="reg-auth">
-      <h2>{isRegistration ? "Реєстрація" : "Авторизація"}</h2>
+      <h2>
+        {isRegistration ? t("authForm.registration") : t("authForm.auth")}
+      </h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Ім'я користувача:</label>
+          <label>{t("authForm.username")}</label>
           <input
             type="text"
             name="username"
@@ -158,7 +161,7 @@ const AuthForm = observer(() => {
         )}
 
         <div className="mt-1">
-          <label>Пароль:</label>
+          <label>{t("authForm.password")}:</label>
           <input
             type="password"
             name="password"
@@ -168,22 +171,25 @@ const AuthForm = observer(() => {
         </div>
         <div className="d-flex justify-content-center mt-3 mb-4">
           <button type="submit" className="btn btn-dark">
-            {isRegistration ? "Зареєструватися" : "Увійти"}
+            {isRegistration ? t("authForm.register1") : t("authForm.login1")}
           </button>
         </div>
         <p className="text-center">
-          {isRegistration ? "Вже маєте аккаунт? " : "Немає аккаунту? "}
+          {isRegistration
+            ? t("authForm.haveAnAccount")
+            : t("authForm.dontHaveAnAccount")}
+          {"    "}
           <button
             type="button"
             className="btn btn-secondary"
             onClick={() => setIsRegistration(!isRegistration)}
           >
-            {isRegistration ? "Увійдіть" : "Зареєструйтеся"}
+            {isRegistration ? t("authForm.login2") : t("authForm.register2")}
           </button>
         </p>
         <div onClick={() => navigate("/")}>
           <lable className="text-decoration-underline cursor-pointer">
-            На головну сторінку
+            {t("authForm.toTheHomePage")}
           </lable>
         </div>
       </form>

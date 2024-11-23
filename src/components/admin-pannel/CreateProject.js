@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import useFileUpload from "../../custom-hooks/useFileUpload";
+import { useTranslation } from "react-i18next";
 
 const CreateProject = () => {
+  const { t } = useTranslation();
+
   const [projectData, setProjectData] = useState({
     project_name: "",
     project_city: "",
@@ -39,7 +42,7 @@ const CreateProject = () => {
 
     if (!["1", "2", "3"].includes(projectData.project_specialization)) {
       console.error("Invalid project_specialization value");
-      alert("Виберіть спеціалізацію");
+      alert(t("editPage.createNewProject.feedbacks.chooseSpecialization"));
       return;
     }
     try {
@@ -70,13 +73,15 @@ const CreateProject = () => {
 
   return (
     <>
-      <h2 className="mt-5 container">Створити новий проєкт</h2>
+      <h2 className="mt-5 container">
+        {t("editPage.createNewProject.create")}
+      </h2>
       <form
         onSubmit={handleFormSubmit}
         className="d-flex flex-column container mt-4 was-validated"
       >
         <div className="d-flex">
-          <div className="col-3">Назва:</div>
+          <div className="col-3">{t("editPage.createNewProject.name")}:</div>
           <div className="col-9">
             <input
               type="text"
@@ -88,13 +93,17 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="invalid-feedback">Назва проєкту обов'язкова</div>
-            <div className="valid-feedback">Назва проєкту підходить</div>
+            <div className="valid-feedback">
+              {t("editPage.createNewProject.feedbacks.name.true")}
+            </div>
+            <div className="invalid-feedback">
+              {t("editPage.createNewProject.feedbacks.name.false")}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Місто:</div>
+          <div className="col-3">{t("editPage.createNewProject.city")}:</div>
           <div className="col-9">
             <input
               type="text"
@@ -106,13 +115,17 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="valid-feedback">Назва міста підходить</div>
-            <div className="invalid-feedback">Назва міста обов'язкова</div>
+            <div className="valid-feedback">
+              {t("editPage.createNewProject.feedbacks.city.true")}
+            </div>
+            <div className="invalid-feedback">
+              {t("editPage.createNewProject.feedbacks.city.false")}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Країна:</div>
+          <div className="col-3">{t("editPage.createNewProject.country")}:</div>
 
           <div className="col-9">
             <input
@@ -125,13 +138,19 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="valid-feedback">Назва країни підходить</div>
-            <div className="invalid-feedback">Назва країни обов'язкова</div>
+            <div className="valid-feedback">
+              {t("editPage.createNewProject.feedbacks.country.true")}
+            </div>
+            <div className="invalid-feedback">
+              {t("editPage.createNewProject.feedbacks.country.false")}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Спеціалізація:</div>
+          <div className="col-3">
+            {t("editPage.createNewProject.specialization.title")}:
+          </div>
 
           <select
             name="project_specialization"
@@ -143,15 +162,25 @@ const CreateProject = () => {
             onChange={handleInputChange}
             required
           >
-            <option value=" ">Виберіть спеціалізацію</option>
-            <option value="1">Громадські інтер'єри</option>
-            <option value="2">Квартири</option>
-            <option value="3">Приватні будинки</option>
+            <option value=" ">
+              {t("editPage.createNewProject.specialization.choose")}
+            </option>
+            <option value="1">
+              {t("editPage.createNewProject.specialization.publicInteriors")}
+            </option>
+            <option value="2">
+              {t("editPage.createNewProject.specialization.apartments")}
+            </option>
+            <option value="3">
+              {t("editPage.createNewProject.specialization.privateHouses")}
+            </option>
           </select>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Картинка(Превью):</div>
+          <div className="col-3">
+            {t("editPage.createNewProject.previewImage")}:
+          </div>
 
           <input
             type="file"
@@ -162,7 +191,9 @@ const CreateProject = () => {
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Картинка(Згори сторінки проєкту):</div>
+          <div className="col-3">
+            {t("editPage.createNewProject.topProjectImage")}:
+          </div>
 
           <input
             type="file"
@@ -173,7 +204,9 @@ const CreateProject = () => {
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Опис проєкту:</div>
+          <div className="col-3">
+            {t("editPage.createNewProject.projectDescription")}:
+          </div>
 
           <div className="col-9">
             <input
@@ -186,13 +219,19 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="invalid-feedback">Опис проєкту обов'язковий</div>
-            <div className="valid-feedback">Опис проєкту підходить</div>
+            <div className="valid-feedback">
+              {t("editPage.createNewProject.feedbacks.projectDescription.true")}
+            </div>
+            <div className="invalid-feedback">
+              {t(
+                "editPage.createNewProject.feedbacks.projectDescription.false"
+              )}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Дата завершення:</div>
+          <div className="col-3">{t("editPage.createNewProject.endDate")}:</div>
 
           <div className="col-9">
             <input
@@ -205,13 +244,17 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="invalid-feedback">Дата завершення обов'язкова</div>
-            <div className="valid-feedback">Дата завершення підходить</div>
+            <div className="valid-feedback">
+              {t("editPage.createNewProject.feedbacks.endDate.true")}
+            </div>
+            <div className="invalid-feedback">
+              {t("editPage.createNewProject.feedbacks.endDate.false")}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Площа(у квадратних метрах):</div>
+          <div className="col-3">{t("editPage.createNewProject.square")}:</div>
 
           <div className="col-9">
             <input
@@ -224,13 +267,17 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="invalid-feedback">Площа обов'язкова</div>
-            <div className="valid-feedback">Площа підходить</div>
+            <div className="valid-feedback">
+              {t("editPage.createNewProject.feedbacks.square.true")}
+            </div>
+            <div className="invalid-feedback">
+              {t("editPage.createNewProject.feedbacks.square.false")}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Команда:</div>
+          <div className="col-3">{t("editPage.createNewProject.team")}:</div>
 
           <div className="col-9">
             <input
@@ -243,13 +290,19 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="invalid-feedback">Дата завершення обов'язкова</div>
-            <div className="valid-feedback">Дата завершення підходить</div>
+            <div className="valid-feedback">
+              {t("editPage.createNewProject.feedbacks.team.true")}
+            </div>
+            <div className="invalid-feedback">
+              {t("editPage.createNewProject.feedbacks.team.false")}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Планування(Картинка):</div>
+          <div className="col-3">
+            {t("editPage.createNewProject.blueprintImage")}:
+          </div>
 
           <input
             type="file"
@@ -260,7 +313,9 @@ const CreateProject = () => {
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Опис планування:</div>
+          <div className="col-3">
+            {t("editPage.createNewProject.blueprintDescription")}:
+          </div>
 
           <div className="col-9">
             <input
@@ -273,13 +328,24 @@ const CreateProject = () => {
               onChange={handleInputChange}
               required
             />
-            <div className="invalid-feedback">Опис плануваня обов'язковий</div>
-            <div className="valid-feedback">Опис плануваня підходить</div>
+            <div className="valid-feedback">
+              {" "}
+              {t(
+                "editPage.createNewProject.feedbacks.blueprintDescriprion.true"
+              )}
+            </div>
+            <div className="invalid-feedback">
+              {t(
+                "editPage.createNewProject.feedbacks.blueprintDescriprion.false"
+              )}
+            </div>
           </div>
         </div>
         <br />
         <div className="d-flex">
-          <div className="col-3">Картинки(в середині проєкту):</div>
+          <div className="col-3">
+            {t("editPage.createNewProject.imagesInsideTheProject")}:
+          </div>
 
           <input
             type="file"
@@ -290,7 +356,7 @@ const CreateProject = () => {
         </div>
 
         <button type="submit" className="btn btn-dark col-2 mt-4 mb-5">
-          Створити проєкт
+          {t("editPage.createNewProject.create")}
         </button>
       </form>
     </>

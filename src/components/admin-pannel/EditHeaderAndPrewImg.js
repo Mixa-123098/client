@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import useImageUploader from "../../custom-hooks/useImageUploader";
+import { useTranslation } from "react-i18next";
 
 const ImageDisplay = ({ label, src, name, handleFileChange }) => {
+  const { t } = useTranslation();
+
   const { imagePreview, handleImageChange } = useImageUploader({ src });
 
   const handleChange = (e) => {
@@ -23,7 +26,11 @@ const ImageDisplay = ({ label, src, name, handleFileChange }) => {
       )}
 
       <div>
-        Якщо бажаєте {src ? "змінити" : "додати"} картинку, то оберіть файл:
+        {t("editPage.editProject.ifYouWantToChangeImage1")}{" "}
+        {src
+          ? t("editPage.editProject.ifYouWantToChangeImage3")
+          : t("editPage.editProject.ifYouWantToChangeImage4")}{" "}
+        {t("editPage.editProject.ifYouWantToChangeImage2")}:
         <input type="file" name={name} onChange={(e) => handleChange(e)} />
       </div>
     </div>
@@ -31,6 +38,7 @@ const ImageDisplay = ({ label, src, name, handleFileChange }) => {
 };
 
 const EditHeaderAndPrewImg = ({ data, handleFileChange }) => {
+  const { t } = useTranslation();
   const { project_id } = data;
   const [imgList, setImgList] = useState([]);
   const [blueprint, setBlueprint] = useState([]);
@@ -73,19 +81,19 @@ const EditHeaderAndPrewImg = ({ data, handleFileChange }) => {
   return (
     <div>
       <ImageDisplay
-        label="Шапка проєкту"
+        label={t("editPage.editProject.projectHeader")}
         name="header_img"
         src={currentImg && currentImg.project_header_img}
         handleFileChange={handleFileChange}
       />
       <ImageDisplay
-        label="Превью проєкту"
+        label={t("editPage.editProject.preview")}
         name="header_prew"
         src={currentImg && currentImg.project_img_src}
         handleFileChange={handleFileChange}
       />
       <ImageDisplay
-        label="Планування"
+        label={t("editPage.editProject.blueprintImage")}
         // name={Date.now() + "-" + Math.random()}
         // name={name}
         name="blueprint"

@@ -1,0 +1,312 @@
+{
+  "navbar": {
+    "mainPage": "Domov",
+    "projectsPage": "Projekty",
+    "aboutPage": "O nás",
+    "contactsPage": "Kontaktujte nás",
+    "pricesPage": "Ceny",
+    "editPage": "Upraviť",
+    "logoutButton": "Odhlásiť sa"
+  },
+  "mainPage": {
+    "goToTheProject": "Na projekt",
+    "projects": {
+      "loft": "Byt v komplexe «Loft»",
+      "chehova": "Dom na svahoch Dniepra",
+      "karaoke": "Karaoke bar v štýle steampunk"
+    },
+    "block1": {
+      "titlePartOne": "Každý projekt, ktorý vyvíjame",
+      "titlePartTwo": "ako najdôležitejší",
+      "mainTextPartOne": "Každý projekt, ktorý vyvíjame, je pre nás najdôležitejšou úlohou. K každej práci pristupujeme s veľkým nadšením a zodpovednosťou, bez ohľadu na jej rozsah alebo zložitosť. Náš prístup je založený na presvedčení, že každý projekt má potenciál zmeniť životy našich klientov a prispieť k ich úspechu.",
+      "mainTextPartTwo": "Náš cieľ nie je len splniť očakávania klientov, ale ich prekročiť vytváraním riešení, ktoré im pomáhajú dosiahnuť nové výšky v ich činnostiach. Veríme, že len takýto prístup dokáže vytvoriť skutočne zmysluplné a trvalé výsledky v oblasti vývoja projektov.",
+      "button": "Zistiť viac"
+    },
+    "block2": {
+      "categories": {
+        "publicInteriors": {
+          "title": "Verejné interiéry",
+          "subtitle": "Reštaurácie, kancelárie a komerčné priestory"
+        },
+        "residentialInteriorsOne": {
+          "title": "Rezidenčné interiéry",
+          "subtitle": "Byty"
+        },
+        "residentialInteriorsTwo": {
+          "title": "Rezidenčné interiéry",
+          "subtitle": "Súkromné domy"
+        }
+      }
+    },
+    "block3": {
+      "title": "Náš tím - Váš úspech",
+      "mainTextPartOne": "Sme tím odborníkov, ktorí rozumejú, že každý projekt je významným podnikom. Náš prístup je považovať každý projekt za najdôležitejšiu úlohu, bez ohľadu na jeho rozsah alebo zložitosť. Do našej práce vkladáme vášeň a zodpovednosť, pretože veríme, že každý projekt má potenciál zmeniť životy našich klientov a prispieť k ich úspechu.",
+      "mainTextPartTwo": "Náš cieľ nie je len splniť očakávania klientov, ale ich prekročiť. Vytvárame riešenia, ktoré pomáhajú klientom dosiahnuť nové výšky v ich činnostiach. Veríme, že len takýto prístup dokáže priniesť skutočne zmysluplné a trvalé výsledky v oblasti vývoja projektov.",
+      "button": "Zistiť viac o nás"
+    },
+    "block4": {
+      "title": "Pridajte sa k nášmu tímu",
+      "mainTextPartOne": "Vitajte v našom tíme! Hľadáme talentovaných a energických jednotlivcov, ktorí sú pripravení významne prispieť k našim projektom. Ponúkame rôznorodé úlohy a príležitosti na rast.",
+      "mainTextPartTwo": "Ak zdieľate našu misiu a ste pripravení pracovať v priateľskom prostredí, neváhajte sa k nám pridať!",
+      "button": "Kontaktujte nás"
+    },
+    "block5": {
+      "title": "Zistite cenu našich služieb",
+      "mainTextPartOne": "Sme pripravení poskytnúť vám informácie o cene našich služieb. Každý projekt je pre nás dôležitý a tešíme sa na zohľadnenie vašich potrieb a otázok.",
+      "mainTextPartTwo": "Kontaktujte nás pre personalizovanú konzultáciu a cenovú ponuku. Usilujeme sa poskytnúť vám najlepšie riešenia na dosiahnutie vašich cieľov.",
+      "button": "Získať cenovú ponuku"
+    }
+  },
+  "projectsPage": {
+    "ourProjects": "Naše projekty",
+    "categories": {
+      "all": "Všetky",
+      "publicInteriors": "Verejné interiéry",
+      "apartments": "Byty",
+      "privateHouses": "Súkromné domy"
+    }
+  },
+  "aboutPage": {
+    "aboutUs": "O nás",
+    "block1": {
+      "title": "Naša história",
+      "mainTextPartOne": "Viac ako 20 rokov naša profesionálna tím pracuje v oblasti interiérového dizajnu, pritahujúc klientov prostredníctvom recenzií a odporúčaní. Je čas držať krok s vedeckým a technickým pokrokom a vytvoriť vlastný informačný zdroj.",
+      "mainTextPartTwo": "Pracujúc samostatne a občasne realizujúc úspešné spoločné projekty, sa náš tím dizajnérov a architektov rozhodol spojiť a vytvoriť komunitu. V moderných podmienkach je jednoducho potrebná platforma na ukladanie a prezeranie dizajnových projektov."
+    },
+    "block2": {
+      "Marina": {
+        "name": "Marina Prokhorova",
+        "jobTitle": "Interiérová dizajnérka, architektka"
+      },
+      "Olha": {
+        "name": "Olha Taran",
+        "jobTitle": "Interiérová dizajnérka"
+      },
+      "Kateryna": {
+        "name": "Kateryna Sytnyk",
+        "jobTitle": "Architektka"
+      },
+      "Leonid": {
+        "name": "Leonid Startsev",
+        "jobTitle": "Interiérový dizajnér, vizualizátor"
+      }
+    },
+    "block3": {
+      "title": "Ideológia tímu",
+      "mainTextPartOne": "Poskytujeme podrobné informácie o cene našich služieb, zohľadňujúc individuálne potreby každého klienta. Každý projekt je pre nás dôležitý a starostlivo analyzujeme vaše požiadavky a otázky, aby sme ponúkli najlepšie riešenia, ktoré spĺňajú vaše ciele.",
+      "mainTextPartTwo": "Kontaktujte nás pre personalizovanú konzultáciu a presnú cenovú ponuku pre váš projekt. Usilujeme sa poskytnúť vysokokvalitné riešenia, ktoré vám pomôžu dosiahnuť úspech a efektívne a včas implementovať vaše nápady."
+    },
+    "block4": {
+      "ourValues": "Naše hodnoty",
+      "valuesList": [
+        {
+          "title": "PROFESIONALIZM",
+          "content": "Sme odborníci vo svojom odbore; Budujeme systematickú prácu; Budujeme efektívnu komunikáciu; Používame individuálny prístup ku každému klientovi; Neustále sa profesionálne rozvíjame a učíme."
+        },
+        {
+          "title": "INOVÁCIE",
+          "content": "Sme otvorení novým myšlienkam a technológiám; Sme proaktívni; Vytvárame atmosféru, ktorá stimuluje kreatívne hľadanie, vznik kreatívnych nápadov; Snažíme sa ponúknuť to, čo iní nemôžu."
+        },
+        {
+          "title": "REPUTÁCIA",
+          "content": "Je to transparentnosť, čestnosť a spoľahlivosť; Je to jasné plnenie zmluvných povinností; Je to pozitívna spätná väzba od klientov; Je to dodržiavanie legislatívy."
+        },
+        {
+          "title": "TÍM",
+          "content": "Sme zjednotení jediným cieľom; Sme zameraní na spoločný konečný výsledok; Sme súdržní a podporujeme sa navzájom pri dosahovaní stanovených úloh."
+        },
+        {
+          "title": "BEZPEČNOSŤ",
+          "content": "Je to záruka prevencie hrozieb a rizík pre zamestnancov, partnerov a životné prostredie; Je to komplexný prístup k bezpečnostným otázkam; Je to stoviek percentná záloha pre všetky kritické systémy; Je to vysokotechnologické inžinierstvo skladového komplexu."
+        },
+        {
+          "title": "KVALITA",
+          "content": "Vykonávame prácu podľa existujúceho systému kvality; Kontrolujeme každú fázu procesu a jej súlad s existujúcimi kvalitatívnymi normami; Všetky procesy sú v súlade s medzinárodnými normami a sú regulované písomnými inštrukciami; Je implementovaný systém analýzy rizík."
+        }
+      ]
+    }
+  },
+  "contactsPage": {
+    "contacts": "Kontakty",
+    "telegram": "Telegram",
+    "instagram": "Instagram",
+    "viber": "Viber",
+    "email": "Email",
+    "telephone": "Telefón"
+  },
+  "pricesPage": {
+    "ourPrices": "Naše ceny",
+    "tariff1": {
+      "size": "Priestory do 40m²",
+      "price": "Cena: 30$/m²"
+    },
+    "tariff2": {
+      "size": "Priestory 40-100m²",
+      "price": "Cena: 25$/m²"
+    },
+    "tariff3": {
+      "size": "Priestory od 100m²*",
+      "price": "Cena: 20$/m²"
+    },
+    "tariff4": {
+      "size": "Autorská podpora",
+      "price": "Cena: 250$/mesiac"
+    },
+    "button": "Kontaktujte nás",
+    "additionalInfo": "*Cena za projekty s veľkými plochami je dohodnutá individuálne"
+  },
+  "editPage": {
+    "adminPanel": "Administrátorský panel",
+    "createNewProject": {
+      "open": "Otvoriť",
+      "close": "Zavrieť",
+      "open_close": "vytváranie projektu",
+      "create": "Vytvoriť projekt",
+      "title": "Vytvoriť nový projekt",
+      "name": "Názov",
+      "city": "Mesto",
+      "country": "Krajina",
+      "specialization": {
+        "title": "Špecializácia",
+        "choose": "Vyberte špecializáciu",
+        "publicInteriors": "Verejné interiéry",
+        "apartments": "Byty",
+        "privateHouses": "Súkromné domy"
+      },
+      "previewImage": "Obrázok (náhľad)",
+      "topProjectImage": "Obrázok (Horná časť stránky projektu)",
+      "projectDescription": "Popis projektu",
+      "endDate": "Dátum ukončenia",
+      "square": "Plocha (v štvorcových metroch)",
+      "team": "Tím",
+      "blueprintImage": "Plán (obrázok)",
+      "blueprintDescription": "Popis plánu",
+      "imagesInsideTheProject": "Obrázky (v projekte)",
+      "feedbacks": {
+        "name": {
+          "true": "Názov projektu je vhodný",
+          "false": "Názov projektu je povinný"
+        },
+        "city": {
+          "true": "Názov mesta je vhodný",
+          "false": "Názov mesta je povinný"
+        },
+        "country": {
+          "true": "Názov krajiny je vhodný",
+          "false": "Názov krajiny je povinný"
+        },
+        "chooseSpecialization": "Vyberte špecializáciu",
+        "projectDescription": {
+          "true": "Popis projektu je vhodný",
+          "false": "Popis projektu je povinný"
+        },
+        "endDate": {
+          "true": "Dátum ukončenia je vhodný",
+          "false": "Dátum ukončenia je povinný"
+        },
+        "square": {
+          "true": "Plocha je vhodná",
+          "false": "Plocha je povinná"
+        },
+        "team": {
+          "true": "Tím je vhodný",
+          "false": "Tím je povinný"
+        },
+        "blueprintDescriprion": {
+          "true": "Popis plánu je vhodný",
+          "false": "Popis plánu je povinný"
+        }
+      }
+    },
+    "usersList": {
+      "open_close": "zoznam používateľov",
+      "users": "Zoznam používateľov",
+      "username": "Používateľské meno",
+      "role": "Rola",
+      "actions": "Akcie",
+      "confirm": "Potvrdiť zmeny",
+      "makeAdministrator": "Urobiť administrátorom",
+      "makeModerator": "Urobiť moderátorom",
+      "makeUser": "Urobiť bežným používateľom",
+      "itsYou": "to ste vy",
+      "noChanges": "Neurobili ste žiadne zmeny"
+    },
+    "editProject": {
+      "open_close": "upravenie projektu",
+      "editProject": "Upraviť projekty",
+      "save": "Uložiť",
+      "cancel": "Zrušiť",
+      "projectName": "Názov projektu",
+      "city": "Mesto",
+      "country": "Krajina",
+      "actions": "Akcie",
+      "edit": "Upraviť",
+      "delete": "Vymazať",
+      "deleMassage": "Chcete vymazať",
+      "projectDescription": "Popis projektu",
+      "endDate": "Dátum ukončenia",
+      "square": "Plocha",
+      "team": "Tím",
+      "projectHeader": "Obrázok hlavičky projektu",
+      "preview": "Náhľad projektu",
+      "blueprintImage": "Obrázok plánu",
+      "ifYouWantToChangeImage1": "Ak chcete",
+      "ifYouWantToChangeImage2": "zmeniť obrázok, prosím vyberte súbor",
+      "ifYouWantToChangeImage3": "zmeniť",
+      "ifYouWantToChangeImage4": "pridať",
+      "imagesInsideTheProject": "Obrázky v projekte"
+    },
+    "cropImages": {
+      "open_close": "orezávanie obrázkov",
+      "cropImages": "Orezať obrázky v projektoch",
+      "edit": "Upraviť",
+      "projectHeader": "Hlavička projektu",
+      "projectPreview": "Náhľad projektu",
+      "projectBlueprint": "Plán",
+      "imagesInsideTheProject": "Obrázky v projekte",
+      "close": "Zavrieť"
+    }
+  },
+  "footer": {
+    "contacts": {
+      "title": "Kontakty",
+      "phone": "Telefón",
+      "email": "Email"
+    },
+    "social_media": {
+      "title": "Sociálne médiá",
+      "viber": "Viber",
+      "instagram": "Instagram",
+      "telegram": "Telegram"
+    },
+    "working_hours": {
+      "title": "Pracovné hodiny",
+      "Monday-Friday": "Pondelok - Piatok",
+      "Saturday": "Sobota",
+      "Sunday": "Nedeľa",
+      "closed": "Zatvorené"
+    },
+    "map": "Sme na mape",
+    "copyright": "Všetky práva vyhradené"
+  },
+  "authForm": {
+    "auth": "Autorizácia",
+    "registration": "Registrácia",
+    "login1": "Prihlásenie",
+    "login2": "Prihlásiť sa",
+    "register1": "Registrovať",
+    "register2": "Zaregistrovať sa",
+    "username": "Používateľské meno",
+    "password": "Heslo",
+    "dontHaveAnAccount": "Nemáte účet?",
+    "haveAnAccount": "Už máte účet?",
+    "toTheHomePage": "Prejsť na domovskú stránku",
+    "feedbacks": {
+      "usernameTaken": "Toto používateľské meno je už obsadené. Prosím vyberte si iné",
+      "emailTaken": "Tento email je už priradený k účtu. Prosím použite iný email",
+      "registrationSuccess": "Ste teraz zaregistrovaný - prosím prihláste sa do svojho účtu",
+      "invalidPassword": "Neplatné heslo. Prosím skontrolujte svoje údaje",
+      "userNotFound": "Používateľ s týmto používateľským menom nebol nájdený"
+    }
+  }
+}

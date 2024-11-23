@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSelector = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [language, setLanguage] = useState(
     () => localStorage.getItem("language") || i18n.language
   );
@@ -39,6 +39,7 @@ const LanguageSelector = () => {
       >
         <option value="en">en</option>
         <option value="ua">ua</option>
+        <option value="sk">sk</option>
         {/* <option value="ru">Русский</option> */}
         {/* Добавьте дополнительные языки по мере необходимости */}
       </select>

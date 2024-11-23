@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import EditHeaderAndPrewImg from "./EditHeaderAndPrewImg";
+import { useTranslation } from "react-i18next";
 
 const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
+  const { t } = useTranslation();
   const [imges, setImges] = useState([]);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
           margin: "0 5px 0 5px",
         }}
       >
-        Картинки всередині проєкту
+        {t("editPage.editProject.imagesInsideTheProject")}
       </div>
 
       <div className="d-flex flex-wrap" style={{ maxWidth: "75vw" }}>

@@ -81,37 +81,6 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
     );
   }
 
-  // if (onlineUser && onlineUser.role === "user") {
-  //   navbarItemsWays.push(
-  //     " ",
-  //     "projects",
-  //     "about",
-  //     "contacts",
-  //     "price",
-  //     "|there must be a search|"
-  //   );
-  // } else if (onlineUser || isAuthenticated === true) {
-  //   navbarItemsList.push("Редагувати");
-  //   navbarItemsWays.push(
-  //     " ",
-  //     "projects",
-  //     "about",
-  //     "contacts",
-  //     "price",
-  //     "edit",
-  //     "|there must be a search|"
-  //   );
-  // } else {
-  //   navbarItemsWays.push(
-  //     " ",
-  //     "projects",
-  //     "about",
-  //     "contacts",
-  //     "price",
-  //     "|there must be a search|"
-  //   );
-  // }
-
   const navbar = navbarItemsList.map((item, index) => {
     return (
       <Link
@@ -127,7 +96,6 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
 
   const handleLogout = (e) => {
     authStore.logout(onlineUser.username);
-    // console.log(onlineUser.username);
 
     navigate("/login");
   };

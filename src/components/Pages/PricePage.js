@@ -4,9 +4,12 @@ import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
 import ScrollToTop from "../../custom-hooks/ScrollToTop";
-import "../../App.css"
+import "../../App.css";
+import { useTranslation } from "react-i18next";
 
 const PriceCard = ({ title, text, price }) => {
+  const { t } = useTranslation();
+
   return (
     <div className=" col-lg-7 col-md-9 col-sm-12 mt-3">
       <div className="card">
@@ -14,7 +17,7 @@ const PriceCard = ({ title, text, price }) => {
           <div className="card-body col-lg-6 col-7">
             <h5 className="card-title">{title}</h5>
             <p className="card-text">{text}</p>
-            <p className="card-text">Ціна: {price}</p>
+            <p className="card-text">{price}</p>
           </div>
           <div className="d-flex align-items-center col-3 me-2">
             <div>
@@ -23,7 +26,7 @@ const PriceCard = ({ title, text, price }) => {
                 to={"/contacts"}
                 onClick={ScrollToTop}
               >
-                Зв'язатися з нами
+                {t("pricesPage.button")}
               </Link>
             </div>
           </div>
@@ -34,36 +37,32 @@ const PriceCard = ({ title, text, price }) => {
 };
 
 const PricePage = () => {
-  // const replaceStore = replaceColorStore();
-  // replaceStore.isReplace(true)
+  const { t } = useTranslation();
+
   return (
     <>
       <Header fontColor="#000000" invert="invert(0%)" rep={true} />
-      <PagesHeader title="Наші ціни" />
+      <PagesHeader title={t("pricesPage.ourPrices")} />
       <div className="container mt-5 mb-5 ">
         <div className="row justify-content-center ">
           <PriceCard
-            title="Приміщення до 40м2"
-            // text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            price="$30/м2"
+            title={t("pricesPage.tariff1.size")}
+            price={t("pricesPage.tariff1.price")}
           />
           <PriceCard
-            title="Приміщення 40-100м2"
-            // text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            price="$25/м2"
+            title={t("pricesPage.tariff2.size")}
+            price={t("pricesPage.tariff2.price")}
           />
           <PriceCard
-            title="Приміщення від 100м2*"
-            // text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            price="$20/м2"
+            title={t("pricesPage.tariff3.size")}
+            price={t("pricesPage.tariff3.price")}
           />
           <PriceCard
-            title="Авторський супровід "
-            // text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            price="$250/місяць"
+            title={t("pricesPage.tariff4.size")}
+            price={t("pricesPage.tariff4.price")}
           />
           <div className="d-flex justify-content-center mt-5">
-            *Ціна за проекти, що мають великі площі обговорюється індивідуально
+            {t("pricesPage.additionalInfo")}
           </div>
         </div>
       </div>

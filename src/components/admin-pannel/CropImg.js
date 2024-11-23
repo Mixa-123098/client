@@ -17,18 +17,9 @@ const CropImg = ({ fileDataUrl, handleFileChange }) => {
         .toDataURL();
       setCropData(croppedImg);
       fileStore.setCroppedImg(croppedImg);
-      // handleFileChange({
-      //   target: {
-      //     name: fileStore.fileName && fileStore.fileName,
-      //     files: [fileStore.croppedImg],
-      //   },
-      // });
+
       console.log(fileStore.fileName);
       handleFileChange(fileStore.croppedImg, fileStore.fileName);
-      // handleFileChange(
-      //   fileStore.croppedImg && fileStore.croppedImg,
-      //   fileStore.fileName && fileStore.fileName
-      // );
     }
   };
 

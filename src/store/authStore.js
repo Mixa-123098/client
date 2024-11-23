@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, action } from "mobx";
 
 class AuthStore {
   isAuthenticated = false;
@@ -7,7 +7,11 @@ class AuthStore {
   user = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      // Explicitly define actions if not using makeAutoObservable
+      login: action,
+      logout: action,
+    });
   }
 
   login(username) {
