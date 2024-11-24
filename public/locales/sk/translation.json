@@ -70,8 +70,8 @@
     "aboutUs": "O nás",
     "block1": {
       "title": "Naša história",
-      "mainTextPartOne": "Viac ako 20 rokov naša profesionálna tím pracuje v oblasti interiérového dizajnu, pritahujúc klientov prostredníctvom recenzií a odporúčaní. Je čas držať krok s vedeckým a technickým pokrokom a vytvoriť vlastný informačný zdroj.",
-      "mainTextPartTwo": "Pracujúc samostatne a občasne realizujúc úspešné spoločné projekty, sa náš tím dizajnérov a architektov rozhodol spojiť a vytvoriť komunitu. V moderných podmienkach je jednoducho potrebná platforma na ukladanie a prezeranie dizajnových projektov."
+      "mainTextPartOne": "Viac ako 20 rokov náš profesionálny tím pracuje v oblasti interiérového dizajnu, priťahujúc klientov prostredníctvom recenzií a odporúčaní. Je čas držať krok s vedeckým a technickým pokrokom a vytvoriť vlastný informačný zdroj.",
+      "mainTextPartTwo": "Pracujúc samostatne a občasne realizujúc úspešné spoločné projekty, sa náš tím dizajnérov a architektov rozhodol spojiť a vytvoriť komunitu. V moderných podmienkach je jednoducho potrebná platforma na uchovávanie a prezeranie dizajnových projektov."
     },
     "block2": {
       "Marina": {
@@ -100,7 +100,7 @@
       "ourValues": "Naše hodnoty",
       "valuesList": [
         {
-          "title": "PROFESIONALIZM",
+          "title": "PROFESIONALIZMUS",
           "content": "Sme odborníci vo svojom odbore; Budujeme systematickú prácu; Budujeme efektívnu komunikáciu; Používame individuálny prístup ku každému klientovi; Neustále sa profesionálne rozvíjame a učíme."
         },
         {
@@ -117,7 +117,7 @@
         },
         {
           "title": "BEZPEČNOSŤ",
-          "content": "Je to záruka prevencie hrozieb a rizík pre zamestnancov, partnerov a životné prostredie; Je to komplexný prístup k bezpečnostným otázkam; Je to stoviek percentná záloha pre všetky kritické systémy; Je to vysokotechnologické inžinierstvo skladového komplexu."
+          "content": "Je to záruka prevencie hrozieb a rizík pre zamestnancov, partnerov a životné prostredie; Je to komplexný prístup k bezpečnostným otázkam; Je to stopercentná záloha pre všetky kritické systémy; Je to vysokotechnologické inžinierstvo skladového komplexu."
         },
         {
           "title": "KVALITA",
@@ -314,5 +314,115 @@
     "Čoskoro bude pripravené...",
     "Urobili ste čaj?",
     "Trpezlivosť je cnosť!"
-  ]
+  ],
+  "projects": {
+    "prev": "Predchádzajúci projekt",
+    "next": "Nasledujúci projekt",
+    "projectDescription": "Popis projektu",
+    "placement": "Umiestnenie",
+    "square": "Plocha",
+    "endDate": "Dátum dokončenia",
+    "team": "Tím",
+    "blueprintDescription": "Plánovanie",
+    "project6": {
+      "name": "Apartmán v rezidenčnom komplexe Loft",
+      "city": "Dnipro",
+      "country": "Ukrajina",
+      "brief": "Apartmán pre manželský pár, ktorý miluje minimalizmus a oceňuje všetky najnovšie inovácie v interiérovom dizajne. Celková plocha apartmánu je 108 m² a jeho dizajn sa vyznačuje sofistikovanosťou a pozornosťou k detailom, ktoré sú investované do každého rohu a prvku.",
+      "end_date": "implementácia plánovaná na rok 2024",
+      "area": "180 m²",
+      "team": "Marina Prokhorova, Kateryna Sytnyk",
+      "drawing_description": "Apartmán sa nachádza v viacposchodovej budove v centre mesta. Minimalistický štýl harmonizuje s mestskými výhľadmi. Dispozícia kladie dôraz na život v srdci Dnipra. Priestranná obývacia izba v open space štýle obsahuje všetko potrebné na prijímanie hostí a pohodlný život pre dvoch. Pomerne priestranná spálňa je kombinovaná s šatníkom, dvoma kúpeľňami a technickou miestnosťou — všetko potrebné pre pohodlný život ako pár. A ak príde návšteva, vždy je k dispozícii malá, ale funkčná izba pre hostí."
+    },
+    "project8": {
+      "name": "Karaoke bar v steampunkovom štýle",
+      "city": "Dnipro",
+      "country": "Ukrajina",
+      "brief": "Karaoke bar v steampunkovom štýle, ktorý sa nachádza v centre mesta a má dve miestnosti: miestnosť s vodnou fajkou a diskotékovú miestnosť a karaoke miestnosť. Každý prvok tohto projektu stelesňuje všetky kreatívne nápady nášho tímu, pričom každý roh je exkluzívnym vývojom. Na tomto mieste ožívajú veci, pretože každý detail má dynamiku a schopnosť meniť farbu.",
+      "end_date": "2021",
+      "area": "okolo 250 m²",
+      "team": "Marina Prokhorova, Olena Prytysk, Kateryna Sytnyk, Leonid Startsev",
+      "drawing_description": "Plocha baru je rozdelená na 2 zóny. Zóna vodnej fajky obsahuje veľký barový pult, 3 súkromné kabínky a priestor pre diskotékové a lounge párty. K dispozícii je aj karaoke zóna. Kuchynské a technické priestory sú úplne oddelené od priestoru pre hostí. Centrálnym prvkom haly je exkluzívny luster navrhnutý na objednávku."
+    },
+    "project190": {
+      "name": "Townhouse",
+      "city": "Kyjev",
+      "country": "Ukrajina",
+      "brief": "Dvojpodlažný townhouse v lesnatej oblasti neďaleko Kyjeva s veľmi zaujímavou kombináciou štýlov. V tomto projekte sa loftový štýl spája s provensálskym. Toto bolo želanie klienta a výsledkom je tento fascinujúci dizajn.",
+      "end_date": "V priebehu realizácie",
+      "area": "150 m²",
+      "team": "Marina Prokhorova, Ekaterina Sytnyk, Olga Taran",
+      "drawing_description": "Dispozícia je jasne rozdelená do dvoch zón na rôznych podlažiach. Prvé poschodie je určené pre voľný čas a prijímanie hostí v loftovom štýle, zatiaľ čo druhé poschodie je viac súkromné a útulné, s spálňou v provensálskom štýle a detskými izbami."
+    },
+    "project191": {
+      "name": "Rezidenčný komplex Sviatobor",
+      "city": "Kyjev",
+      "country": "Ukrajina",
+      "brief": "Apartmán pre mladý pár, nachádzajúci sa v lesnatej oblasti centrálneho Kyjeva. Obývacia izba je spojená s kuchyňou, so samostatnou spálňou a detskou izbou.",
+      "end_date": "2022",
+      "area": "62 m²",
+      "team": "Marina Prokhorova, Olga Taran",
+      "drawing_description": "Apartmán pre mladý pár sa nachádza v lesnej zóne centrálneho Kyjeva, s kombinovanou obývacou izbou a kuchyňou, so samostatnou spálňou a detskou izbou."
+    },
+    "project192": {
+      "name": "Rezidenčný komplex Brama",
+      "city": "Dnipro",
+      "country": "Ukrajina",
+      "brief": ".",
+      "end_date": "2022",
+      "area": "48 m²",
+      "team": "Marina Prokhorova, Ekaterina Sytnyk, Leonid Starcev",
+      "drawing_description": "Tento prenajímaný priestor má malú plochu, ale obsahuje množstvo riešení pre úložný priestor, ako napríklad dve skrine v predsieni a šatník v spálni. Kuchyňa má samostatný priestor pre obývaciu izbu, ktorá môže slúžiť aj ako spací priestor."
+    },
+    "project193": {
+      "name": "Apartmán v historickej časti Dnipra",
+      "city": "Dnipro",
+      "country": "Ukrajina",
+      "area": "48 m²",
+      "brief": "Apartmán pre pár, ktorý miluje minimalizmus a oceňuje najnovšie trendy v interiérovom dizajne. Celková plocha apartmánu je 108 m² a jeho dizajn vyniká sofistikovanosťou a pozornosťou k detailom.",
+      "end_date": "2022",
+      "team": "Ekaterina Sytnyk, Marina Prokhorova",
+      "drawing_description": "Útulný garsónkový apartmán. Historický klasický štýl určuje dispozíciu. Všetky zóny sú oddelené. Veľká obývacia izba obsahuje krb a kuchyňa má balkón s úžasným výhľadom na mesto. Spálňa je útulná a priestranná. Celková atmosféra vyvoláva pocit života v historickej Európe."
+    },
+    "project198": {
+      "name": "Apartmán v rezidenčnom komplexe Comfort Town",
+      "city": "Kyjev",
+      "country": "Ukrajina",
+      "brief": "Útulný apartmán pre rodinu s tromi členmi. Majitelia preferujú svetlé odtiene a prírodné materiály, čo vedie k minimalistickému interiéru s prvkami vycibreného klasického štýlu.",
+      "end_date": "2020",
+      "area": "60 m²",
+      "team": "Marina Prokhorova, Olena Pritisk, Ekaterina Sytnyk, Leonid Starcev",
+      "drawing_description": "Veľká obývacia izba spojená s kuchyňou a jedálenskou časťou pre teplé rodinné večery. Spálňa pre dospelých má veľké okná a je dobre osvetlená cez deň, s útulným osvetlením na večer. Detská izba je malá, ale pôsobí útulne a priestranne vďaka rozumnému usporiadaniu nábytku. Apartmán tiež obsahuje kúpeľňu a hosťovské WC."
+    },
+    "project200": {
+      "name": "Dom na svahoch Dnipra",
+      "city": "Dnipro",
+      "country": "Ukrajina",
+      "brief": "Súkromný dom situovaný na svahoch rieky Dnipro, naplnený duchom tejto mocnej rieky vďaka výhľadom z okien. Štýl domu odráža životný štýl páru a ich dvoch detí. Všetky priestory by mali byť dobre osvetlené a kompozované, s miestami na natáčanie v každom rohu, keďže majiteľ je známy bloger.",
+      "end_date": "2023",
+      "area": "150 m²",
+      "team": "Marina Prokhorova, Ekaterina Sytnyk, Leonid Starcev",
+      "drawing_description": "Prvé a druhé poschodie sú jasne rozdelené do zón. Prvé poschodie zahŕňa obývaciu izbu, kuchyňu a priestor na prijímanie hostí, zatiaľ čo druhé poschodie je súkromné, s izbami pre každého člena rodiny. Dom obsahuje dve kúpeľne a schodisko, ktoré je kompozičným prvkom domu."
+    },
+    "project207": {
+      "name": "Smart Apartmán 1",
+      "city": "Kyjev",
+      "country": "Ukrajina",
+      "brief": ".",
+      "end_date": "2022",
+      "area": "32 m²",
+      "team": "Marina Prokhorova, Ekaterina Sytnyk, Leonid Starcev",
+      "drawing_description": "."
+    },
+    "project208": {
+      "name": "Smart Apartmán 2",
+      "city": "Kyjev",
+      "country": "Ukrajina",
+      "brief": ".",
+      "end_date": "2022",
+      "area": "180 m²",
+      "team": "Marina Prokhorova, Ekaterina Sytnyk, Leonid Starcev",
+      "drawing_description": "."
+    }
+  }
 }

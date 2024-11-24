@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import ScrollToTop from "../custom-hooks/ScrollToTop";
 import "./ScrollToTopButton.css";
 
-
 const ScrollToTopButton = () => {
   const [scroll, setScroll] = useState(0);
-  let opacity;
+  // let opacity;
   useEffect(() => {
     const handleScroll = (event) => {
       setScroll(window.pageYOffset / 500);
@@ -19,18 +18,16 @@ const ScrollToTopButton = () => {
   }, [scroll]);
   if (scroll >= 0.75) {
     return (
-        <div className="container-fluid">
-          <button
-            className="btn btn-danger button-style"
-            onClick={() => ScrollToTop()}
-          >
-            &#9650;
-          </button>
-        </div>
-      );
-  } 
-
-  
+      <div className="container-fluid">
+        <button
+          className="btn btn-danger button-style"
+          onClick={() => ScrollToTop()}
+        >
+          &#9650;
+        </button>
+      </div>
+    );
+  }
 };
 // const ScrollToTopButton = () => {
 //   return (

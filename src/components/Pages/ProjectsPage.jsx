@@ -8,11 +8,23 @@ import ProjectsPagesNav from "./ProjectsPagesNav";
 import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next"; // i18n для определения языка
+// import axios from "axios";
 
 const ProjectsList = ({ focusedPage, itemsPerPage, filteredData }) => {
+  const { t } = useTranslation();
   const startIndex = (focusedPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  if (i18n.language === "ua") {
+    console.log("Текущий язык — украинский");
+  } else {
+    console.log("Текущий язык — не украинский");
+  }
+  // const [isUa, setisUa] = useState(false);
 
+  // if (i18n.language === "ua") {
+  //   setisUa(true);
+  // }
   //добавить правильный вывод на других страницах
   const renderedData = filteredData
     .slice(startIndex, endIndex)
@@ -28,8 +40,11 @@ const ProjectsList = ({ focusedPage, itemsPerPage, filteredData }) => {
             className="project_img "
           />
 
-          <h5 className="project_name">{element.project_name}</h5>
-          <h6 className="project_address">{element.project_address}</h6>
+          <h5 className="project_name">
+            {i18n.language === "ua"
+              ? element.project_name
+              : t(`projects.project${element.id}.name`)}
+          </h5>
         </Link>
       </div>
     ));
@@ -115,12 +130,70 @@ const Projects = ({ indexFromSecBlock }) => {
   );
 };
 
+// const ProjectsPage2 = () => {
+//   const [text, setText] = useState("");
+//   const [translatedText, setTranslatedText] = useState("");
+//   const [sourceLang, setSourceLang] = useState("en");
+//   const [targetLang, setTargetLang] = useState("es");
+
+//   const handleTranslate = async () => {
+//     try {
+//       const response = await axios.post("http://localhost:3001/api/translate", {
+//         text,
+//         sourceLang,
+//         targetLang,
+//       });
+//       setTranslatedText(response.data.translatedText);
+//     } catch (error) {
+//       console.error("Ошибка при переводе:", error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1>Перевод текста</h1>
+//       <textarea
+//         placeholder="Введите текст для перевода"
+//         value={text}
+//         onChange={(e) => setText(e.target.value)}
+//       />
+//       <br />
+//       <select
+//         value={sourceLang}
+//         onChange={(e) => setSourceLang(e.target.value)}
+//       >
+//         <option value="en">Английский</option>
+//         <option value="es">Испанский</option>
+//         <option value="fr">Французский</option>
+//         {/* Добавьте другие языки при необходимости */}
+//       </select>
+//       <select
+//         value={targetLang}
+//         onChange={(e) => setTargetLang(e.target.value)}
+//       >
+//         <option value="en">Английский</option>
+//         <option value="es">Испанский</option>
+//         <option value="fr">Французский</option>
+//       </select>
+//       <br />
+//       <button onClick={handleTranslate}>Перевести</button>
+//       {translatedText && (
+//         <div>
+//           <h3>Перевод:</h3>
+//           <p>{translatedText}</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
 const ProjectsPage = ({ indexFromSecBlock }) => {
   const { t } = useTranslation();
   return (
     <div className="projects">
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
       <PagesHeader title={t("projectsPage.ourProjects")} />
+      {/* <ProjectsPage2 /> */}
       <Projects indexFromSecBlock={indexFromSecBlock} />
       <Footer settings={{ color: `black`, bgColor: `white`, shadow: true }} />
     </div>
