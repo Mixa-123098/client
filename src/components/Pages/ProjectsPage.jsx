@@ -41,9 +41,14 @@ const ProjectsList = ({ focusedPage, itemsPerPage, filteredData }) => {
           />
 
           <h5 className="project_name">
-            {i18n.language === "ua"
+            {element &&
+              (t(`projects.project${element.id}.name`) !==
+              `projects.project${element.id}.name`
+                ? t(`projects.project${element.id}.name`)
+                : element.project_name)}
+            {/* {i18n.language === "ua"
               ? element.project_name
-              : t(`projects.project${element.id}.name`)}
+              : t(`projects.project${element.id}.name`)} */}
           </h5>
         </Link>
       </div>
@@ -138,7 +143,7 @@ const Projects = ({ indexFromSecBlock }) => {
 
 //   const handleTranslate = async () => {
 //     try {
-//       const response = await axios.post("http://localhost:3001/api/translate", {
+//       const response = await axios.post("https://server-2gn8.onrender.com/api/translate", {
 //         text,
 //         sourceLang,
 //         targetLang,

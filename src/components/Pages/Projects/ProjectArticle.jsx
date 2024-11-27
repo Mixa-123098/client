@@ -19,9 +19,14 @@ const ProjectHeader = ({ dataList, parallaxOffset }) => {
         <div className="header-paralax">
           <div className="header-text">
             <h1 className="titlePage">
-              {i18n.language === "ua"
+              {/* {i18n.language === "ua"
                 ? dataList && dataList.project_name
-                : t(`projects.project${dataList && dataList.id}.name`)}
+                : t(`projects.project${dataList && dataList.id}.name`)} */}
+              {dataList &&
+                (t(`projects.project${dataList.id}.name`) !==
+                `projects.project${dataList.id}.name`
+                  ? t(`projects.project${dataList.id}.name`)
+                  : dataList.project_name)}
             </h1>
           </div>
         </div>
@@ -51,9 +56,14 @@ const ProjectArticleBrief = ({ dataList }) => {
           <h3 className="">{t("projects.projectDescription")}</h3>
           <p className="w-100">
             {" "}
-            {i18n.language === "ua"
+            {dataList &&
+              (t(`projects.project${dataList.id}.brief`) !==
+              `projects.project${dataList.id}.brief`
+                ? t(`projects.project${dataList.id}.brief`)
+                : dataList.project_brief)}
+            {/* {i18n.language === "ua"
               ? dataList && dataList.project_brief
-              : t(`projects.project${dataList && dataList.id}.brief`)}
+              : t(`projects.project${dataList && dataList.id}.brief`)} */}
           </p>
         </div>
 
@@ -63,13 +73,23 @@ const ProjectArticleBrief = ({ dataList }) => {
             <div className="">
               <b>{t("projects.placement")}:</b>
               <br />{" "}
-              {i18n.language === "ua"
+              {dataList &&
+                (t(`projects.project${dataList.id}.city`) !==
+                `projects.project${dataList.id}.city`
+                  ? t(`projects.project${dataList.id}.city`)
+                  : dataList.project_city)}
+              {/* {i18n.language === "ua"
                 ? dataList && dataList.project_city
-                : t(`projects.project${dataList && dataList.id}.city`)}
+                : t(`projects.project${dataList && dataList.id}.city`)} */}
               {", "}
-              {i18n.language === "ua"
+              {dataList &&
+                (t(`projects.project${dataList.id}.country`) !==
+                `projects.project${dataList.id}.country`
+                  ? t(`projects.project${dataList.id}.country`)
+                  : dataList.project_country)}
+              {/* {i18n.language === "ua"
                 ? dataList && dataList.project_country
-                : t(`projects.project${dataList && dataList.id}.country`)}
+                : t(`projects.project${dataList && dataList.id}.country`)} */}
             </div>
           </div>
           <div>
@@ -78,13 +98,22 @@ const ProjectArticleBrief = ({ dataList }) => {
               <p>
                 <b>{t("projects.square")}:</b>
                 <br />
-                {i18n.language === "ua"
+                {dataList &&
+                  (t(`projects.project${dataList.id}.area`) !==
+                  `projects.project${dataList.id}.area`
+                    ? t(`projects.project${dataList.id}.area`)
+                    : dataList && (
+                        <>
+                          {dataList.project_square} м<sup>2</sup>
+                        </>
+                      ))}
+                {/* {i18n.language === "ua"
                   ? dataList && (
                       <>
                         {dataList.project_square} м<sup>2</sup>
                       </>
                     )
-                  : t(`projects.project${dataList?.id}.area`)}
+                  : t(`projects.project${dataList?.id}.area`)} */}
               </p>
             </div>
           </div>
@@ -94,9 +123,14 @@ const ProjectArticleBrief = ({ dataList }) => {
               <p>
                 <b>{t("projects.endDate")}:</b>
                 <br />
-                {i18n.language === "ua"
+                {dataList &&
+                  (t(`projects.project${dataList.id}.end_date`) !==
+                  `projects.project${dataList.id}.end_date`
+                    ? t(`projects.project${dataList.id}.end_date`)
+                    : dataList.project_finish_date)}
+                {/* {i18n.language === "ua"
                   ? dataList && dataList.project_finish_date
-                  : t(`projects.project${dataList && dataList.id}.end_date`)}
+                  : t(`projects.project${dataList && dataList.id}.end_date`)} */}
               </p>
             </div>
           </div>
@@ -105,9 +139,14 @@ const ProjectArticleBrief = ({ dataList }) => {
             <div className="">
               <b>{t("projects.team")}:</b>
               <br />
-              {i18n.language === "ua"
+              {dataList &&
+                (t(`projects.project${dataList.id}.team`) !==
+                `projects.project${dataList.id}.team`
+                  ? t(`projects.project${dataList.id}.team`)
+                  : dataList.project_team)}
+              {/* {i18n.language === "ua"
                 ? dataList && dataList.project_team
-                : t(`projects.project${dataList && dataList.id}.team`)}
+                : t(`projects.project${dataList && dataList.id}.team`)} */}
             </div>
           </div>
         </div>
@@ -142,13 +181,18 @@ const ProjectArticlePlanning = ({ id }) => {
         <div className="col-md-6 col-sm-8 planning-text">
           <h3 className="text-center">{t("projects.blueprintDescription")}</h3>
           <div>
-            {i18n.language === "ua"
+            {blueprints &&
+              (t(`projects.project${blueprints.id}.drawing_description`) !==
+              `projects.project${blueprints.id}.drawing_description`
+                ? t(`projects.project${blueprints.id}.drawing_description`)
+                : blueprints.description)}
+            {/* {i18n.language === "ua"
               ? blueprints && blueprints.description
               : t(
                   `projects.project${
                     blueprints && blueprints.project_id
                   }.drawing_description`
-                )}
+                )} */}
           </div>
         </div>
       </div>
