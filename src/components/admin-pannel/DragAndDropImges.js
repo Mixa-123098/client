@@ -7,7 +7,7 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
   const [imges, setImges] = useState([]);
 
   useEffect(() => {
-    fetch("https://server-2gn8.onrender.com/project_imges")
+    fetch("http://localhost:3001/project_imges")
       .then((response) => response.json())
       .then((data) => {
         setImges(

@@ -33,7 +33,7 @@ class PhotoStore {
   }
 
   async fetchFile() {
-    const url = `https://server-2gn8.onrender.com/get-file/${this.fileName}`;
+    const url = `http://localhost:3001/get-file/${this.fileName}`;
     if (this.fileName !== null) {
       try {
         const response = await fetch(url);
@@ -77,7 +77,7 @@ export default fileStore;
 //   }
 
 //   async fetchFile(fileName) {
-//     const url = `https://server-2gn8.onrender.com/get-file/${fileName}`;
+//     const url = `http://localhost:3001/get-file/${fileName}`;
 
 //     try {
 //       const response = await fetch(url);

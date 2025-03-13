@@ -264,7 +264,13 @@
       "projectPreview": "Náhľad projektu",
       "projectBlueprint": "Plán",
       "imagesInsideTheProject": "Obrázky v projekte",
-      "close": "Zavrieť"
+      "close": "Zavrieť",
+      "cropImage": "Orezať fotografiu",
+      "preview": "Náhľad",
+      "croppedImage": "Orezaná fotografia",
+      "noCroppedImage": "Ešte ste neorezali fotografiu",
+      "save": "Uložiť zmeny",
+      "loading": "Načítava sa..."
     }
   },
   "footer": {

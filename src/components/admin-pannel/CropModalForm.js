@@ -4,8 +4,11 @@ import { observer } from "mobx-react-lite";
 import modalStore from "../../store/ModalStore";
 import fileStore from "../../store/cropImgStore";
 import useFileUpload from "../../custom-hooks/useFileUpload";
+import { useTranslation } from "react-i18next";
 
 const CropModalForm = observer(() => {
+  const { t } = useTranslation();
+
   const [projectData, setProjectData] = useState();
   // console.log(projectData);
   const { handleFileChange, handleUpload } = useFileUpload(
@@ -16,11 +19,11 @@ const CropModalForm = observer(() => {
 
   const handleSaveClick = (e) => {
     if (!fileStore.croppedImg) {
-      alert("Ви не обрізали фотографію");
+      alert(t("editPage.cropImages.noCroppedImage"));
     } else {
-      window.confirm("Зберегти зміни?");
+      window.confirm(`${t("editPage.cropImages.save")}?`);
       setTimeout(() => {
-        handleUpload("https://server-2gn8.onrender.com/upload");
+        handleUpload("http://localhost:3001/upload");
       }, 1000);
     }
   };
@@ -49,7 +52,7 @@ const CropModalForm = observer(() => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Обрізати фотографію
+                {t("editPage.cropImages.cropImage")}
               </h1>
               <button
                 type="button"
@@ -62,7 +65,7 @@ const CropModalForm = observer(() => {
 
             {!modalStore.isModalReady ? (
               <h3 className="d-flex justify-content-center">
-                Завантажується...
+                {t("editPage.cropImages.loading")}
               </h3>
             ) : (
               <div className="mt-4">
@@ -80,7 +83,7 @@ const CropModalForm = observer(() => {
                 data-bs-dismiss="modal"
                 onClick={handleModalDismiss}
               >
-                Закрити
+                {t("editPage.cropImages.close")}
               </button>
               <button
                 type="button"
@@ -88,7 +91,7 @@ const CropModalForm = observer(() => {
                 id="save-button"
                 onClick={(e) => handleSaveClick(e)}
               >
-                Зберегти зміни
+                {t("editPage.cropImages.save")}
               </button>
             </div>
           </div>

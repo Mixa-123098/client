@@ -31,7 +31,7 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
   };
 
   useEffect(() => {
-    fetch("https://server-2gn8.onrender.com/users")
+    fetch("http://localhost:3001/users")
       .then((response) => response.json())
       .then((data) => {
         const onlineUser = data.find((user) => user.status === "online");

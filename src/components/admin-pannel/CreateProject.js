@@ -46,16 +46,13 @@ const CreateProject = () => {
       return;
     }
     try {
-      const response = await fetch(
-        "https://server-2gn8.onrender.com/create_post",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(projectData),
-        }
-      );
+      const response = await fetch("http://localhost:3001/create_post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projectData),
+      });
 
       console.log("Response status:", response.status);
 
@@ -68,7 +65,7 @@ const CreateProject = () => {
     } catch (error) {
       console.error("Error sending request:", error);
     }
-    handleUpload("https://server-2gn8.onrender.com/upload");
+    handleUpload("http://localhost:3001/upload");
   };
 
   return (

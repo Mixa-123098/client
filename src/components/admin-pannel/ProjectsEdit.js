@@ -28,12 +28,12 @@ const ProjectsEdit = () => {
   useEffect(() => {
     setLoading(true);
 
-    const fetchProjects = fetch(
-      `https://server-2gn8.onrender.com/projects`
-    ).then((response) => response.json());
-    const fetchOtherData = fetch(
-      `https://server-2gn8.onrender.com/blueprints`
-    ).then((response) => response.json());
+    const fetchProjects = fetch(`http://localhost:3001/projects`).then(
+      (response) => response.json()
+    );
+    const fetchOtherData = fetch(`http://localhost:3001/blueprints`).then(
+      (response) => response.json()
+    );
 
     Promise.all([fetchProjects, fetchOtherData])
       .then(([projectsData, otherData]) => {
@@ -52,7 +52,7 @@ const ProjectsEdit = () => {
   const handleSaveClick = async (e) => {
     try {
       e.preventDefault();
-      handleUpload("https://server-2gn8.onrender.com/upload");
+      handleUpload("http://localhost:3001/upload");
 
       setProjects((prevProjects) =>
         prevProjects.map((project) =>
@@ -61,7 +61,7 @@ const ProjectsEdit = () => {
       );
 
       const response = await fetch(
-        `https://server-2gn8.onrender.com/update_project/${editedProject.id}`,
+        `http://localhost:3001/update_project/${editedProject.id}`,
         {
           method: "PUT",
           headers: {
@@ -114,7 +114,7 @@ const ProjectsEdit = () => {
     if (isConfirmed) {
       try {
         const response = await fetch(
-          `https://server-2gn8.onrender.com/delete_project/${projectId}`,
+          `http://localhost:3001/delete_project/${projectId}`,
           {
             method: "DELETE",
           }

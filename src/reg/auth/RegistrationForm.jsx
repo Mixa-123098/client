@@ -26,7 +26,7 @@ const AuthForm = observer(() => {
   const navigate = useNavigate();
 
   // useEffect(() => {
-  //   fetch("https://server-2gn8.onrender.com/users")
+  //   fetch("http://localhost:3001/users")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       const onlineUser = data.find((user) => user.status === "online");
@@ -43,13 +43,13 @@ const AuthForm = observer(() => {
   //     .catch((error) => {
   //       console.error("Error fetching user data:", error);
   //     });
-  //   fetch(`https://server-2gn8.onrender.com/users`)
+  //   fetch(`http://localhost:3001/users`)
   //     .then((response) => response.json())
   //     .then((data) => setUsersData(data));
   // }, [navigate]);
 
   useEffect(() => {
-    fetch("https://server-2gn8.onrender.com/users")
+    fetch("http://localhost:3001/users")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -98,7 +98,7 @@ const AuthForm = observer(() => {
       } else if (isEmailTaken) {
         alert(t("authForm.feedbacks.emailTaken"));
       } else {
-        fetch("https://server-2gn8.onrender.com/users", {
+        fetch("http://localhost:3001/users", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {

@@ -65,7 +65,7 @@ const Projects = ({ indexFromSecBlock }) => {
   const [dataList, setDataList] = useState([]);
   const index = indexFromSecBlock || 0;
   useEffect(() => {
-    fetch("https://server-2gn8.onrender.com/projects")
+    fetch("http://localhost:3001/projects")
       .then((response) => response.json())
       .then((data) => setDataList(data))
       .catch((error) => {
@@ -143,7 +143,7 @@ const Projects = ({ indexFromSecBlock }) => {
 
 //   const handleTranslate = async () => {
 //     try {
-//       const response = await axios.post("https://server-2gn8.onrender.com/api/translate", {
+//       const response = await axios.post("http://localhost:3001/api/translate", {
 //         text,
 //         sourceLang,
 //         targetLang,

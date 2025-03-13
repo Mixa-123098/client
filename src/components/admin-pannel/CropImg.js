@@ -3,10 +3,96 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import "./Crop.css";
 import fileStore from "../../store/cropImgStore";
+import { useTranslation } from "react-i18next";
+
+const CropImg = ({ fileDataUrl, handleFileChange }) => {
+  const { t } = useTranslation();
+
+  const image = fileDataUrl;
+
+  const [cropData, setCropData] = useState("#");
+  const cropperRef = createRef();
+
+  const getCropData = () => {
+    if (cropperRef.current?.cropper !== "undefined") {
+      const croppedImg = cropperRef.current.cropper
+        .getCroppedCanvas()
+        .toDataURL();
+      setCropData(croppedImg);
+      fileStore.setCroppedImg(croppedImg);
+
+      console.log(fileStore.fileName);
+      handleFileChange(fileStore.croppedImg, fileStore.fileName);
+    }
+  };
+
+  return (
+    <div>
+      <div className="container-fluid d-flex justify-content-between">
+        <div className="col-6">
+          <h5>{t("editPage.cropImages.preview")}</h5>
+          <Cropper
+            ref={cropperRef}
+            style={{ height: "350px" }}
+            zoomTo={0.5}
+            initialAspectRatio={4 / 3}
+            src={image}
+            viewMode={1}
+            minCropBoxHeight={100}
+            minCropBoxWidth={75}
+            background={false}
+            responsive={true}
+            autoCropArea={1}
+            checkOrientation={false}
+            guides={true}
+
+            // autoCrop={true}
+          />
+          {/* {fileDataUrl && (
+            <Cropper
+              ref={cropperRef}
+              style={{ height: "350px" }}
+              zoomTo={0.5}
+              initialAspectRatio={4 / 3}
+              src={image}
+              viewMode={1}
+              minCropBoxHeight={100}
+              minCropBoxWidth={75}
+              background={false}
+              responsive={true}
+              autoCropArea={1}
+              checkOrientation={false}
+              guides={true}
+
+              // autoCrop={true}
+            />
+          )} */}
+        </div>
+
+        <div className="col-6 d-flex flex-column align-items-center ">
+          <h5>{t("editPage.cropImages.croppedImage")}</h5>
+          <div>
+            {cropData === "#" ? (
+              <div>{t("editPage.cropImages.noCroppedImage")}</div>
+            ) : (
+              <img style={{ maxWidth: "100%" }} src={cropData} alt="cropped" />
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="container d-flex justify-content-center mt-5 mb-5">
+        <button onClick={getCropData} className="col-5 btn btn-dark p-1">
+          <h3>{t("editPage.cropImages.cropImage")}</h3>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default CropImg;
 
 // const CropImg = ({ fileDataUrl, handleFileChange }) => {
-//   const image = fileDataUrl;
-
 //   const [cropData, setCropData] = useState("#");
 //   const cropperRef = createRef();
 
@@ -16,42 +102,29 @@ import fileStore from "../../store/cropImgStore";
 //         .getCroppedCanvas()
 //         .toDataURL();
 //       setCropData(croppedImg);
-//       fileStore.setCroppedImg(croppedImg);
 
-//       console.log(fileStore.fileName);
-//       handleFileChange(fileStore.croppedImg, fileStore.fileName);
+//       // Передача обрезанного изображения в функцию handleFileChange
+//       handleFileChange(croppedImg);
 //     }
 //   };
+
+//   // Условный рендеринг: показываем компонент только если есть изображение
+//   if (!fileDataUrl) {
+//     return <div>Пожалуйста, загрузите изображение</div>;
+//   }
 
 //   return (
 //     <div>
 //       <div className="container-fluid d-flex justify-content-between">
 //         <div className="col-6">
 //           <h5>Прев'ю</h5>
-//           <Cropper
-//             ref={cropperRef}
-//             style={{ height: "350px" }}
-//             zoomTo={0.5}
-//             initialAspectRatio={4 / 3}
-//             src={image}
-//             viewMode={1}
-//             minCropBoxHeight={100}
-//             minCropBoxWidth={75}
-//             background={false}
-//             responsive={true}
-//             autoCropArea={1}
-//             checkOrientation={false}
-//             guides={true}
-
-//             // autoCrop={true}
-//           />
-//           {/* {fileDataUrl && (
+//           {fileDataUrl && (
 //             <Cropper
 //               ref={cropperRef}
 //               style={{ height: "350px" }}
 //               zoomTo={0.5}
 //               initialAspectRatio={4 / 3}
-//               src={image}
+//               src={fileDataUrl} // Использование переданного изображения
 //               viewMode={1}
 //               minCropBoxHeight={100}
 //               minCropBoxWidth={75}
@@ -60,10 +133,8 @@ import fileStore from "../../store/cropImgStore";
 //               autoCropArea={1}
 //               checkOrientation={false}
 //               guides={true}
-
-//               // autoCrop={true}
 //             />
-//           )} */}
+//           )}
 //         </div>
 
 //         <div className="col-6 d-flex flex-column align-items-center ">
@@ -89,72 +160,6 @@ import fileStore from "../../store/cropImgStore";
 
 // export default CropImg;
 
-const CropImg = ({ fileDataUrl, handleFileChange }) => {
-  const [cropData, setCropData] = useState("#");
-  const cropperRef = createRef();
-
-  const getCropData = () => {
-    if (cropperRef.current?.cropper !== "undefined") {
-      const croppedImg = cropperRef.current.cropper
-        .getCroppedCanvas()
-        .toDataURL();
-      setCropData(croppedImg);
-
-      // Передача обрезанного изображения в функцию handleFileChange
-      handleFileChange(croppedImg);
-    }
-  };
-
-  // Условный рендеринг: показываем компонент только если есть изображение
-  if (!fileDataUrl) {
-    return <div>Пожалуйста, загрузите изображение</div>;
-  }
-
-  return (
-    <div>
-      <div className="container-fluid d-flex justify-content-between">
-        <div className="col-6">
-          <h5>Прев'ю</h5>
-          <Cropper
-            ref={cropperRef}
-            style={{ height: "350px" }}
-            zoomTo={0.5}
-            initialAspectRatio={4 / 3}
-            src={fileDataUrl} // Использование переданного изображения
-            viewMode={1}
-            minCropBoxHeight={100}
-            minCropBoxWidth={75}
-            background={false}
-            responsive={true}
-            autoCropArea={1}
-            checkOrientation={false}
-            guides={true}
-          />
-        </div>
-
-        <div className="col-6 d-flex flex-column align-items-center ">
-          <h5>Обрізане фото</h5>
-          <div>
-            {cropData === "#" ? (
-              <div>Ви ще не обрізали фотографію</div>
-            ) : (
-              <img style={{ maxWidth: "100%" }} src={cropData} alt="cropped" />
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="container d-flex justify-content-center mt-5 mb-5">
-        <button onClick={getCropData} className="col-5 btn btn-dark p-1">
-          <h3>Обрізати фотографію</h3>
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default CropImg;
-
 // import React, { useState, createRef, useEffect } from "react";
 // import Cropper from "react-cropper";
 // import "cropperjs/dist/cropper.css";
@@ -167,7 +172,7 @@ export default CropImg;
 //   useEffect(() => {
 //     const fetchFile = async () => {
 //       const fileName = "photo_2023-12-28_15-19-25.jpg";
-//       const url = `https://server-2gn8.onrender.com/get-file/${fileName}`;
+//       const url = `http://localhost:3001/get-file/${fileName}`;
 
 //       try {
 //         const response = await fetch(url);

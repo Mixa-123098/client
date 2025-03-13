@@ -44,7 +44,7 @@ class AuthStore {
     console.log(status);
     try {
       const response = await fetch(
-        `https://server-2gn8.onrender.com/update_user_status/${this.user.username}`,
+        `http://localhost:3001/update_user_status/${this.user.username}`,
         {
           method: "PUT",
           headers: {
@@ -103,7 +103,7 @@ export default authStore;
 //     console.log(status);
 //     try {
 //       const response = await fetch(
-//         `https://server-2gn8.onrender.com/update_user_status/${this.user.username}`,
+//         `http://localhost:3001/update_user_status/${this.user.username}`,
 //         {
 //           method: "PUT",
 //           headers: {
@@ -182,7 +182,7 @@ export default authStore;
 //   updateUserStatus = async (status) => {
 //     try {
 //       const response = await fetch(
-//         `https://server-2gn8.onrender.com/update_user_status/${this.user.username}`,
+//         `http://localhost:3001/update_user_status/${this.user.username}`,
 //         {
 //           method: "PUT",
 //           headers: {

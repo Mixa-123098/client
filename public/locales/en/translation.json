@@ -265,7 +265,13 @@
       "projectPreview": "Project Preview",
       "projectBlueprint": "Blueprint",
       "imagesInsideTheProject": "Images inside the project",
-      "close": "Close"
+      "close": "Close",
+      "cropImage": "Crop the photo",
+      "preview": "Preview",
+      "croppedImage": "Cropped photo",
+      "noCroppedImage": "You have not cropped the photo yet",
+      "save": "Save changes",
+      "loading": "Loading..."
     }
   },
   "footer": {

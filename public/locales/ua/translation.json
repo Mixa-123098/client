@@ -262,7 +262,13 @@
       "projectPreview": "Превью проєкту",
       "projectBlueprint": "Планування",
       "imagesInsideTheProject": "Картинки в середині проєкту",
-      "close": "Закрити"
+      "close": "Закрити",
+      "cropImage": "Обрізати фотографію",
+      "preview": "Прев'ю",
+      "croppedImage": "Обрізане фото",
+      "noCroppedImage": "Ви ще не обрізали фотографію",
+      "save": "Зберегти зміни",
+      "loading": "Завантажується..."
     }
   },
   "footer": {

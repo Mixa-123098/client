@@ -18,7 +18,7 @@ const UsersStatus = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://server-2gn8.onrender.com/users`);
+        const response = await fetch(`http://localhost:3001/users`);
         const data = await response.json();
         setUsers(data);
 
@@ -62,7 +62,7 @@ const UsersStatus = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://server-2gn8.onrender.com/users`);
+      const response = await fetch(`http://localhost:3001/users`);
       const updatedData = await response.json();
 
       const isDataChanged =
@@ -75,7 +75,7 @@ const UsersStatus = () => {
             currentUser !== undefined ? currentUser.role : updatedUser.role;
 
           const putResponse = await fetch(
-            `https://server-2gn8.onrender.com/update_user_role/${updatedUser.username}`,
+            `http://localhost:3001/update_user_role/${updatedUser.username}`,
             {
               method: "PUT",
               headers: {
