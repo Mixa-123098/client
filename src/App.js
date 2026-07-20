@@ -37,8 +37,15 @@ const MainPageContainer = ({ updateIndexFromSecBlock }) => {
       <div className="main">
         <div className="overlay"></div>
 
-        <video src={loft} autoPlay loop muted className="img video active " />
-        <video src={cheh} autoPlay loop muted className="video a" />
+        <video
+          src={loft}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="img video active "
+        />
+        <video src={cheh} autoPlay loop muted playsInline className="video a" />
         <img src={bgvideo3} alt="" className="img video a" />
 
         <div className="header-content">

@@ -65,7 +65,7 @@ const Footer = ({ settings }) => {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-decoration-none"
+                      className="text-decoration-none footer-social-link"
                       style={{ color: color || "white" }}
                     >
                       {link.name}

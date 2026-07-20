@@ -167,6 +167,11 @@ video {
   font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
 }
 
+.subtitlePage a {
+  display: inline-block;
+  padding: 10px 0;
+}
+
 .nav-styles {
   margin: 10px;
 
@@ -208,11 +213,12 @@ video {
 .menu__btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: fixed;
   /* top: 20px; */
-  right: 25px;
-  width: 26px;
-  height: 26px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   z-index: 3;
 }
@@ -223,7 +229,7 @@ video {
 .menu__btn>span::after {
   display: block;
   position: absolute;
-  width: 100%;
+  width: 26px;
   height: 2px;
   background-color: var(--mainColor);
 }
@@ -242,11 +248,12 @@ video {
 .menu__btn2 {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: fixed;
   /* top: 20px; */
-  right: 25px;
-  width: 26px;
-  height: 26px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   z-index: 3;
 }
@@ -256,7 +263,7 @@ video {
 .menu__btn2>span::after {
   display: block;
   position: absolute;
-  width: 100%;
+  width: 26px;
   height: 2px;
   background-color: var(--notMainDarkColor);
 }
@@ -368,6 +375,12 @@ video {
   cursor: pointer;
 }
 
+.nav_icons_width {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
 .nav_icons_width img {
   max-width: 25px;
   margin-left: max(1vw, 10px);
@@ -437,6 +450,11 @@ video {
 
 footer {
   background-color: var(--notMainColor);
+}
+
+.footer-social-link {
+  display: inline-block;
+  padding: 9px 0;
 }
 
 
