@@ -24,28 +24,27 @@ const useFileUpload = (updateProjectData, projectData, project_id) => {
   };
 
   const handleUpload = (url) => {
-    files.forEach((file, index) => {
-      const formData = new FormData();
-      formData.append("file", file);
+    return Promise.all(
+      files.map((file, index) => {
+        const formData = new FormData();
+        formData.append("file", file);
 
-      fetch(url, {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      })
-        .then((response) => {
+        return fetch(url, {
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        }).then((response) => {
           if (!response.ok) {
             throw new Error(`File upload failed for file ${index + 1}`);
           }
-          console.log(`File ${index + 1} uploaded!`);
-        })
-        .catch((error) => {
-          console.error(error);
         });
-    });
+      })
+    );
   };
 
-  return { files, handleFileChange, handleUpload };
+  const resetFiles = () => setFiles([]);
+
+  return { files, handleFileChange, handleUpload, resetFiles };
 };
 
 export default useFileUpload;
