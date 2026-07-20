@@ -156,7 +156,7 @@ const ProjectArticleBrief = ({ dataList }) => {
   );
 };
 
-const ProjectArticlePlanning = ({ id }) => {
+const ProjectArticlePlanning = ({ id, translation }) => {
   const { t } = useTranslation();
 
   const [blueprints, setBlueprint] = useState();
@@ -186,7 +186,8 @@ const ProjectArticlePlanning = ({ id }) => {
               (t(`projects.project${blueprints.id}.drawing_description`) !==
               `projects.project${blueprints.id}.drawing_description`
                 ? t(`projects.project${blueprints.id}.drawing_description`)
-                : blueprints.description)}
+                : (translation && translation.drawing_description) ||
+                  blueprints.description)}
             {/* {i18n.language === "ua"
               ? blueprints && blueprints.description
               : t(
@@ -330,6 +331,7 @@ const ProjectArticle = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [dataList, setDataList] = useState();
+  const [translation, setTranslation] = useState(null);
   // console.log(dataList);
   const [scrollY, setScrollY] = useState(0);
 
@@ -346,6 +348,28 @@ const ProjectArticle = () => {
         console.error("Error fetching project data:", error);
         setLoading(false); // Ensure loading stops even if there's an error
       });
+
+    // Machine-translated fields for projects that don't have hand-written
+    // translations in the static i18n files (see components below: they try
+    // the static key first, and only fall back to this).
+    if (i18n.language !== "ua") {
+      fetch(`${API_URL}/project_translations`)
+        .then((response) => response.json())
+        .then((data) =>
+          setTranslation(
+            data.find(
+              (row) =>
+                row.project_id === parseInt(id) && row.lang === i18n.language
+            )
+          )
+        )
+        .catch((error) => {
+          console.error("Error fetching project translations:", error);
+        });
+    } else {
+      setTranslation(null);
+    }
+
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
@@ -363,12 +387,27 @@ const ProjectArticle = () => {
     return <Loader />;
   }
 
+  const resolvedDataList =
+    dataList &&
+    (translation
+      ? {
+          ...dataList,
+          project_name: translation.name || dataList.project_name,
+          project_city: translation.city || dataList.project_city,
+          project_country: translation.country || dataList.project_country,
+          project_brief: translation.brief || dataList.project_brief,
+          project_finish_date:
+            translation.end_date || dataList.project_finish_date,
+          project_team: translation.team || dataList.project_team,
+        }
+      : dataList);
+
   return (
     <>
       <Header />
-      <ProjectHeader dataList={dataList} parallaxOffset={parallaxOffset} />
-      <ProjectArticleBrief dataList={dataList} />
-      <ProjectArticlePlanning id={id} />
+      <ProjectHeader dataList={resolvedDataList} parallaxOffset={parallaxOffset} />
+      <ProjectArticleBrief dataList={resolvedDataList} />
+      <ProjectArticlePlanning id={id} translation={translation} />
       <ProjectArticleImges id={id} />
 
       <PrevAndNextProject id={id} />

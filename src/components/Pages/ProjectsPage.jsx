@@ -12,48 +12,43 @@ import i18n from "i18next"; // i18n для определения языка
 // import axios from "axios";
 import { API_URL } from "../../config/api";
 
-const ProjectsList = ({ focusedPage, itemsPerPage, filteredData }) => {
+const ProjectsList = ({ focusedPage, itemsPerPage, filteredData, translations }) => {
   const { t } = useTranslation();
   const startIndex = (focusedPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  if (i18n.language === "ua") {
-    console.log("Текущий язык — украинский");
-  } else {
-    console.log("Текущий язык — не украинский");
-  }
-  // const [isUa, setisUa] = useState(false);
 
-  // if (i18n.language === "ua") {
-  //   setisUa(true);
-  // }
-  //добавить правильный вывод на других страницах
   const renderedData = filteredData
     .slice(startIndex, endIndex)
-    .map((element, index) => (
-      <div key={index} id={index}>
-        <Link
-          to={`/projects/${element.id} `}
-          className="text-center link-style"
-        >
-          <img
-            src={`/img/main_imges_folder/${element.project_img_src}`}
-            alt=""
-            className="project_img "
-          />
+    .map((element, index) => {
+      const translation =
+        i18n.language !== "ua" &&
+        translations.find(
+          (row) => row.project_id === element.id && row.lang === i18n.language
+        );
 
-          <h5 className="project_name">
-            {element &&
-              (t(`projects.project${element.id}.name`) !==
-              `projects.project${element.id}.name`
-                ? t(`projects.project${element.id}.name`)
-                : element.project_name)}
-            {/* {i18n.language === "ua"
-              ? element.project_name
-              : t(`projects.project${element.id}.name`)} */}
-          </h5>
-        </Link>
-      </div>
-    ));
+      return (
+        <div key={index} id={index}>
+          <Link
+            to={`/projects/${element.id} `}
+            className="text-center link-style"
+          >
+            <img
+              src={`/img/main_imges_folder/${element.project_img_src}`}
+              alt=""
+              className="project_img "
+            />
+
+            <h5 className="project_name">
+              {element &&
+                (t(`projects.project${element.id}.name`) !==
+                `projects.project${element.id}.name`
+                  ? t(`projects.project${element.id}.name`)
+                  : (translation && translation.name) || element.project_name)}
+            </h5>
+          </Link>
+        </div>
+      );
+    });
 
   return (
     <div className="projects-container">
@@ -64,6 +59,7 @@ const ProjectsList = ({ focusedPage, itemsPerPage, filteredData }) => {
 
 const Projects = ({ indexFromSecBlock }) => {
   const [dataList, setDataList] = useState([]);
+  const [translations, setTranslations] = useState([]);
   const index = indexFromSecBlock || 0;
   useEffect(() => {
     fetch(`${API_URL}/projects`)
@@ -71,6 +67,12 @@ const Projects = ({ indexFromSecBlock }) => {
       .then((data) => setDataList(data))
       .catch((error) => {
         console.error("Ошибка получения данных:", error);
+      });
+    fetch(`${API_URL}/project_translations`)
+      .then((response) => response.json())
+      .then((data) => setTranslations(data))
+      .catch((error) => {
+        console.error("Ошибка получения переводов:", error);
       });
   }, []);
   const { t } = useTranslation();
@@ -125,6 +127,7 @@ const Projects = ({ indexFromSecBlock }) => {
         itemsPerPage={itemsPerPage}
         filteredData={filteredData}
         dataList={dataList}
+        translations={translations}
       />
       <ProjectsPagesNav
         setFocusedPage={setCurrentPage}
