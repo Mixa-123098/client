@@ -162,6 +162,7 @@
       "close": "Close",
       "open_close": "project creation",
       "create": "Create project",
+      "optional": "(optional)",
       "submitting": "Creating project and translating…",
       "success": "Project created successfully!",
       "error": "Failed to create the project. Please try again.",

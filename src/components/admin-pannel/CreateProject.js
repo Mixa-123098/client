@@ -117,7 +117,10 @@ const CreateProject = () => {
         )}
         <fieldset disabled={status === "submitting"}>
           <div className="d-flex">
-            <div className="col-3">{t("editPage.createNewProject.name")}:</div>
+            <div className="col-3">
+              {t("editPage.createNewProject.name")}
+              <span className="text-danger"> *</span>:
+            </div>
             <div className="col-9">
               <input
                 type="text"
@@ -139,53 +142,50 @@ const CreateProject = () => {
           </div>
           <br />
           <div className="d-flex">
-            <div className="col-3">{t("editPage.createNewProject.city")}:</div>
+            <div className="col-3">
+              {t("editPage.createNewProject.city")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
+            </div>
             <div className="col-9">
               <input
                 type="text"
                 name="project_city"
-                className={`form-control ${
-                  !projectData.project_city && "is-invalid"
-                } `}
+                className="form-control"
                 value={projectData.project_city}
                 onChange={handleInputChange}
-                required
               />
-              <div className="valid-feedback">
-                {t("editPage.createNewProject.feedbacks.city.true")}
-              </div>
-              <div className="invalid-feedback">
-                {t("editPage.createNewProject.feedbacks.city.false")}
-              </div>
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">{t("editPage.createNewProject.country")}:</div>
-
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_country"
-                className={`form-control ${
-                  !projectData.project_country && "is-invalid"
-                } `}
-                value={projectData.project_country}
-                onChange={handleInputChange}
-                required
-              />
-              <div className="valid-feedback">
-                {t("editPage.createNewProject.feedbacks.country.true")}
-              </div>
-              <div className="invalid-feedback">
-                {t("editPage.createNewProject.feedbacks.country.false")}
-              </div>
             </div>
           </div>
           <br />
           <div className="d-flex">
             <div className="col-3">
-              {t("editPage.createNewProject.specialization.title")}:
+              {t("editPage.createNewProject.country")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
+            </div>
+
+            <div className="col-9">
+              <input
+                type="text"
+                name="project_country"
+                className="form-control"
+                value={projectData.project_country}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="col-3">
+              {t("editPage.createNewProject.specialization.title")}
+              <span className="text-danger"> *</span>:
             </div>
 
             <select
@@ -215,7 +215,8 @@ const CreateProject = () => {
           <br />
           <div className="d-flex">
             <div className="col-3">
-              {t("editPage.createNewProject.previewImage")}:
+              {t("editPage.createNewProject.previewImage")}
+              <span className="text-danger"> *</span>:
             </div>
 
             <div className="col-9 d-flex align-items-center gap-3">
@@ -237,7 +238,12 @@ const CreateProject = () => {
           <br />
           <div className="d-flex">
             <div className="col-3">
-              {t("editPage.createNewProject.topProjectImage")}:
+              {t("editPage.createNewProject.topProjectImage")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
             </div>
 
             <div className="col-9 d-flex align-items-center gap-3">
@@ -245,7 +251,6 @@ const CreateProject = () => {
                 type="file"
                 name="project_header_img"
                 onChange={handleFileInputChange}
-                required
               />
               {previews.project_header_img && (
                 <img
@@ -259,103 +264,96 @@ const CreateProject = () => {
           <br />
           <div className="d-flex">
             <div className="col-3">
-              {t("editPage.createNewProject.projectDescription")}:
+              {t("editPage.createNewProject.projectDescription")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
             </div>
 
             <div className="col-9">
               <input
                 type="text"
                 name="project_brief"
-                className={`form-control ${
-                  !projectData.project_brief && "is-invalid"
-                } `}
+                className="form-control"
                 value={projectData.project_brief}
                 onChange={handleInputChange}
-                required
               />
-              <div className="valid-feedback">
-                {t("editPage.createNewProject.feedbacks.projectDescription.true")}
-              </div>
-              <div className="invalid-feedback">
-                {t(
-                  "editPage.createNewProject.feedbacks.projectDescription.false"
-                )}
-              </div>
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">{t("editPage.createNewProject.endDate")}:</div>
-
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_finish_date"
-                className={`form-control ${
-                  !projectData.project_finish_date && "is-invalid"
-                } `}
-                value={projectData.project_finish_date}
-                onChange={handleInputChange}
-                required
-              />
-              <div className="valid-feedback">
-                {t("editPage.createNewProject.feedbacks.endDate.true")}
-              </div>
-              <div className="invalid-feedback">
-                {t("editPage.createNewProject.feedbacks.endDate.false")}
-              </div>
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">{t("editPage.createNewProject.square")}:</div>
-
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_square"
-                className={`form-control ${
-                  !projectData.project_square && "is-invalid"
-                } `}
-                value={projectData.project_square}
-                onChange={handleInputChange}
-                required
-              />
-              <div className="valid-feedback">
-                {t("editPage.createNewProject.feedbacks.square.true")}
-              </div>
-              <div className="invalid-feedback">
-                {t("editPage.createNewProject.feedbacks.square.false")}
-              </div>
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">{t("editPage.createNewProject.team")}:</div>
-
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_team"
-                className={`form-control ${
-                  !projectData.project_team && "is-invalid"
-                } `}
-                value={projectData.project_team}
-                onChange={handleInputChange}
-                required
-              />
-              <div className="valid-feedback">
-                {t("editPage.createNewProject.feedbacks.team.true")}
-              </div>
-              <div className="invalid-feedback">
-                {t("editPage.createNewProject.feedbacks.team.false")}
-              </div>
             </div>
           </div>
           <br />
           <div className="d-flex">
             <div className="col-3">
-              {t("editPage.createNewProject.blueprintImage")}:
+              {t("editPage.createNewProject.endDate")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
+            </div>
+
+            <div className="col-9">
+              <input
+                type="text"
+                name="project_finish_date"
+                className="form-control"
+                value={projectData.project_finish_date}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="col-3">
+              {t("editPage.createNewProject.square")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
+            </div>
+
+            <div className="col-9">
+              <input
+                type="text"
+                name="project_square"
+                className="form-control"
+                value={projectData.project_square}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="col-3">
+              {t("editPage.createNewProject.team")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
+            </div>
+
+            <div className="col-9">
+              <input
+                type="text"
+                name="project_team"
+                className="form-control"
+                value={projectData.project_team}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="col-3">
+              {t("editPage.createNewProject.blueprintImage")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
             </div>
 
             <div className="col-9 d-flex align-items-center gap-3">
@@ -363,7 +361,6 @@ const CreateProject = () => {
                 type="file"
                 name="blueprint_img"
                 onChange={handleFileInputChange}
-                required
               />
               {previews.blueprint_img && (
                 <img
@@ -377,37 +374,33 @@ const CreateProject = () => {
           <br />
           <div className="d-flex">
             <div className="col-3">
-              {t("editPage.createNewProject.blueprintDescription")}:
+              {t("editPage.createNewProject.blueprintDescription")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
             </div>
 
             <div className="col-9">
               <input
                 type="text"
                 name="blueprint_description"
-                className={`form-control ${
-                  !projectData.blueprint_description && "is-invalid"
-                } `}
+                className="form-control"
                 value={projectData.blueprint_description}
                 onChange={handleInputChange}
-                required
               />
-              <div className="valid-feedback">
-                {" "}
-                {t(
-                  "editPage.createNewProject.feedbacks.blueprintDescriprion.true"
-                )}
-              </div>
-              <div className="invalid-feedback">
-                {t(
-                  "editPage.createNewProject.feedbacks.blueprintDescriprion.false"
-                )}
-              </div>
             </div>
           </div>
           <br />
           <div className="d-flex">
             <div className="col-3">
-              {t("editPage.createNewProject.imagesInsideTheProject")}:
+              {t("editPage.createNewProject.imagesInsideTheProject")}
+              <span className="text-muted">
+                {" "}
+                {t("editPage.createNewProject.optional")}
+              </span>
+              :
             </div>
 
             <div className="col-9">

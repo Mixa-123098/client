@@ -162,6 +162,7 @@
       "close": "Zavrieť",
       "open_close": "vytváranie projektu",
       "create": "Vytvoriť projekt",
+      "optional": "(nepovinné)",
       "submitting": "Vytváranie projektu a preklad…",
       "success": "Projekt bol úspešne vytvorený!",
       "error": "Nepodarilo sa vytvoriť projekt. Skúste to znova.",
