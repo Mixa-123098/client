@@ -30,6 +30,7 @@ const useFileUpload = (updateProjectData, projectData, project_id) => {
 
       fetch(url, {
         method: "POST",
+        credentials: "include",
         body: formData,
       })
         .then((response) => {

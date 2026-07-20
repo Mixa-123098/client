@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore";
 import Header from "../Header";
 import PagesHeader from "../Pages/PagesHeader";
@@ -11,16 +12,13 @@ import CropModalForm from "./CropModalForm";
 import CropImgesComponent from "./CropImgesComponent";
 import { useTranslation } from "react-i18next";
 import Loader from "../../loader/Loader";
-import { API_URL } from "../../config/api";
 // import CropImg from "./CropImg";
 
-const AdminPage = () => {
+const AdminPage = observer(() => {
   const { t } = useTranslation();
-  const open_close = t("editPage.createNewProject.open_close");
 
-  const { isAuthenticated, isAdmin } = authStore;
+  const { isReady, isAdmin } = authStore;
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState({
     createProject: false,
     usersList: false,
@@ -29,30 +27,10 @@ const AdminPage = () => {
   });
 
   useEffect(() => {
-    fetch(`${API_URL}/users`)
-      .then((response) => response.json())
-      .then((data) => {
-        const onlineUser =
-          data.find((user) => user.token === sessionStorage.getItem("user")) ||
-          isAuthenticated;
-
-        if (!onlineUser || onlineUser.role === "user") {
-          navigate("/");
-        }
-        console.log(onlineUser.role);
-
-        if (onlineUser.role === "admin") {
-          authStore.isAdmin = true;
-          // console.log(1);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [navigate, isAuthenticated]);
+    if (isReady && !isAdmin) {
+      navigate("/");
+    }
+  }, [navigate, isReady, isAdmin]);
 
   const handleclick = (event) => {
     setIsOpen((prev) => ({ ...prev, [event]: !prev[event] }));
@@ -75,13 +53,9 @@ const AdminPage = () => {
       </button>
     </div>
   );
-  if (loading) {
+  if (!isReady || !isAdmin) {
     return <Loader />;
   }
-  // if (loading) {
-  //   return <div> Loading... </div>;
-  // }
-  // console.log(open_close);
 
   return (
     <>
@@ -98,15 +72,13 @@ const AdminPage = () => {
       )}
 
       <div className="collapse" id="usersList">
-        {isAdmin && isAdmin === true && <UsersStatus />}
+        <UsersStatus />
       </div>
-      {isAdmin &&
-        isAdmin === true &&
-        renderButton(
-          "usersList",
-          t("editPage.usersList.open_close"),
-          "usersList"
-        )}
+      {renderButton(
+        "usersList",
+        t("editPage.usersList.open_close"),
+        "usersList"
+      )}
 
       <div className="collapse" id="projectsEdit">
         <ProjectsEdit />
@@ -133,6 +105,6 @@ const AdminPage = () => {
       <Footer settings={{ color: "black", bgColor: "white", shadow: true }} />
     </>
   );
-};
+});
 
 export default AdminPage;

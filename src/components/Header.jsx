@@ -7,12 +7,11 @@ import logo from "../assets/logo-removebg.png";
 import ScrollToTop from "../custom-hooks/ScrollToTop";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
-import { API_URL } from "../config/api";
 
 const Navbar = observer(({ fontColor, scroll, rep }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isAuthenticated } = authStore;
+  const { isAuthenticated, isAdmin } = authStore;
   const navbarItemsList = [
     t("navbar.mainPage"),
     t("navbar.projectsPage"),
@@ -22,45 +21,8 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
   ];
 
   const navbarItemsWays = [];
-  const [onlineUser, setOnlineUser] = useState(null);
 
-  const getCookie = (name) => {
-    const cookieValue = document.cookie.match(
-      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
-    );
-    return cookieValue ? cookieValue.pop() : "";
-  };
-
-  useEffect(() => {
-    fetch(`${API_URL}/users`)
-      .then((response) => response.json())
-      .then((data) => {
-        const onlineUser = data.find((user) => user.status === "online");
-        const usernameCookie = getCookie("username");
-        if (onlineUser && onlineUser.username === usernameCookie) {
-          authStore.isAuthenticated = true;
-          if (onlineUser.role === "admin") {
-            authStore.isAdmin = true;
-          }
-
-          setOnlineUser(onlineUser);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  }, []);
-
-  if (onlineUser && onlineUser.role === "user") {
-    navbarItemsWays.push(
-      " ",
-      "projects",
-      "about",
-      "contacts",
-      "price",
-      "|there must be a search|"
-    );
-  } else if (onlineUser || isAuthenticated === true) {
+  if (isAdmin) {
     navbarItemsList.push(t("navbar.editPage"));
     navbarItemsWays.push(
       " ",
@@ -95,8 +57,8 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
     );
   });
 
-  const handleLogout = (e) => {
-    authStore.logout(onlineUser.username);
+  const handleLogout = async (e) => {
+    await authStore.logout();
 
     navigate("/login");
   };
@@ -114,7 +76,7 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
       <nav className="navbar">
         {navbar}
         <LanguageSelector />
-        {onlineUser || isAuthenticated ? (
+        {isAuthenticated ? (
           <h6
             onClick={handleLogout}
             style={{ color: fontColor }}

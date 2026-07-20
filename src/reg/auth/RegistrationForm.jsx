@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore";
@@ -8,67 +8,18 @@ import { API_URL } from "../../config/api";
 
 const AuthForm = observer(() => {
   const { t } = useTranslation();
-
-  const getCookie = (name) => {
-    const cookieValue = document.cookie.match(
-      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
-    );
-    return cookieValue ? cookieValue.pop() : "";
-  };
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    role: "user",
   });
 
-  const [usersData, setUsersData] = useState([]);
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3001/users")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       const onlineUser = data.find((user) => user.status === "online");
-  //       console.log(onlineUser);
-  //       const usernameCookie = getCookie('username');
-  //       // console.log(onlineUser);
-  //       if (onlineUser) {
-  //         if (usernameCookie === onlineUser.username) {
-  //           authStore.isAuthenticated = true;
-  //         }
-  //         navigate("/");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching user data:", error);
-  //     });
-  //   fetch(`http://localhost:3001/users`)
-  //     .then((response) => response.json())
-  //     .then((data) => setUsersData(data));
-  // }, [navigate]);
-
   useEffect(() => {
-    fetch(`${API_URL}/users`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const onlineUser = data.find((user) => user.status === "online");
-        const usernameCookie = getCookie("username");
-        if (onlineUser && usernameCookie === onlineUser.username) {
-          authStore.isAuthenticated = true;
-          navigate("/");
-        }
-        setUsersData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error.message);
-      });
+    if (authStore.isAuthenticated) {
+      navigate("/edit");
+    }
   }, [navigate]);
 
   const [isRegistration, setIsRegistration] = useState(false);
@@ -81,54 +32,43 @@ const AuthForm = observer(() => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isRegistration) {
-      const isUsernameTaken = usersData.some(
-        // eslint-disable-next-line eqeqeq
-        (user) => user.username == formData.username
-      );
-      const isEmailTaken = usersData.some(
-        // eslint-disable-next-line eqeqeq
-        (user) => user.email == formData.email
-      );
-
-      if (isUsernameTaken) {
-        alert(t("authForm.feedbacks.usernameTaken"));
-      } else if (isEmailTaken) {
-        alert(t("authForm.feedbacks.emailTaken"));
-      } else {
-        fetch(`${API_URL}/users`, {
+      try {
+        const response = await fetch(`${API_URL}/users`, {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {
             "Content-Type": "application/json",
           },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              setUsersData([...usersData, formData]);
-              setFormData({ username: "", email: "", password: "" });
-            }
-          });
-        alert(t("authForm.feedbacks.registrationSuccess"));
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          setFormData({ username: "", email: "", password: "" });
+          alert(t("authForm.feedbacks.registrationSuccess"));
+          setIsRegistration(false);
+        } else if (data.error === "username_taken") {
+          alert(t("authForm.feedbacks.usernameTaken"));
+        } else if (data.error === "email_taken") {
+          alert(t("authForm.feedbacks.emailTaken"));
+        }
+      } catch (error) {
+        console.error("Registration error:", error);
       }
     } else {
       const { username, password } = formData;
-
-      const user = usersData.find((user) => user.username === username);
-      if (user) {
-        if (user.password === password) {
-          navigate("/edit");
-
-          authStore.login(user.username);
+      try {
+        await authStore.login(username, password);
+        navigate("/edit");
+      } catch (error) {
+        if (error.message === "user_not_found") {
+          alert(t("authForm.feedbacks.userNotFound"));
         } else {
           alert(t("authForm.feedbacks.invalidPassword"));
         }
-      } else {
-        alert(t("authForm.feedbacks.userNotFound"));
       }
     }
   };

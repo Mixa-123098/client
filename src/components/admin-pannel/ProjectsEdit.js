@@ -65,6 +65,7 @@ const ProjectsEdit = () => {
         `${API_URL}/update_project/${editedProject.id}`,
         {
           method: "PUT",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -118,6 +119,7 @@ const ProjectsEdit = () => {
           `${API_URL}/delete_project/${projectId}`,
           {
             method: "DELETE",
+            credentials: "include",
           }
         );
 

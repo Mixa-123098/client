@@ -1,6 +1,7 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import authStore from "./store/authStore";
 
 import Header from "./components/Header";
 import BottomHeader from "./components/BottomHeader";
@@ -62,6 +63,10 @@ function App() {
   const updateIndexFromSecBlock = (index) => {
     setIndexFromSecBlock(index + 1);
   };
+
+  useEffect(() => {
+    authStore.checkAuth();
+  }, []);
 
   return (
     <div style={{ minHeight: "100vh" }}>

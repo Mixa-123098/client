@@ -1,42 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
 
-const UsersStatus = () => {
+const UsersStatus = observer(() => {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
-  // const [onlineUser, setOnlineUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Состояние для отслеживания загрузки данных
-
-  const getCookie = (name) => {
-    const cookieValue = document.cookie.match(
-      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
-    );
-    return cookieValue ? cookieValue.pop() : "";
-  };
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_URL}/users`);
+        const response = await fetch(`${API_URL}/users`, {
+          credentials: "include",
+        });
         const data = await response.json();
         setUsers(data);
-
-        const onlineUser = data.find((user) => user.status === "online");
-        const usernameCookie = getCookie("username");
-        if (onlineUser && onlineUser.username === usernameCookie) {
-          authStore.isAuthenticated = true;
-          if (onlineUser.role === "admin") {
-            authStore.isAdmin = true;
-            console.log(onlineUser.role);
-          }
-          // setOnlineUser(onlineUser);
-        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
-        setIsLoading(false); // Завершаем загрузку
+        setIsLoading(false);
       }
     };
 
@@ -44,7 +28,7 @@ const UsersStatus = () => {
   }, []);
 
   const currentUser = users.find(
-    (user) => user.username === sessionStorage.getItem("user")
+    (user) => user.username === authStore.user?.username
   );
 
   const changeStatus = (userId, newRole) => {
@@ -63,7 +47,9 @@ const UsersStatus = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}/users`);
+      const response = await fetch(`${API_URL}/users`, {
+        credentials: "include",
+      });
       const updatedData = await response.json();
 
       const isDataChanged =
@@ -79,6 +65,7 @@ const UsersStatus = () => {
             `${API_URL}/update_user_role/${updatedUser.username}`,
             {
               method: "PUT",
+              credentials: "include",
               headers: {
                 "Content-Type": "application/json",
               },
@@ -100,7 +87,7 @@ const UsersStatus = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Показать индикатор загрузки
+    return <div>Loading...</div>;
   }
 
   return (
@@ -120,7 +107,7 @@ const UsersStatus = () => {
               <tr key={user.id}>
                 <td>
                   {user.username}{" "}
-                  {sessionStorage.getItem("user") === user.username && (
+                  {authStore.user?.username === user.username && (
                     <span> ({t("editPage.usersList.itsYou")})</span>
                   )}
                 </td>
@@ -169,6 +156,6 @@ const UsersStatus = () => {
       </button>
     </div>
   );
-};
+});
 
 export default UsersStatus;

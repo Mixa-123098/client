@@ -49,6 +49,7 @@ const CreateProject = () => {
     try {
       const response = await fetch(`${API_URL}/create_post`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
