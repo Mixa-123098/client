@@ -8,6 +8,7 @@ import Footer from "../../Footer";
 import i18n from "../../../i18n.js";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../loader/Loader.jsx";
+import { API_URL } from "../../../config/api";
 
 const ProjectHeader = ({ dataList, parallaxOffset }) => {
   const { t } = useTranslation();
@@ -161,7 +162,7 @@ const ProjectArticlePlanning = ({ id }) => {
   const [blueprints, setBlueprint] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:3001/blueprints`)
+    fetch(`${API_URL}/blueprints`)
       .then((response) => response.json())
       // eslint-disable-next-line eqeqeq
       .then((data) => setBlueprint(data.find((item) => item.project_id == id)));
@@ -204,7 +205,7 @@ const ProjectArticleImges = ({ id }) => {
   const [projectImges, setProjectImges] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/project_imges`)
+    fetch(`${API_URL}/project_imges`)
       .then((response) => response.json())
       .then((data) =>
         setProjectImges(
@@ -246,7 +247,7 @@ const PrevAndNextProject = ({ id }) => {
   const [currentIndex, setCurrentIndex] = useState(null);
   // console.log(dataList);
   useEffect(() => {
-    fetch(`http://localhost:3001/projects`)
+    fetch(`${API_URL}/projects`)
       .then((response) => response.json())
       .then((data) => {
         setDataList(data);
@@ -291,7 +292,7 @@ const PrevAndNextProject = ({ id }) => {
 //   console.log(dataList);
 
 //   useEffect(() => {
-//     fetch(`http://localhost:3001/projects`)
+//     fetch(`${API_URL}/projects`)
 //       .then((response) => response.json())
 //       .then((data) => setDataList(data));
 //   }, [id]);
@@ -334,7 +335,7 @@ const ProjectArticle = () => {
 
   useEffect(() => {
     // setLoading(true);
-    fetch(`http://localhost:3001/projects`)
+    fetch(`${API_URL}/projects`)
       .then((response) => response.json())
       // .then((data) => setDataList(data[id - 6]));
       .then((data) => {

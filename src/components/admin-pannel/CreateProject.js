@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useFileUpload from "../../custom-hooks/useFileUpload";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const CreateProject = () => {
   const { t } = useTranslation();
@@ -46,7 +47,7 @@ const CreateProject = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:3001/create_post", {
+      const response = await fetch(`${API_URL}/create_post`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +66,7 @@ const CreateProject = () => {
     } catch (error) {
       console.error("Error sending request:", error);
     }
-    handleUpload("http://localhost:3001/upload");
+    handleUpload(`${API_URL}/upload`);
   };
 
   return (

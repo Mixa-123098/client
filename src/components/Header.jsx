@@ -7,6 +7,7 @@ import logo from "../assets/logo-removebg.png";
 import ScrollToTop from "../custom-hooks/ScrollToTop";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
+import { API_URL } from "../config/api";
 
 const Navbar = observer(({ fontColor, scroll, rep }) => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/users")
+    fetch(`${API_URL}/users`)
       .then((response) => response.json())
       .then((data) => {
         const onlineUser = data.find((user) => user.status === "online");

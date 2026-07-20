@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import authStore from "../../store/authStore";
 import "./RegistrationForm.css";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const AuthForm = observer(() => {
   const { t } = useTranslation();
@@ -49,7 +50,7 @@ const AuthForm = observer(() => {
   // }, [navigate]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/users")
+    fetch(`${API_URL}/users`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -98,7 +99,7 @@ const AuthForm = observer(() => {
       } else if (isEmailTaken) {
         alert(t("authForm.feedbacks.emailTaken"));
       } else {
-        fetch("http://localhost:3001/users", {
+        fetch(`${API_URL}/users`, {
           method: "POST",
           body: JSON.stringify(formData),
           headers: {

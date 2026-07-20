@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import authStore from "../../store/authStore";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const UsersStatus = () => {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ const UsersStatus = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/users`);
+        const response = await fetch(`${API_URL}/users`);
         const data = await response.json();
         setUsers(data);
 
@@ -62,7 +63,7 @@ const UsersStatus = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3001/users`);
+      const response = await fetch(`${API_URL}/users`);
       const updatedData = await response.json();
 
       const isDataChanged =
@@ -75,7 +76,7 @@ const UsersStatus = () => {
             currentUser !== undefined ? currentUser.role : updatedUser.role;
 
           const putResponse = await fetch(
-            `http://localhost:3001/update_user_role/${updatedUser.username}`,
+            `${API_URL}/update_user_role/${updatedUser.username}`,
             {
               method: "PUT",
               headers: {

@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction, action } from "mobx";
+import { API_URL } from "../config/api";
 
 class AuthStore {
   isAuthenticated = false;
@@ -44,7 +45,7 @@ class AuthStore {
     console.log(status);
     try {
       const response = await fetch(
-        `http://localhost:3001/update_user_status/${this.user.username}`,
+        `${API_URL}/update_user_status/${this.user.username}`,
         {
           method: "PUT",
           headers: {

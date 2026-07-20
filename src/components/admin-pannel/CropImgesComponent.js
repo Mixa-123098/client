@@ -4,6 +4,7 @@ import useImageUploader from "../../custom-hooks/useImageUploader";
 import modalStore from "../../store/ModalStore";
 import fileStore from "../../store/cropImgStore";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const CropImgDisplay = ({ label, src }) => {
   const { imagePreview } = useImageUploader({ src });
@@ -48,10 +49,10 @@ const CropHeaderAndPrewImg = ({ data }) => {
     setLoading(true);
 
     Promise.all([
-      fetch(`http://localhost:3001/projects`).then((response) =>
+      fetch(`${API_URL}/projects`).then((response) =>
         response.json()
       ),
-      fetch(`http://localhost:3001/blueprints`).then((response) =>
+      fetch(`${API_URL}/blueprints`).then((response) =>
         response.json()
       ),
     ])
@@ -114,7 +115,7 @@ const CroppedImges = ({ project_id }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/project_imges")
+    fetch(`${API_URL}/project_imges`)
       .then((response) => response.json())
       .then((data) => {
         setImges(
@@ -180,7 +181,7 @@ const CropImgesComponent = () => {
   // console.log(editedProject);
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/projects`)
+    fetch(`${API_URL}/projects`)
       .then((response) => response.json())
       .then((data) => {
         setProjects(data);

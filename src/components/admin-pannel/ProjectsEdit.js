@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DragAndDropImges from "./DragAndDropImges";
 import useFileUpload from "../../custom-hooks/useFileUpload";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const ProjectsEdit = () => {
   const { t } = useTranslation();
@@ -28,10 +29,10 @@ const ProjectsEdit = () => {
   useEffect(() => {
     setLoading(true);
 
-    const fetchProjects = fetch(`http://localhost:3001/projects`).then(
+    const fetchProjects = fetch(`${API_URL}/projects`).then(
       (response) => response.json()
     );
-    const fetchOtherData = fetch(`http://localhost:3001/blueprints`).then(
+    const fetchOtherData = fetch(`${API_URL}/blueprints`).then(
       (response) => response.json()
     );
 
@@ -52,7 +53,7 @@ const ProjectsEdit = () => {
   const handleSaveClick = async (e) => {
     try {
       e.preventDefault();
-      handleUpload("http://localhost:3001/upload");
+      handleUpload(`${API_URL}/upload`);
 
       setProjects((prevProjects) =>
         prevProjects.map((project) =>
@@ -61,7 +62,7 @@ const ProjectsEdit = () => {
       );
 
       const response = await fetch(
-        `http://localhost:3001/update_project/${editedProject.id}`,
+        `${API_URL}/update_project/${editedProject.id}`,
         {
           method: "PUT",
           headers: {
@@ -114,7 +115,7 @@ const ProjectsEdit = () => {
     if (isConfirmed) {
       try {
         const response = await fetch(
-          `http://localhost:3001/delete_project/${projectId}`,
+          `${API_URL}/delete_project/${projectId}`,
           {
             method: "DELETE",
           }

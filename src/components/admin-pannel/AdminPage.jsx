@@ -11,6 +11,7 @@ import CropModalForm from "./CropModalForm";
 import CropImgesComponent from "./CropImgesComponent";
 import { useTranslation } from "react-i18next";
 import Loader from "../../loader/Loader";
+import { API_URL } from "../../config/api";
 // import CropImg from "./CropImg";
 
 const AdminPage = () => {
@@ -28,7 +29,7 @@ const AdminPage = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:3001/users")
+    fetch(`${API_URL}/users`)
       .then((response) => response.json())
       .then((data) => {
         const onlineUser =

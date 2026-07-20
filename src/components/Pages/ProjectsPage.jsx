@@ -10,6 +10,7 @@ import Footer from "../Footer";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next"; // i18n для определения языка
 // import axios from "axios";
+import { API_URL } from "../../config/api";
 
 const ProjectsList = ({ focusedPage, itemsPerPage, filteredData }) => {
   const { t } = useTranslation();
@@ -65,7 +66,7 @@ const Projects = ({ indexFromSecBlock }) => {
   const [dataList, setDataList] = useState([]);
   const index = indexFromSecBlock || 0;
   useEffect(() => {
-    fetch("http://localhost:3001/projects")
+    fetch(`${API_URL}/projects`)
       .then((response) => response.json())
       .then((data) => setDataList(data))
       .catch((error) => {

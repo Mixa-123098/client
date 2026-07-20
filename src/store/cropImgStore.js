@@ -1,4 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
+import { API_URL } from "../config/api";
 
 class PhotoStore {
   fileDataUrl = null;
@@ -33,7 +34,7 @@ class PhotoStore {
   }
 
   async fetchFile() {
-    const url = `http://localhost:3001/get-file/${this.fileName}`;
+    const url = `${API_URL}/get-file/${this.fileName}`;
     if (this.fileName !== null) {
       try {
         const response = await fetch(url);

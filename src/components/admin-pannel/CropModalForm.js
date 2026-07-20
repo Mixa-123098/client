@@ -5,6 +5,7 @@ import modalStore from "../../store/ModalStore";
 import fileStore from "../../store/cropImgStore";
 import useFileUpload from "../../custom-hooks/useFileUpload";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const CropModalForm = observer(() => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ const CropModalForm = observer(() => {
     } else {
       window.confirm(`${t("editPage.cropImages.save")}?`);
       setTimeout(() => {
-        handleUpload("http://localhost:3001/upload");
+        handleUpload(`${API_URL}/upload`);
       }, 1000);
     }
   };

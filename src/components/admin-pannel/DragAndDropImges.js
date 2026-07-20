@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import EditHeaderAndPrewImg from "./EditHeaderAndPrewImg";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
   const { t } = useTranslation();
   const [imges, setImges] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/project_imges")
+    fetch(`${API_URL}/project_imges`)
       .then((response) => response.json())
       .then((data) => {
         setImges(

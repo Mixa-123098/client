@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useImageUploader from "../../custom-hooks/useImageUploader";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../config/api";
 
 const ImageDisplay = ({ label, src, name, handleFileChange }) => {
   const { t } = useTranslation();
@@ -48,10 +49,10 @@ const EditHeaderAndPrewImg = ({ data, handleFileChange }) => {
     setLoading(true);
 
     Promise.all([
-      fetch(`http://localhost:3001/projects`).then((response) =>
+      fetch(`${API_URL}/projects`).then((response) =>
         response.json()
       ),
-      fetch(`http://localhost:3001/blueprints`).then((response) =>
+      fetch(`${API_URL}/blueprints`).then((response) =>
         response.json()
       ),
     ])
