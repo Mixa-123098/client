@@ -19,6 +19,26 @@ const emptyProjectData = {
   imges_list: [],
 };
 
+const Field = ({ label, required, children }) => (
+  <div className="mb-3">
+    <label className="form-label mb-1">
+      {label}
+      {required && <span className="text-danger"> *</span>}
+    </label>
+    {children}
+  </div>
+);
+
+const FilePreview = ({ src }) =>
+  src ? (
+    <img
+      src={src}
+      alt=""
+      className="mt-2 rounded border"
+      style={{ height: 70, width: 70, objectFit: "cover" }}
+    />
+  ) : null;
+
 const CreateProject = () => {
   const { t } = useTranslation();
 
@@ -97,14 +117,14 @@ const CreateProject = () => {
   };
 
   return (
-    <>
-      <h2 className="mt-5 container">
-        {t("editPage.createNewProject.create")}
-      </h2>
-      <form
-        onSubmit={handleFormSubmit}
-        className="d-flex flex-column container mt-4 was-validated"
-      >
+    <div className="container mt-5" style={{ maxWidth: 640 }}>
+      <h2>{t("editPage.createNewProject.create")}</h2>
+      <p className="text-muted small">
+        <span className="text-danger">*</span>{" "}
+        {t("editPage.createNewProject.requiredHint")}
+      </p>
+
+      <form onSubmit={handleFormSubmit} className="mt-4">
         {status === "success" && (
           <div className="alert alert-success" role="alert">
             {t("editPage.createNewProject.success")}
@@ -115,85 +135,26 @@ const CreateProject = () => {
             {t("editPage.createNewProject.error")}
           </div>
         )}
+
         <fieldset disabled={status === "submitting"}>
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.name")}
-              <span className="text-danger"> *</span>:
-            </div>
-            <div className="col-9">
-              <input
-                type="text"
-                className={`form-control ${
-                  !projectData.project_name && "is-invalid"
-                } `}
-                name="project_name"
-                value={projectData.project_name}
-                onChange={handleInputChange}
-                required
-              />
-              <div className="valid-feedback">
-                {t("editPage.createNewProject.feedbacks.name.true")}
-              </div>
-              <div className="invalid-feedback">
-                {t("editPage.createNewProject.feedbacks.name.false")}
-              </div>
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.city")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_city"
-                className="form-control"
-                value={projectData.project_city}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.country")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
+          <Field label={t("editPage.createNewProject.name")} required>
+            <input
+              type="text"
+              className="form-control"
+              name="project_name"
+              value={projectData.project_name}
+              onChange={handleInputChange}
+              required
+            />
+          </Field>
 
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_country"
-                className="form-control"
-                value={projectData.project_country}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.specialization.title")}
-              <span className="text-danger"> *</span>:
-            </div>
-
+          <Field
+            label={t("editPage.createNewProject.specialization.title")}
+            required
+          >
             <select
               name="project_specialization"
-              id="project_specialization"
-              className={`form-select ${
-                isSpecializationInvalid && "is-invalid"
-              }`}
+              className="form-select"
               value={projectData.project_specialization}
               onChange={handleInputChange}
               required
@@ -211,224 +172,147 @@ const CreateProject = () => {
                 {t("editPage.createNewProject.specialization.privateHouses")}
               </option>
             </select>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.previewImage")}
-              <span className="text-danger"> *</span>:
-            </div>
+          </Field>
 
-            <div className="col-9 d-flex align-items-center gap-3">
-              <input
-                type="file"
-                name="project_img_src"
-                onChange={handleFileInputChange}
-                required
-              />
-              {previews.project_img_src && (
-                <img
-                  src={previews.project_img_src}
-                  alt=""
-                  style={{ height: 60, borderRadius: 4 }}
+          <Field label={t("editPage.createNewProject.previewImage")} required>
+            <input
+              type="file"
+              className="form-control"
+              name="project_img_src"
+              onChange={handleFileInputChange}
+              required
+            />
+            <FilePreview src={previews.project_img_src} />
+          </Field>
+
+          <div className="row">
+            <div className="col-6">
+              <Field label={t("editPage.createNewProject.city")}>
+                <input
+                  type="text"
+                  name="project_city"
+                  className="form-control"
+                  value={projectData.project_city}
+                  onChange={handleInputChange}
                 />
-              )}
+              </Field>
             </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.topProjectImage")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
-
-            <div className="col-9 d-flex align-items-center gap-3">
-              <input
-                type="file"
-                name="project_header_img"
-                onChange={handleFileInputChange}
-              />
-              {previews.project_header_img && (
-                <img
-                  src={previews.project_header_img}
-                  alt=""
-                  style={{ height: 60, borderRadius: 4 }}
+            <div className="col-6">
+              <Field label={t("editPage.createNewProject.country")}>
+                <input
+                  type="text"
+                  name="project_country"
+                  className="form-control"
+                  value={projectData.project_country}
+                  onChange={handleInputChange}
                 />
-              )}
+              </Field>
             </div>
           </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.projectDescription")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
 
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_brief"
-                className="form-control"
-                value={projectData.project_brief}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.endDate")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
+          <Field label={t("editPage.createNewProject.topProjectImage")}>
+            <input
+              type="file"
+              className="form-control"
+              name="project_header_img"
+              onChange={handleFileInputChange}
+            />
+            <FilePreview src={previews.project_header_img} />
+          </Field>
 
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_finish_date"
-                className="form-control"
-                value={projectData.project_finish_date}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.square")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
+          <Field label={t("editPage.createNewProject.projectDescription")}>
+            <input
+              type="text"
+              name="project_brief"
+              className="form-control"
+              value={projectData.project_brief}
+              onChange={handleInputChange}
+            />
+          </Field>
 
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_square"
-                className="form-control"
-                value={projectData.project_square}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.team")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
-
-            <div className="col-9">
-              <input
-                type="text"
-                name="project_team"
-                className="form-control"
-                value={projectData.project_team}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.blueprintImage")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
-
-            <div className="col-9 d-flex align-items-center gap-3">
-              <input
-                type="file"
-                name="blueprint_img"
-                onChange={handleFileInputChange}
-              />
-              {previews.blueprint_img && (
-                <img
-                  src={previews.blueprint_img}
-                  alt=""
-                  style={{ height: 60, borderRadius: 4 }}
+          <div className="row">
+            <div className="col-6">
+              <Field label={t("editPage.createNewProject.endDate")}>
+                <input
+                  type="text"
+                  name="project_finish_date"
+                  className="form-control"
+                  value={projectData.project_finish_date}
+                  onChange={handleInputChange}
                 />
+              </Field>
+            </div>
+            <div className="col-6">
+              <Field label={t("editPage.createNewProject.square")}>
+                <input
+                  type="text"
+                  name="project_square"
+                  className="form-control"
+                  value={projectData.project_square}
+                  onChange={handleInputChange}
+                />
+              </Field>
+            </div>
+          </div>
+
+          <Field label={t("editPage.createNewProject.team")}>
+            <input
+              type="text"
+              name="project_team"
+              className="form-control"
+              value={projectData.project_team}
+              onChange={handleInputChange}
+            />
+          </Field>
+
+          <Field label={t("editPage.createNewProject.blueprintImage")}>
+            <input
+              type="file"
+              className="form-control"
+              name="blueprint_img"
+              onChange={handleFileInputChange}
+            />
+            <FilePreview src={previews.blueprint_img} />
+          </Field>
+
+          <Field label={t("editPage.createNewProject.blueprintDescription")}>
+            <input
+              type="text"
+              name="blueprint_description"
+              className="form-control"
+              value={projectData.blueprint_description}
+              onChange={handleInputChange}
+            />
+          </Field>
+
+          <Field label={t("editPage.createNewProject.imagesInsideTheProject")}>
+            <input
+              type="file"
+              className="form-control"
+              name="imges_list"
+              onChange={handleFileInputChange}
+              multiple
+            />
+            {Array.isArray(previews.imges_list) &&
+              previews.imges_list.length > 0 && (
+                <div className="d-flex flex-wrap gap-2 mt-2">
+                  {previews.imges_list.map((src, i) => (
+                    <img
+                      key={i}
+                      src={src}
+                      alt=""
+                      className="rounded border"
+                      style={{ height: 70, width: 70, objectFit: "cover" }}
+                    />
+                  ))}
+                </div>
               )}
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.blueprintDescription")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
-
-            <div className="col-9">
-              <input
-                type="text"
-                name="blueprint_description"
-                className="form-control"
-                value={projectData.blueprint_description}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          <br />
-          <div className="d-flex">
-            <div className="col-3">
-              {t("editPage.createNewProject.imagesInsideTheProject")}
-              <span className="text-muted">
-                {" "}
-                {t("editPage.createNewProject.optional")}
-              </span>
-              :
-            </div>
-
-            <div className="col-9">
-              <input
-                type="file"
-                name="imges_list"
-                onChange={handleFileInputChange}
-                multiple
-              />
-              {Array.isArray(previews.imges_list) &&
-                previews.imges_list.length > 0 && (
-                  <div className="d-flex flex-wrap gap-2 mt-2">
-                    {previews.imges_list.map((src, i) => (
-                      <img
-                        key={i}
-                        src={src}
-                        alt=""
-                        style={{ height: 60, borderRadius: 4 }}
-                      />
-                    ))}
-                  </div>
-                )}
-            </div>
-          </div>
+          </Field>
 
           <button
             type="submit"
-            className="btn btn-dark col-2 mt-4 mb-5 d-flex align-items-center justify-content-center gap-2"
+            className="btn btn-dark mt-3 mb-5 d-flex align-items-center justify-content-center gap-2"
+            style={{ minWidth: 180 }}
           >
             {status === "submitting" && (
               <span
@@ -443,7 +327,7 @@ const CreateProject = () => {
           </button>
         </fieldset>
       </form>
-    </>
+    </div>
   );
 };
 

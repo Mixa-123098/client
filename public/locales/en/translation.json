@@ -163,6 +163,7 @@
       "open_close": "project creation",
       "create": "Create project",
       "optional": "(optional)",
+      "requiredHint": "Marked fields are required, the rest can be filled in later",
       "submitting": "Creating project and translating…",
       "success": "Project created successfully!",
       "error": "Failed to create the project. Please try again.",
