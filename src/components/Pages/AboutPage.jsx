@@ -253,7 +253,7 @@ const AboutPage = () => {
     <>
       <Seo
         title="About Us"
-        description="Meet the ODA team — architects and interior designers based in Dnipro, Ukraine, with over 20 years of combined experience."
+        description="Meet the ODA team — architects and interior designers working in Dnipro and Kyiv, Ukraine, with over 20 years of combined experience."
       />
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
       <PagesHeader title={t("aboutPage.aboutUs")} />

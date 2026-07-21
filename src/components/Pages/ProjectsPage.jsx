@@ -205,7 +205,7 @@ const ProjectsPage = ({ indexFromSecBlock }) => {
     <div className="projects">
       <Seo
         title="Our Projects"
-        description="Browse ODA's portfolio of apartment, private house, and public interior design projects in Dnipro, Ukraine."
+        description="Browse ODA's portfolio of apartment, private house, and public interior design projects in Dnipro and Kyiv, Ukraine."
       />
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
       <PagesHeader title={t("projectsPage.ourProjects")} />

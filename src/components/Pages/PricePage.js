@@ -44,7 +44,7 @@ const PricePage = () => {
     <>
       <Seo
         title="Prices"
-        description="Pricing for interior design and architecture services from ODA in Dnipro, Ukraine."
+        description="Pricing for interior design and architecture services from ODA in Dnipro and Kyiv, Ukraine."
       />
       <Header fontColor="#000000" invert="invert(0%)" rep={true} />
       <PagesHeader title={t("pricesPage.ourPrices")} />

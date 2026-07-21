@@ -12,7 +12,7 @@ const ContactsPage = () => {
     <>
       <Seo
         title="Contacts"
-        description="Get in touch with ODA, an interior design and architecture studio in Dnipro, Ukraine."
+        description="Get in touch with ODA, an interior design and architecture studio working in Dnipro and Kyiv, Ukraine."
       />
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
       <PagesHeader title={t("contactsPage.contacts")} />
