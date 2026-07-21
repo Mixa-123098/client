@@ -183,18 +183,15 @@ const ProjectArticlePlanning = ({ id, translation }) => {
           <h3 className="text-center">{t("projects.blueprintDescription")}</h3>
           <div>
             {blueprints &&
-              (t(`projects.project${blueprints.id}.drawing_description`) !==
-              `projects.project${blueprints.id}.drawing_description`
-                ? t(`projects.project${blueprints.id}.drawing_description`)
+              (t(
+                `projects.project${blueprints.project_id}.drawing_description`
+              ) !==
+              `projects.project${blueprints.project_id}.drawing_description`
+                ? t(
+                    `projects.project${blueprints.project_id}.drawing_description`
+                  )
                 : (translation && translation.drawing_description) ||
                   blueprints.description)}
-            {/* {i18n.language === "ua"
-              ? blueprints && blueprints.description
-              : t(
-                  `projects.project${
-                    blueprints && blueprints.project_id
-                  }.drawing_description`
-                )} */}
           </div>
         </div>
       </div>

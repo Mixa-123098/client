@@ -106,7 +106,9 @@ const Projects = ({ indexFromSecBlock }) => {
       <button
         key={index}
         id={`projects-nav-button-${index}`}
-        className={`projects-nav-button`}
+        className={`projects-nav-button${
+          focusedIndex === index ? " active" : ""
+        }`}
         // autoFocus={index === 0}
         onClick={() => setFocused(index)}
       >

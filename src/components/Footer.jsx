@@ -3,7 +3,10 @@ import { useTranslation } from "react-i18next";
 
 const Footer = ({ settings }) => {
   const { color, bgColor } = settings || {};
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const mapLanguages = { ua: "uk", en: "en", sk: "sk" };
+  const mapLang = mapLanguages[i18n.language] || "en";
 
   const contactInfo = {
     phone: "+123 456 7890",
@@ -91,7 +94,7 @@ const Footer = ({ settings }) => {
               <h4>{t("footer.map")}</h4>
               <iframe
                 title="Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d169324.38910505478!2d34.83554771814176!3d48.46240852856549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dbe303fd08468f%3A0xa1cf3d5f2c11aba!2sDnipro%2C%20Dnepropetrovsk%C3%A1%2C%20Ukrajina%2C%2049000!5e0!3m2!1ssk!2ssk!4v1732278478275!5m2!1ssk!2ssk"
+                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d169324.38910505478!2d34.83554771814176!3d48.46240852856549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40dbe303fd08468f%3A0xa1cf3d5f2c11aba!2sDnipro%2C%20Dnepropetrovsk%C3%A1%2C%20Ukrajina%2C%2049000!5e0!3m2!1ssk!2ssk!4v1732278478275!5m2!1ssk!2ssk&hl=${mapLang}`}
                 width="100%"
                 height="200"
                 style={{ border: "0" }}
