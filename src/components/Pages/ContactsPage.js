@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Header";
 import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
+import Seo from "../Seo";
 import { useTranslation } from "react-i18next";
 
 const ContactsPage = () => {
@@ -9,6 +10,10 @@ const ContactsPage = () => {
 
   return (
     <>
+      <Seo
+        title="Contacts"
+        description="Get in touch with ODA, an interior design and architecture studio in Dnipro, Ukraine."
+      />
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
       <PagesHeader title={t("contactsPage.contacts")} />
       <div className="container my-5" style={{ minHeight: "25vh" }}>

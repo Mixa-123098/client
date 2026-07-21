@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./ProjectArticle.css";
 import Header from "../../Header";
+import Seo from "../../Seo";
 import ScrollToTop from "../../../custom-hooks/ScrollToTop.jsx";
 import Footer from "../../Footer";
 import i18n from "../../../i18n.js";
@@ -325,6 +326,7 @@ const PrevAndNextProject = ({ id }) => {
 //   );
 // };
 const ProjectArticle = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [dataList, setDataList] = useState();
@@ -399,8 +401,18 @@ const ProjectArticle = () => {
         }
       : dataList);
 
+  const nameKey = `projects.project${resolvedDataList?.id}.name`;
+  const briefKey = `projects.project${resolvedDataList?.id}.brief`;
+  const seoTitle =
+    resolvedDataList &&
+    (t(nameKey) !== nameKey ? t(nameKey) : resolvedDataList.project_name);
+  const seoDescription =
+    resolvedDataList &&
+    (t(briefKey) !== briefKey ? t(briefKey) : resolvedDataList.project_brief);
+
   return (
     <>
+      <Seo title={seoTitle} description={seoDescription} />
       <Header />
       <ProjectHeader dataList={resolvedDataList} parallaxOffset={parallaxOffset} />
       <ProjectArticleBrief dataList={resolvedDataList} />

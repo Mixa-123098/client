@@ -3,6 +3,7 @@ import "./AboutPage.css";
 import Header from "../Header";
 import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
+import Seo from "../Seo";
 import CardTamplate from "../tamplates/CardTamplate";
 import { useTranslation } from "react-i18next";
 
@@ -250,6 +251,10 @@ const AboutPage = () => {
 
   return (
     <>
+      <Seo
+        title="About Us"
+        description="Meet the ODA team — architects and interior designers based in Dnipro, Ukraine, with over 20 years of combined experience."
+      />
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
       <PagesHeader title={t("aboutPage.aboutUs")} />
 

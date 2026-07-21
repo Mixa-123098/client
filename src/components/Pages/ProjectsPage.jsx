@@ -7,6 +7,7 @@ import Header from "../Header";
 import ProjectsPagesNav from "./ProjectsPagesNav";
 import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
+import Seo from "../Seo";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next"; // i18n для определения языка
 // import axios from "axios";
@@ -202,6 +203,10 @@ const ProjectsPage = ({ indexFromSecBlock }) => {
   const { t } = useTranslation();
   return (
     <div className="projects">
+      <Seo
+        title="Our Projects"
+        description="Browse ODA's portfolio of apartment, private house, and public interior design projects in Dnipro, Ukraine."
+      />
       <Header fontColor={`#000000`} invert={`invert(0%)`} rep={true} />
       <PagesHeader title={t("projectsPage.ourProjects")} />
       {/* <ProjectsPage2 /> */}

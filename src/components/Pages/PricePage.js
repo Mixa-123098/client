@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Header";
 import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
+import Seo from "../Seo";
 import { Link } from "react-router-dom";
 import ScrollToTop from "../../custom-hooks/ScrollToTop";
 import "../../App.css";
@@ -41,6 +42,10 @@ const PricePage = () => {
 
   return (
     <>
+      <Seo
+        title="Prices"
+        description="Pricing for interior design and architecture services from ODA in Dnipro, Ukraine."
+      />
       <Header fontColor="#000000" invert="invert(0%)" rep={true} />
       <PagesHeader title={t("pricesPage.ourPrices")} />
       <div className="container mt-5 mb-5 ">

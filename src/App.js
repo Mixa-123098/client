@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import BottomHeader from "./components/BottomHeader";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Footer from "./components/Footer";
+import Seo from "./components/Seo";
 import loft from "./assets/loft.mov";
 import bgvideo3 from "./assets/photo_2023-11-03_12-03-29.jpg";
 import cheh from "./assets/cheh.mov";
@@ -33,6 +34,7 @@ const SixBlock = lazy(() => import("./components/Bloks/SixBlock"));
 const MainPageContainer = ({ updateIndexFromSecBlock }) => {
   return (
     <div>
+      <Seo />
       <Header />
       <div className="main">
         <div className="overlay"></div>
