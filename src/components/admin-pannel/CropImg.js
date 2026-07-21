@@ -14,14 +14,13 @@ const CropImg = ({ fileDataUrl, handleFileChange }) => {
   const cropperRef = createRef();
 
   const getCropData = () => {
-    if (cropperRef.current?.cropper !== "undefined") {
+    if (cropperRef.current?.cropper) {
       const croppedImg = cropperRef.current.cropper
         .getCroppedCanvas()
         .toDataURL();
       setCropData(croppedImg);
       fileStore.setCroppedImg(croppedImg);
 
-      console.log(fileStore.fileName);
       handleFileChange(fileStore.croppedImg, fileStore.fileName);
     }
   };

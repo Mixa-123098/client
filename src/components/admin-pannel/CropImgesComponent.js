@@ -11,11 +11,9 @@ const CropImgDisplay = ({ label, src }) => {
 
   const handleModalClose = () => {
     fileStore.setFileName(src && src);
-    fileStore.fetchFile();
-
-    const delay = 2500;
-
-    modalStore.setIsModalReadyWithDelay(true, delay);
+    fileStore.fetchFile().then(() => {
+      modalStore.setIsModalReadyWithDelay(true, 0);
+    });
   };
 
   return (
@@ -107,11 +105,9 @@ const CroppedImges = ({ project_id }) => {
 
   const handleModalClose = (currentImg) => {
     fileStore.setFileName(currentImg);
-    fileStore.fetchFile();
-
-    const delay = 2500;
-
-    modalStore.setIsModalReadyWithDelay(true, delay);
+    fileStore.fetchFile().then(() => {
+      modalStore.setIsModalReadyWithDelay(true, 0);
+    });
   };
 
   useEffect(() => {

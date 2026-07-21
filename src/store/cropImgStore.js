@@ -30,29 +30,28 @@ class PhotoStore {
     this.croppedImg = value;
   }
   setCroppedProjectId(value) {
-    this.croppedImg = value;
+    this.croppedProjectId = value;
   }
 
   async fetchFile() {
     const url = `${API_URL}/get-file/${this.fileName}`;
-    if (this.fileName !== null) {
-      try {
-        const response = await fetch(url);
-        const blob = await response.blob();
+    if (this.fileName === null) {
+      return;
+    }
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
 
-        const reader = new FileReader();
-        reader.onload = () => {
-          const dataUrl = reader.result;
-          this.setFileDataUrl(dataUrl);
-        };
-
-        reader.onerror = (error) => {
-          console.error("Error reading file:", error);
-        };
+      const reader = new FileReader();
+      const dataUrl = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
         reader.readAsDataURL(blob);
-      } catch (error) {
-        console.error("Error fetching file:", error);
-      }
+      });
+
+      this.setFileDataUrl(dataUrl);
+    } catch (error) {
+      console.error("Error fetching file:", error);
     }
   }
 }

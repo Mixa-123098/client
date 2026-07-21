@@ -21,11 +21,8 @@ const CropModalForm = observer(() => {
   const handleSaveClick = (e) => {
     if (!fileStore.croppedImg) {
       alert(t("editPage.cropImages.noCroppedImage"));
-    } else {
-      window.confirm(`${t("editPage.cropImages.save")}?`);
-      setTimeout(() => {
-        handleUpload(`${API_URL}/upload`);
-      }, 1000);
+    } else if (window.confirm(`${t("editPage.cropImages.save")}?`)) {
+      handleUpload(`${API_URL}/upload`);
     }
   };
   const handleModalDismiss = () => {
