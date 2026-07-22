@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { observer } from "mobx-react-lite";
 import { useTranslation } from "react-i18next";
+import languagesStore from "../store/languagesStore";
 
-const LanguageSelector = () => {
+const LanguageSelector = observer(() => {
   const { i18n } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
   const [language, setLanguage] = useState(
     () => localStorage.getItem("language") || i18n.language
   );
-
-  const changeLanguage = (lang) => {
-    i18n
-      .changeLanguage(lang)
-      .then(() => {
-        setLanguage(lang);
-        localStorage.setItem("language", lang); // Сохраняем выбор в localStorage
-      })
-      .catch((error) => {
-        console.error("Error changing language:", error);
-      });
-  };
+  const ref = useRef(null);
 
   useEffect(() => {
-    // Устанавливаем язык при загрузке компонента
+    languagesStore.fetchLanguages();
+  }, []);
+
+  useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
     if (savedLanguage && savedLanguage !== i18n.language) {
       i18n.changeLanguage(savedLanguage).catch((error) => {
@@ -29,22 +24,60 @@ const LanguageSelector = () => {
     }
   }, [i18n]);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const changeLanguage = (lang) => {
+    i18n
+      .changeLanguage(lang)
+      .then(() => {
+        setLanguage(lang);
+        localStorage.setItem("language", lang);
+        setIsOpen(false);
+      })
+      .catch((error) => {
+        console.error("Error changing language:", error);
+      });
+  };
+
   return (
-    <div>
-      <select
-        id="language-select"
-        className="change_lang bg-ligth text-dark p-1 m-2 mt-0 rounded"
-        value={language}
-        onChange={(e) => changeLanguage(e.target.value)}
+    <div className="language-selector" ref={ref}>
+      <button
+        type="button"
+        className="language-selector-toggle"
+        onClick={() => setIsOpen((v) => !v)}
       >
-        <option value="en">en</option>
-        <option value="ua">ua</option>
-        <option value="sk">sk</option>
-        {/* <option value="ru">Русский</option> */}
-        {/* Добавьте дополнительные языки по мере необходимости */}
-      </select>
+        {language.toUpperCase()}
+        <span className={`language-selector-caret${isOpen ? " open" : ""}`}>
+          ▾
+        </span>
+      </button>
+      {isOpen && (
+        <ul className="language-selector-menu">
+          {languagesStore.languages.map((lang) => (
+            <li key={lang.code}>
+              <button
+                type="button"
+                className={`language-selector-option${
+                  lang.code === language ? " active" : ""
+                }`}
+                onClick={() => changeLanguage(lang.code)}
+              >
+                {lang.code.toUpperCase()}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-};
+});
 
 export default LanguageSelector;

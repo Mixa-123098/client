@@ -277,6 +277,9 @@
       "noCroppedImage": "You have not cropped the photo yet",
       "save": "Save changes",
       "loading": "Loading..."
+    },
+    "languages": {
+      "title": "Site Languages"
     }
   },
   "footer": {

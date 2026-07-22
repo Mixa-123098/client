@@ -604,3 +604,104 @@ footer {
     height: 30px !important;
   }
 }
+/* Language selector */
+.language-selector {
+  position: relative;
+  margin: 0 10px;
+}
+
+.language-selector-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  color: #212529;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.language-selector-toggle:hover {
+  border-color: #b0b0b0;
+}
+
+.language-selector-caret {
+  font-size: 0.65rem;
+  transition: transform 0.2s;
+}
+
+.language-selector-caret.open {
+  transform: rotate(180deg);
+}
+
+.language-selector-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 6px;
+  min-width: 90px;
+  z-index: 20;
+}
+
+.language-selector-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #212529;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.language-selector-option:hover {
+  background: #f1f1f1;
+}
+
+.language-selector-option.active {
+  background: #212529;
+  color: #fff;
+}
+
+/* Admin panel tabs */
+.admin-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.admin-tabs .nav-link {
+  color: #495057;
+  font-weight: 600;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 18px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.admin-tabs .nav-link:hover {
+  color: #212529;
+  border-color: #ced4da;
+}
+
+.admin-tabs .nav-link.active {
+  color: #212529;
+  background: none;
+  border-bottom-color: #212529;
+}
+
+.admin-tab-content {
+  padding: 2rem 0 3rem;
+}

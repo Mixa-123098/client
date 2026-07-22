@@ -276,6 +276,9 @@
       "noCroppedImage": "Ešte ste neorezali fotografiu",
       "save": "Uložiť zmeny",
       "loading": "Načítava sa..."
+    },
+    "languages": {
+      "title": "Jazyky stránky"
     }
   },
   "footer": {
