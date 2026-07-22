@@ -46,6 +46,17 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
 .link-style {
   text-decoration: none;
   color: black;
@@ -302,7 +313,6 @@ video {
   display: block;
   padding: 12px 24px;
   color: var(--mainColor);
-  font-family: "Roboto", sans-serif;
   font-size: 20px;
   font-weight: 600;
   text-decoration: none;
@@ -365,14 +375,26 @@ video {
 
 .block_elem {
   text-decoration: none;
-  /* margin-left: 10px; */
   width: 50px;
   color: var(--mainColor);
+  opacity: 0.5;
   font-size: 1.2rem;
+  font-weight: 600;
+  transition: opacity 0.2s, font-size 0.2s;
+}
+
+.block_elem.active {
+  opacity: 1;
+  font-size: 1.4rem;
 }
 
 .block_elem:hover {
   cursor: pointer;
+  opacity: 0.8;
+}
+
+.block_elem.active:hover {
+  opacity: 1;
 }
 
 .nav_icons_width {
@@ -381,9 +403,17 @@ video {
   padding: 10px 0;
 }
 
-.nav_icons_width img {
-  max-width: 25px;
-  margin-left: max(1vw, 10px);
+.social-icon-link {
+  color: var(--mainColor);
+  font-size: 1.3rem;
+  margin-left: max(1vw, 14px);
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.social-icon-link:hover {
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .mix-blend-mode {

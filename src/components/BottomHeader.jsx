@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import HeaderText from "./HeaderText";
-import instagram_logo from "../assets/Instagram_logo.png";
-import facebook_logo from "../assets/pngwing.com.png";
+import { FaInstagram, FaFacebookF } from "react-icons/fa";
 import { useState } from "react";
 
 function BottomHeader() {
@@ -52,19 +51,24 @@ function BottomHeader() {
 
   function BottomHeaderIcons() {
     return (
-      <>
-        <div className="bottomHeader-left">
-          <a
-            href="https://instagram.com/oda_archetecture?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr"
-            className="nav_icons_width mix-blend-mode "
-          >
-            <img src={instagram_logo} alt="instagram" />
-          </a>
-          <a href="/" className="nav_icons_width mix-blend-mode ">
-            <img src={facebook_logo} alt="facebook" />
-          </a>
-        </div>
-      </>
+      <div className="bottomHeader-left">
+        <a
+          href="https://instagram.com/oda_archetecture?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr"
+          className="nav_icons_width social-icon-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <FaInstagram />
+        </a>
+        <a
+          href="/"
+          className="nav_icons_width social-icon-link"
+          aria-label="Facebook"
+        >
+          <FaFacebookF />
+        </a>
+      </div>
     );
   }
 
@@ -75,15 +79,15 @@ function BottomHeader() {
       <div className="bottomHeader d-flex align-items-center justify-content-between">
         <BottomHeaderIcons />
         <div className="bottomHeader-right d-flex">
-          <span className="block_elem" onClick={() => handleClick(setCount, 1)}>
-            1
-          </span>
-          <span className="block_elem" onClick={() => handleClick(setCount, 2)}>
-            2
-          </span>
-          <span className="block_elem" onClick={() => handleClick(setCount, 3)}>
-            3
-          </span>
+          {[1, 2, 3].map((num) => (
+            <span
+              key={num}
+              className={`block_elem${count === num ? " active" : ""}`}
+              onClick={() => handleClick(setCount, num)}
+            >
+              {num}
+            </span>
+          ))}
         </div>
       </div>
     </>
