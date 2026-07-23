@@ -239,6 +239,12 @@
       "itsYou": "it's you",
       "noChanges": "You have not made any changes",
       "roleUpdateError": "Failed to update role",
+      "searchPlaceholder": "Search by name...",
+      "filterAllRoles": "All roles",
+      "roleAdmin": "Administrator",
+      "roleModerator": "Moderator",
+      "roleUser": "User",
+      "noResults": "No results found",
       "resetPassword": "Reset Password",
       "resetPasswordConfirm": "Reset password for",
       "resetPasswordSuccess": "Password reset. New temporary password for",
@@ -303,6 +309,20 @@
     },
     "languages": {
       "title": "Site Languages"
+    },
+    "changePassword": {
+      "open_close": "change password",
+      "title": "Change Password",
+      "forcedHint": "You need to set a new password before you can continue.",
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Confirm new password",
+      "submit": "Save new password",
+      "success": "Password changed",
+      "error": "Failed to change password",
+      "tooShort": "Password must be at least 8 characters",
+      "mismatch": "Passwords do not match",
+      "wrongCurrent": "Incorrect current password"
     }
   },
   "footer": {

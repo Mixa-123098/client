@@ -70,6 +70,16 @@ class AuthStore {
       this.user = null;
     });
   }
+
+  get mustChangePassword() {
+    return !!this.user?.must_change_password;
+  }
+
+  clearMustChangePassword() {
+    if (this.user) {
+      this.user = { ...this.user, must_change_password: false };
+    }
+  }
 }
 
 const authStore = new AuthStore();

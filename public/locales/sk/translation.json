@@ -238,6 +238,12 @@
       "itsYou": "to ste vy",
       "noChanges": "Neurobili ste žiadne zmeny",
       "roleUpdateError": "Nepodarilo sa zmeniť rolu",
+      "searchPlaceholder": "Hľadať podľa mena...",
+      "filterAllRoles": "Všetky roly",
+      "roleAdmin": "Administrátor",
+      "roleModerator": "Moderátor",
+      "roleUser": "Používateľ",
+      "noResults": "Nenašli sa žiadne výsledky",
       "resetPassword": "Resetovať heslo",
       "resetPasswordConfirm": "Resetovať heslo pre",
       "resetPasswordSuccess": "Heslo bolo resetované. Nové dočasné heslo pre",
@@ -302,6 +308,20 @@
     },
     "languages": {
       "title": "Jazyky stránky"
+    },
+    "changePassword": {
+      "open_close": "zmeniť heslo",
+      "title": "Zmena hesla",
+      "forcedHint": "Pred pokračovaním musíte nastaviť nové heslo.",
+      "current": "Aktuálne heslo",
+      "new": "Nové heslo",
+      "confirm": "Potvrďte nové heslo",
+      "submit": "Uložiť nové heslo",
+      "success": "Heslo zmenené",
+      "error": "Nepodarilo sa zmeniť heslo",
+      "tooShort": "Heslo musí mať aspoň 8 znakov",
+      "mismatch": "Heslá sa nezhodujú",
+      "wrongCurrent": "Nesprávne aktuálne heslo"
     }
   },
   "footer": {

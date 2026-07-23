@@ -11,13 +11,14 @@ import LanguagesManager from "./LanguagesManager";
 import Footer from "../Footer";
 import CropModalForm from "./CropModalForm";
 import CropImgesComponent from "./CropImgesComponent";
+import ChangePasswordForm from "./ChangePasswordForm";
 import { useTranslation } from "react-i18next";
 import Loader from "../../loader/Loader";
 
 const AdminPage = observer(() => {
   const { t } = useTranslation();
 
-  const { isReady, isAdmin } = authStore;
+  const { isReady, isAdmin, mustChangePassword } = authStore;
   const navigate = useNavigate();
 
   const tabs = [
@@ -46,17 +47,47 @@ const AdminPage = observer(() => {
       label: t("editPage.languages.title"),
       Component: LanguagesManager,
     },
+    {
+      key: "changePassword",
+      label: t("editPage.changePassword.open_close"),
+      Component: ChangePasswordForm,
+    },
   ];
 
   const [activeTab, setActiveTab] = useState(tabs[0].key);
 
+  // Non-admins normally have nowhere to go in the admin panel — but if they
+  // were just password-reset, they still need to land here long enough to
+  // change it, so the redirect is held off until that's resolved.
   useEffect(() => {
-    if (isReady && !isAdmin) {
+    if (isReady && !isAdmin && !mustChangePassword) {
       navigate("/");
     }
-  }, [navigate, isReady, isAdmin]);
+  }, [navigate, isReady, isAdmin, mustChangePassword]);
 
-  if (!isReady || !isAdmin) {
+  if (!isReady) {
+    return <Loader />;
+  }
+
+  if (mustChangePassword) {
+    return (
+      <>
+        <Header fontColor="#000000" invert="invert(0%)" rep={true} />
+        <PagesHeader title={t("editPage.changePassword.title")} />
+        <div className="container mt-5 mb-5">
+          <p className="text-muted">{t("editPage.changePassword.forcedHint")}</p>
+          <ChangePasswordForm
+            onSuccess={() => {
+              if (!isAdmin) navigate("/");
+            }}
+          />
+        </div>
+        <Footer settings={{ color: "black", bgColor: "white", shadow: true }} />
+      </>
+    );
+  }
+
+  if (!isAdmin) {
     return <Loader />;
   }
 

@@ -4,6 +4,8 @@ import authStore from "../../store/authStore";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
 
+const ROLES = ["user", "moderator", "admin"];
+
 const UsersStatus = observer(() => {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
@@ -15,6 +17,20 @@ const UsersStatus = observer(() => {
   const [newUser, setNewUser] = useState({ username: "", email: "", password: "" });
   const [createStatus, setCreateStatus] = useState("idle"); // idle | submitting | error
   const [createError, setCreateError] = useState("");
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [search, setSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
+
+  const roleLabels = {
+    admin: t("editPage.usersList.roleAdmin"),
+    moderator: t("editPage.usersList.roleModerator"),
+    user: t("editPage.usersList.roleUser"),
+  };
+  const roleActionLabels = {
+    admin: t("editPage.usersList.makeAdministrator"),
+    moderator: t("editPage.usersList.makeModerator"),
+    user: t("editPage.usersList.makeUser"),
+  };
 
   const fetchUsers = async () => {
     try {
@@ -91,6 +107,7 @@ const UsersStatus = observer(() => {
 
       setNewUser({ username: "", email: "", password: "" });
       setCreateStatus("idle");
+      setShowCreateForm(false);
       fetchUsers();
     } catch (error) {
       console.error("Error creating user:", error);
@@ -103,15 +120,9 @@ const UsersStatus = observer(() => {
     (user) => user.username === authStore.user?.username
   );
 
-  const roleLabels = {
-    moderator: t("editPage.usersList.makeModerator"),
-    admin: t("editPage.usersList.makeAdministrator"),
-    user: t("editPage.usersList.makeUser"),
-  };
-
   const changeRole = async (user, newRole) => {
-    if (user.id === currentUser?.id) return;
-    if (!window.confirm(`${roleLabels[newRole]} — ${user.username}?`)) return;
+    if (user.id === currentUser?.id || newRole === user.role) return;
+    if (!window.confirm(`${roleActionLabels[newRole]} — ${user.username}?`)) return;
 
     setErrorUserId(null);
     setSavingUserId(user.id);
@@ -138,6 +149,14 @@ const UsersStatus = observer(() => {
       setSavingUserId(null);
     }
   };
+
+  const visibleUsers = users.filter((user) => {
+    const matchesSearch = user.username
+      .toLowerCase()
+      .includes(search.trim().toLowerCase());
+    const matchesRole = roleFilter === "all" || user.role === roleFilter;
+    return matchesSearch && matchesRole;
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -167,149 +186,189 @@ const UsersStatus = observer(() => {
         </div>
       )}
 
-      <table className="table">
+      <div className="d-flex flex-wrap gap-2 align-items-center mb-3">
+        <input
+          type="text"
+          className="form-control"
+          style={{ maxWidth: 260 }}
+          placeholder={t("editPage.usersList.searchPlaceholder")}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <select
+          className="form-select"
+          style={{ maxWidth: 180 }}
+          value={roleFilter}
+          onChange={(e) => setRoleFilter(e.target.value)}
+        >
+          <option value="all">{t("editPage.usersList.filterAllRoles")}</option>
+          {ROLES.map((role) => (
+            <option key={role} value={role}>
+              {roleLabels[role]}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          className="btn btn-dark ms-auto"
+          onClick={() => setShowCreateForm((prev) => !prev)}
+        >
+          {t("editPage.usersList.createUser")}
+        </button>
+      </div>
+
+      {showCreateForm && (
+        <div className="card card-body mb-3">
+          {createStatus === "error" && (
+            <div className="alert alert-danger" role="alert">
+              {createError}
+            </div>
+          )}
+          <form
+            onSubmit={handleCreateUser}
+            className="row g-2 align-items-center"
+          >
+            <div className="col-auto">
+              <input
+                type="text"
+                className="form-control"
+                placeholder={t("authForm.username")}
+                value={newUser.username}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, username: e.target.value }))
+                }
+                disabled={createStatus === "submitting"}
+                required
+              />
+            </div>
+            <div className="col-auto">
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Email"
+                value={newUser.email}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, email: e.target.value }))
+                }
+                disabled={createStatus === "submitting"}
+                required
+              />
+            </div>
+            <div className="col-auto">
+              <input
+                type="password"
+                className="form-control"
+                placeholder={t("authForm.password")}
+                value={newUser.password}
+                onChange={(e) =>
+                  setNewUser((prev) => ({ ...prev, password: e.target.value }))
+                }
+                disabled={createStatus === "submitting"}
+                required
+              />
+            </div>
+            <div className="col-auto">
+              <button
+                type="submit"
+                className="btn btn-dark d-flex align-items-center gap-2"
+                disabled={createStatus === "submitting"}
+              >
+                {createStatus === "submitting" && (
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                )}
+                {t("editPage.usersList.createUserSubmit")}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      <table className="table align-middle">
         <thead>
           <tr>
             <th>{t("editPage.usersList.username")}</th>
             <th>{t("editPage.usersList.role")}</th>
-            <th>{t("editPage.usersList.actions")}</th>
+            <th className="text-end">{t("editPage.usersList.actions")}</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>
-                {user.username}{" "}
-                {authStore.user?.username === user.username && (
-                  <span> ({t("editPage.usersList.itsYou")})</span>
-                )}
-              </td>
-              <td>
-                <b>{user.role}</b>
-              </td>
-              <td>
-                {errorUserId === user.id && (
-                  <div className="text-danger small mb-1">
-                    {t("editPage.usersList.roleUpdateError")}
-                  </div>
-                )}
-                <div className="d-flex gap-2 flex-wrap">
-                  {user.id !== currentUser?.id && (
-                    <>
-                      {user.role !== "moderator" && (
-                        <button
-                          onClick={() => changeRole(user, "moderator")}
-                          className="btn btn-primary"
-                          disabled={savingUserId === user.id}
-                        >
-                          {t("editPage.usersList.makeModerator")}
-                        </button>
-                      )}
-                      {user.role !== "admin" && (
-                        <button
-                          onClick={() => changeRole(user, "admin")}
-                          className="btn btn-success"
-                          disabled={savingUserId === user.id}
-                        >
-                          {t("editPage.usersList.makeAdministrator")}
-                        </button>
-                      )}
-                      {user.role !== "user" && (
-                        <button
-                          onClick={() => changeRole(user, "user")}
-                          className="btn btn-warning"
-                          disabled={savingUserId === user.id}
-                        >
-                          {t("editPage.usersList.makeUser")}
-                        </button>
-                      )}
-                    </>
+          {visibleUsers.map((user) => {
+            const isSelf = user.id === currentUser?.id;
+            return (
+              <tr key={user.id}>
+                <td>
+                  {user.username}{" "}
+                  {authStore.user?.username === user.username && (
+                    <span className="text-muted small">
+                      ({t("editPage.usersList.itsYou")})
+                    </span>
                   )}
-                  <button
-                    onClick={() => handleResetPassword(user)}
-                    className="btn btn-outline-dark"
-                    disabled={savingUserId === user.id}
+                  {errorUserId === user.id && (
+                    <div className="text-danger small">
+                      {t("editPage.usersList.roleUpdateError")}
+                    </div>
+                  )}
+                  {resetErrorUserId === user.id && (
+                    <div className="text-danger small">
+                      {t("editPage.usersList.resetPasswordError")}
+                    </div>
+                  )}
+                </td>
+                <td>
+                  <select
+                    className="form-select form-select-sm"
+                    style={{ maxWidth: 160 }}
+                    value={user.role}
+                    disabled={isSelf || savingUserId === user.id}
+                    onChange={(e) => changeRole(user, e.target.value)}
                   >
-                    {t("editPage.usersList.resetPassword")}
-                  </button>
-                </div>
-                {resetErrorUserId === user.id && (
-                  <div className="text-danger small mt-1">
-                    {t("editPage.usersList.resetPasswordError")}
+                    {ROLES.map((role) => (
+                      <option key={role} value={role}>
+                        {roleLabels[role]}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="text-end">
+                  <div className="dropdown">
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary btn-sm"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      disabled={savingUserId === user.id}
+                    >
+                      &#8942;
+                    </button>
+                    <ul className="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <button
+                          type="button"
+                          className="dropdown-item"
+                          onClick={() => handleResetPassword(user)}
+                        >
+                          {t("editPage.usersList.resetPassword")}
+                        </button>
+                      </li>
+                    </ul>
                   </div>
-                )}
+                </td>
+              </tr>
+            );
+          })}
+          {visibleUsers.length === 0 && (
+            <tr>
+              <td colSpan={3} className="text-muted text-center">
+                {t("editPage.usersList.noResults")}
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
-
-      <h4 className="mt-5">{t("editPage.usersList.createUser")}</h4>
-      {createStatus === "error" && (
-        <div className="alert alert-danger" role="alert">
-          {createError}
-        </div>
-      )}
-      <form
-        onSubmit={handleCreateUser}
-        className="row g-2 align-items-center"
-      >
-        <div className="col-auto">
-          <input
-            type="text"
-            className="form-control"
-            placeholder={t("authForm.username")}
-            value={newUser.username}
-            onChange={(e) =>
-              setNewUser((prev) => ({ ...prev, username: e.target.value }))
-            }
-            disabled={createStatus === "submitting"}
-            required
-          />
-        </div>
-        <div className="col-auto">
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Email"
-            value={newUser.email}
-            onChange={(e) =>
-              setNewUser((prev) => ({ ...prev, email: e.target.value }))
-            }
-            disabled={createStatus === "submitting"}
-            required
-          />
-        </div>
-        <div className="col-auto">
-          <input
-            type="password"
-            className="form-control"
-            placeholder={t("authForm.password")}
-            value={newUser.password}
-            onChange={(e) =>
-              setNewUser((prev) => ({ ...prev, password: e.target.value }))
-            }
-            disabled={createStatus === "submitting"}
-            required
-          />
-        </div>
-        <div className="col-auto">
-          <button
-            type="submit"
-            className="btn btn-dark d-flex align-items-center gap-2"
-            disabled={createStatus === "submitting"}
-          >
-            {createStatus === "submitting" && (
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            )}
-            {t("editPage.usersList.createUserSubmit")}
-          </button>
-        </div>
-      </form>
     </div>
   );
 });
