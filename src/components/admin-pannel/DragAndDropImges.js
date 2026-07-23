@@ -45,6 +45,24 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
     setOrder(newOrder);
   };
 
+  const handleRemoveImage = async (imgId) => {
+    if (!window.confirm(t("editPage.editProject.removeImageConfirm"))) {
+      return;
+    }
+    try {
+      const response = await fetch(`${API_URL}/project_imges/${imgId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("delete_failed");
+      const remaining = imges.filter((img) => img.id !== imgId);
+      setImges(remaining);
+      setOrder(remaining.map((img, index) => ({ id: img.id, order: index })));
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  };
+
   return (
     <div>
       <EditHeaderAndPrewImg
@@ -77,8 +95,17 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
                 padding: "10px",
                 margin: "5px",
                 cursor: "grab",
+                position: "relative",
               }}
             >
+              <button
+                type="button"
+                className="btn btn-danger btn-sm"
+                onClick={() => handleRemoveImage(element.id)}
+                style={{ position: "absolute", top: 15, right: 15, zIndex: 1 }}
+              >
+                ×
+              </button>
               <img
                 src={`/img/main_imges_folder/${element.img}`}
                 alt=""

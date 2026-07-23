@@ -232,7 +232,8 @@
       "makeModerator": "Зробити модератором",
       "makeUser": "Зробити звичайним користувачем",
       "itsYou": "це ви",
-      "noChanges": "Ви нічого не змінили"
+      "noChanges": "Ви нічого не змінили",
+      "roleUpdateError": "Не вдалося змінити роль"
     },
     "editProject": {
       "open_close": "редагування проєкту",
@@ -257,7 +258,11 @@
       "ifYouWantToChangeImage2": "картинку, то оберіть файл",
       "ifYouWantToChangeImage3": "змінити",
       "ifYouWantToChangeImage4": "додати",
-      "imagesInsideTheProject": "Картинки в середині проєкту"
+      "imagesInsideTheProject": "Картинки в середині проєкту",
+      "saving": "Збереження...",
+      "saveSuccess": "Зміни збережено!",
+      "saveError": "Не вдалося зберегти зміни",
+      "removeImageConfirm": "Видалити це зображення?"
     },
     "cropImages": {
       "open_close": "обрізку фотографій",

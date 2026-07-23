@@ -234,7 +234,8 @@
       "makeModerator": "Urobiť moderátorom",
       "makeUser": "Urobiť bežným používateľom",
       "itsYou": "to ste vy",
-      "noChanges": "Neurobili ste žiadne zmeny"
+      "noChanges": "Neurobili ste žiadne zmeny",
+      "roleUpdateError": "Nepodarilo sa zmeniť rolu"
     },
     "editProject": {
       "open_close": "upravenie projektu",
@@ -259,7 +260,11 @@
       "ifYouWantToChangeImage2": "zmeniť obrázok, prosím vyberte súbor",
       "ifYouWantToChangeImage3": "zmeniť",
       "ifYouWantToChangeImage4": "pridať",
-      "imagesInsideTheProject": "Obrázky v projekte"
+      "imagesInsideTheProject": "Obrázky v projekte",
+      "saving": "Ukladanie...",
+      "saveSuccess": "Zmeny uložené!",
+      "saveError": "Nepodarilo sa uložiť zmeny",
+      "removeImageConfirm": "Odstrániť tento obrázok?"
     },
     "cropImages": {
       "open_close": "orezávanie obrázkov",

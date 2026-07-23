@@ -8,6 +8,8 @@ const UsersStatus = observer(() => {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [savingUserId, setSavingUserId] = useState(null);
+  const [errorUserId, setErrorUserId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,58 +33,39 @@ const UsersStatus = observer(() => {
     (user) => user.username === authStore.user?.username
   );
 
-  const changeStatus = (userId, newRole) => {
-    if (userId === currentUser?.id) {
-      return;
-    }
-
-    const updatedUsers = users.map((user) =>
-      user.id === userId ? { ...user, role: newRole } : user
-    );
-
-    setUsers(updatedUsers);
+  const roleLabels = {
+    moderator: t("editPage.usersList.makeModerator"),
+    admin: t("editPage.usersList.makeAdministrator"),
+    user: t("editPage.usersList.makeUser"),
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  const changeRole = async (user, newRole) => {
+    if (user.id === currentUser?.id) return;
+    if (!window.confirm(`${roleLabels[newRole]} — ${user.username}?`)) return;
 
+    setErrorUserId(null);
+    setSavingUserId(user.id);
     try {
-      const response = await fetch(`${API_URL}/users`, {
-        credentials: "include",
-      });
-      const updatedData = await response.json();
+      const response = await fetch(
+        `${API_URL}/update_user_role/${user.username}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ role: newRole }),
+        }
+      );
 
-      const isDataChanged =
-        JSON.stringify(updatedData) !== JSON.stringify(users);
+      if (!response.ok) throw new Error("update_failed");
 
-      if (isDataChanged) {
-        const updatePromises = updatedData.map(async (updatedUser) => {
-          const currentUser = users.find((user) => user.id === updatedUser.id);
-          const role =
-            currentUser !== undefined ? currentUser.role : updatedUser.role;
-
-          const putResponse = await fetch(
-            `${API_URL}/update_user_role/${updatedUser.username}`,
-            {
-              method: "PUT",
-              credentials: "include",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ role }),
-            }
-          );
-
-          const putResult = await putResponse.json();
-          console.log("PUT Request Result:", putResult);
-        });
-
-        await Promise.all(updatePromises);
-      } else {
-        alert(t("editPage.usersList.noChanges"));
-      }
+      setUsers((prevUsers) =>
+        prevUsers.map((u) => (u.id === user.id ? { ...u, role: newRole } : u))
+      );
     } catch (error) {
-      console.error("Error updating user roles:", error);
+      console.error("Error updating user role:", error);
+      setErrorUserId(user.id);
+    } finally {
+      setSavingUserId(null);
     }
   };
 
@@ -102,58 +85,59 @@ const UsersStatus = observer(() => {
           </tr>
         </thead>
         <tbody>
-          {users &&
-            users.map((user) => (
-              <tr key={user.id}>
-                <td>
-                  {user.username}{" "}
-                  {authStore.user?.username === user.username && (
-                    <span> ({t("editPage.usersList.itsYou")})</span>
-                  )}
-                </td>
-                <td>
-                  <b>{user.role}</b>
-                </td>
-                <td>
-                  {!currentUser || user.id !== currentUser.id ? (
-                    <>
-                      {user.role !== "moderator" && (
-                        <button
-                          onClick={() => changeStatus(user.id, "moderator")}
-                          className="btn btn-primary"
-                          disabled={user.id === currentUser?.id}
-                        >
-                          {t("editPage.usersList.makeModerator")}
-                        </button>
-                      )}
-                      {user.role !== "admin" && (
-                        <button
-                          onClick={() => changeStatus(user.id, "admin")}
-                          className="btn btn-success"
-                          disabled={user.id === currentUser?.id}
-                        >
-                          {t("editPage.usersList.makeAdministrator")}
-                        </button>
-                      )}
-                      {user.role !== "user" && (
-                        <button
-                          onClick={() => changeStatus(user.id, "user")}
-                          className="btn btn-warning"
-                          disabled={user.id === currentUser?.id}
-                        >
-                          {t("editPage.usersList.makeUser")}
-                        </button>
-                      )}
-                    </>
-                  ) : null}
-                </td>
-              </tr>
-            ))}
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>
+                {user.username}{" "}
+                {authStore.user?.username === user.username && (
+                  <span> ({t("editPage.usersList.itsYou")})</span>
+                )}
+              </td>
+              <td>
+                <b>{user.role}</b>
+              </td>
+              <td>
+                {errorUserId === user.id && (
+                  <div className="text-danger small mb-1">
+                    {t("editPage.usersList.roleUpdateError")}
+                  </div>
+                )}
+                {user.id !== currentUser?.id && (
+                  <div className="d-flex gap-2 flex-wrap">
+                    {user.role !== "moderator" && (
+                      <button
+                        onClick={() => changeRole(user, "moderator")}
+                        className="btn btn-primary"
+                        disabled={savingUserId === user.id}
+                      >
+                        {t("editPage.usersList.makeModerator")}
+                      </button>
+                    )}
+                    {user.role !== "admin" && (
+                      <button
+                        onClick={() => changeRole(user, "admin")}
+                        className="btn btn-success"
+                        disabled={savingUserId === user.id}
+                      >
+                        {t("editPage.usersList.makeAdministrator")}
+                      </button>
+                    )}
+                    {user.role !== "user" && (
+                      <button
+                        onClick={() => changeRole(user, "user")}
+                        className="btn btn-warning"
+                        disabled={savingUserId === user.id}
+                      >
+                        {t("editPage.usersList.makeUser")}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      <button type="submit" onClick={handleFormSubmit} className="btn btn-dark">
-        {t("editPage.usersList.confirm")}
-      </button>
     </div>
   );
 });

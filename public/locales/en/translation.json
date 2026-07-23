@@ -235,7 +235,8 @@
       "makeModerator": "Make Moderator",
       "makeUser": "Make Regular User",
       "itsYou": "it's you",
-      "noChanges": "You have not made any changes"
+      "noChanges": "You have not made any changes",
+      "roleUpdateError": "Failed to update role"
     },
     "editProject": {
       "open_close": "editing project",
@@ -260,7 +261,11 @@
       "ifYouWantToChangeImage2": "change the image, please select a file",
       "ifYouWantToChangeImage3": "change",
       "ifYouWantToChangeImage4": "add",
-      "imagesInsideTheProject": "Images inside the project"
+      "imagesInsideTheProject": "Images inside the project",
+      "saving": "Saving...",
+      "saveSuccess": "Changes saved!",
+      "saveError": "Failed to save changes",
+      "removeImageConfirm": "Delete this image?"
     },
     "cropImages": {
       "open_close": "cropping images",
