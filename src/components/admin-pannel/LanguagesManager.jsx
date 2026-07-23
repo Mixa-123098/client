@@ -57,9 +57,17 @@ const LanguagesManager = () => {
         throw new Error(data.error || "request_failed");
       }
 
+      const data = await response.json();
       setStatus("success");
       setName("");
       setCode("");
+      if (data.failed_project_ids && data.failed_project_ids.length > 0) {
+        setErrorMessage(
+          `Увага: ${data.projects_translated}/${data.projects_total} проєктів перекладено. ` +
+            `Не вдалося перекласти проєкт(и) з ID: ${data.failed_project_ids.join(", ")} — ` +
+            `спробуйте кнопку "Перекласти" на вкладці редагування проєкту.`
+        );
+      }
       loadLanguages();
       languagesStore.refresh();
     } catch (error) {
@@ -138,6 +146,11 @@ const LanguagesManager = () => {
       {status === "success" && (
         <div className="alert alert-success" role="alert">
           Мову додано та перекладено!
+        </div>
+      )}
+      {status === "success" && errorMessage && (
+        <div className="alert alert-warning" role="alert">
+          {errorMessage}
         </div>
       )}
       {status === "error" && (

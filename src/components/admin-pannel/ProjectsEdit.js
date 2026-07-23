@@ -15,6 +15,10 @@ const ProjectsEdit = () => {
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("idle"); // idle | saving | success | error
+  const [retranslatingId, setRetranslatingId] = useState(null);
+  const [retranslateResult, setRetranslateResult] = useState(null); // { id, ok } | null
+  const [orderDirty, setOrderDirty] = useState(false);
+  const [orderStatus, setOrderStatus] = useState("idle"); // idle | saving | success | error
 
   const { handleFileChange, handleUpload } = useFileUpload(
     setProjectData,
@@ -37,6 +41,23 @@ const ProjectsEdit = () => {
         setLoading(false);
       });
   }, []);
+
+  const handleRetranslateClick = async (projectId) => {
+    setRetranslatingId(projectId);
+    setRetranslateResult(null);
+    try {
+      const response = await fetch(`${API_URL}/projects/${projectId}/retranslate`, {
+        method: "POST",
+        credentials: "include",
+      });
+      setRetranslateResult({ id: projectId, ok: response.ok });
+    } catch (error) {
+      console.error("Error retranslating project:", error);
+      setRetranslateResult({ id: projectId, ok: false });
+    } finally {
+      setRetranslatingId(null);
+    }
+  };
 
   const handleEditClick = (project) => {
     setStatus("idle");
@@ -137,6 +158,52 @@ const ProjectsEdit = () => {
       [field]: e.target.value,
     }));
   };
+
+  const handleRowDragStart = (e, index) => {
+    e.dataTransfer.setData("text/plain", index);
+  };
+
+  const handleRowDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleRowDrop = (e, newIndex) => {
+    e.preventDefault();
+    const draggedIndex = Number(e.dataTransfer.getData("text/plain"));
+    if (draggedIndex === newIndex) return;
+    setProjects((prevProjects) => {
+      const reordered = [...prevProjects];
+      const [draggedProject] = reordered.splice(draggedIndex, 1);
+      reordered.splice(newIndex, 0, draggedProject);
+      return reordered;
+    });
+    setOrderDirty(true);
+    setOrderStatus("idle");
+  };
+
+  const handleSaveOrder = async () => {
+    setOrderStatus("saving");
+    try {
+      const response = await fetch(`${API_URL}/projects_order`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          order: projects.map((project, index) => ({
+            id: project.id,
+            order: index,
+          })),
+        }),
+      });
+      if (!response.ok) throw new Error("order_save_failed");
+      setOrderStatus("success");
+      setOrderDirty(false);
+    } catch (error) {
+      console.error("Error saving project order:", error);
+      setOrderStatus("error");
+    }
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -157,6 +224,38 @@ const ProjectsEdit = () => {
           </div>
         )}
 
+        <p className="text-muted small">
+          {t("editPage.editProject.reorderHint")}
+        </p>
+        {orderDirty && (
+          <div className="d-flex align-items-center gap-2 mb-2">
+            <button
+              className="btn btn-dark btn-sm d-flex align-items-center gap-2"
+              onClick={handleSaveOrder}
+              disabled={orderStatus === "saving"}
+            >
+              {orderStatus === "saving" && (
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              )}
+              {t("editPage.editProject.saveOrder")}
+            </button>
+            {orderStatus === "error" && (
+              <span className="text-danger small">
+                {t("editPage.editProject.saveOrderError")}
+              </span>
+            )}
+          </div>
+        )}
+        {orderStatus === "success" && !orderDirty && (
+          <div className="alert alert-success py-1 small" role="alert">
+            {t("editPage.editProject.saveOrderSuccess")}
+          </div>
+        )}
+
         <table className="table">
           <thead>
             <tr>
@@ -167,8 +266,15 @@ const ProjectsEdit = () => {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project) => (
-              <tr key={project.id}>
+            {projects.map((project, index) => (
+              <tr
+                key={project.id}
+                draggable={!editedProject}
+                onDragStart={(e) => handleRowDragStart(e, index)}
+                onDragOver={handleRowDragOver}
+                onDrop={(e) => handleRowDrop(e, index)}
+                style={{ cursor: editedProject ? "default" : "grab" }}
+              >
                 {editedProject && editedProject.id === project.id ? (
                   <td colSpan="4">
                     <fieldset disabled={status === "saving"}>
@@ -310,6 +416,20 @@ const ProjectsEdit = () => {
                         {t("editPage.editProject.edit")}
                       </button>
                       <button
+                        className="btn btn-outline-dark ms-3"
+                        onClick={() => handleRetranslateClick(project.id)}
+                        disabled={retranslatingId === project.id}
+                      >
+                        {retranslatingId === project.id && (
+                          <span
+                            className="spinner-border spinner-border-sm me-1"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
+                        )}
+                        {t("editPage.editProject.retranslate")}
+                      </button>
+                      <button
                         className="btn btn-danger ms-3"
                         onClick={() =>
                           handleDeleteClick(project.id, project.project_name)
@@ -317,6 +437,17 @@ const ProjectsEdit = () => {
                       >
                         {t("editPage.editProject.delete")}
                       </button>
+                      {retranslateResult && retranslateResult.id === project.id && (
+                        <div
+                          className={`small mt-1 ${
+                            retranslateResult.ok ? "text-success" : "text-danger"
+                          }`}
+                        >
+                          {retranslateResult.ok
+                            ? t("editPage.editProject.retranslateSuccess")
+                            : t("editPage.editProject.retranslateError")}
+                        </div>
+                      )}
                     </td>
                   </>
                 )}

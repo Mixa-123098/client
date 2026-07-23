@@ -45,6 +45,7 @@ const CreateProject = () => {
   const [projectData, setProjectData] = useState(emptyProjectData);
   const [previews, setPreviews] = useState({});
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [failedTranslations, setFailedTranslations] = useState([]);
   const tipoProjectId = Date.now();
   const { handleFileChange, handleUpload, resetFiles } = useFileUpload(
     setProjectData,
@@ -92,6 +93,7 @@ const CreateProject = () => {
     }
 
     setStatus("submitting");
+    setFailedTranslations([]);
     try {
       const response = await fetch(`${API_URL}/create_post`, {
         method: "POST",
@@ -106,9 +108,11 @@ const CreateProject = () => {
         throw new Error("Network response was not ok");
       }
 
+      const data = await response.json();
       await handleUpload(`${API_URL}/upload`);
 
       setStatus("success");
+      setFailedTranslations(data.failed_translations || []);
       resetForm();
     } catch (error) {
       console.error("Error creating project:", error);
@@ -128,6 +132,13 @@ const CreateProject = () => {
         {status === "success" && (
           <div className="alert alert-success" role="alert">
             {t("editPage.createNewProject.success")}
+          </div>
+        )}
+        {status === "success" && failedTranslations.length > 0 && (
+          <div className="alert alert-warning" role="alert">
+            {t("editPage.createNewProject.translationFailed")}{" "}
+            {failedTranslations.join(", ").toUpperCase()}.{" "}
+            {t("editPage.createNewProject.translationFailedHint")}
           </div>
         )}
         {status === "error" && (
