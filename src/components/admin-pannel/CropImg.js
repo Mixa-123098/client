@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import "./Crop.css";
@@ -12,6 +12,28 @@ const CropImg = ({ fileDataUrl, handleFileChange }) => {
 
   const [cropData, setCropData] = useState("#");
   const cropperRef = createRef();
+
+  // Cropper.js measures its container's size once, when it initializes —
+  // if that happens while the Bootstrap modal is still mid fade-in
+  // transition, it locks in whatever tiny/wrong size the container had at
+  // that instant (this is what made the cropper render at ~200x100px
+  // instead of filling the panel). Resizing once the modal's own
+  // shown.bs.modal event fires (transition fully done) fixes it.
+  useEffect(() => {
+    const modalEl = document.getElementById("exampleModal");
+    const handleShown = () => {
+      cropperRef.current?.cropper?.resize?.();
+    };
+    modalEl?.addEventListener("shown.bs.modal", handleShown);
+    // Cropper may already exist and the modal may already be shown by the
+    // time this effect runs (e.g. cropping a second photo without closing
+    // the modal) — resize immediately too, not just on the next transition.
+    const resizeTimer = setTimeout(handleShown, 50);
+    return () => {
+      modalEl?.removeEventListener("shown.bs.modal", handleShown);
+      clearTimeout(resizeTimer);
+    };
+  }, [image]);
 
   const getCropData = () => {
     if (cropperRef.current?.cropper) {
@@ -27,12 +49,12 @@ const CropImg = ({ fileDataUrl, handleFileChange }) => {
 
   return (
     <div>
-      <div className="container-fluid d-flex justify-content-between">
-        <div className="col-6">
+      <div className="container-fluid d-flex flex-wrap justify-content-between gap-4">
+        <div className="flex-grow-1" style={{ minWidth: 320 }}>
           <h5>{t("editPage.cropImages.preview")}</h5>
           <Cropper
             ref={cropperRef}
-            style={{ height: "350px" }}
+            style={{ width: "100%", height: "500px" }}
             zoomTo={0.5}
             initialAspectRatio={4 / 3}
             src={image}
@@ -47,7 +69,10 @@ const CropImg = ({ fileDataUrl, handleFileChange }) => {
           />
         </div>
 
-        <div className="col-6 d-flex flex-column align-items-center ">
+        <div
+          className="d-flex flex-column align-items-center"
+          style={{ minWidth: 320, flex: "0 0 320px" }}
+        >
           <h5>{t("editPage.cropImages.croppedImage")}</h5>
           <div>
             {cropData === "#" ? (
