@@ -6,6 +6,7 @@ import { API_URL } from "../../config/api";
 const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
   const { t } = useTranslation();
   const [imges, setImges] = useState([]);
+  const [newImagePreviews, setNewImagePreviews] = useState([]);
 
   useEffect(() => {
     fetch(`${API_URL}/project_imges`)
@@ -43,6 +44,14 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
       order: index,
     }));
     setOrder(newOrder);
+  };
+
+  const handleNewImagesChange = (e) => {
+    const { files } = e.target;
+    if (files && files.length > 0) {
+      setNewImagePreviews(Array.from(files).map((file) => URL.createObjectURL(file)));
+    }
+    handleFileChange(e);
   };
 
   const handleRemoveImage = async (imgId) => {
@@ -113,6 +122,32 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
               />
             </div>
           ))}
+      </div>
+
+      <div className="mt-3" style={{ maxWidth: "75vw" }}>
+        <label className="form-label">
+          {t("editPage.editProject.addNewImages")}
+        </label>
+        <input
+          type="file"
+          name="new_images"
+          className="form-control"
+          multiple
+          onChange={handleNewImagesChange}
+        />
+        {newImagePreviews.length > 0 && (
+          <div className="d-flex flex-wrap gap-2 mt-2">
+            {newImagePreviews.map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt=""
+                className="rounded border"
+                style={{ height: 90, width: 90, objectFit: "cover" }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

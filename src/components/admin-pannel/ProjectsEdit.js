@@ -98,6 +98,14 @@ const ProjectsEdit = () => {
             imges_list: order,
 
             prew_img: projectData && projectData.blueprint,
+
+            // new_images comes from a multi-file input, so useFileUpload
+            // stores it as a single string when exactly one file was picked
+            // — normalize to an array either way.
+            new_images:
+              projectData && projectData.new_images
+                ? [].concat(projectData.new_images)
+                : [],
           }),
         }
       );

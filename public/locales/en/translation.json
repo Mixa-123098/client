@@ -286,6 +286,7 @@
       "ifYouWantToChangeImage3": "change",
       "ifYouWantToChangeImage4": "add",
       "imagesInsideTheProject": "Images inside the project",
+      "addNewImages": "Add new photos",
       "saving": "Saving...",
       "saveSuccess": "Changes saved!",
       "saveError": "Failed to save changes",
