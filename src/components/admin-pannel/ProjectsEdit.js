@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import ProjectEditor from "./ProjectEditor";
 import { useTranslation } from "react-i18next";
+import i18n from "../../i18n.js";
 import { API_URL } from "../../config/api";
 import authStore from "../../store/authStore";
 import languagesStore from "../../store/languagesStore";
@@ -15,6 +16,7 @@ const ProjectsEdit = observer(() => {
   }, []);
 
   const [projects, setProjects] = useState([]);
+  const [translations, setTranslations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [retranslatingId, setRetranslatingId] = useState(null);
   const [retranslateResult, setRetranslateResult] = useState(null); // { id, ok } | null
@@ -29,15 +31,44 @@ const ProjectsEdit = observer(() => {
     const fetchProjects = fetch(`${API_URL}/projects`, {
       credentials: "include",
     }).then((response) => response.json());
+    const fetchTranslations = fetch(`${API_URL}/project_translations`, {
+      credentials: "include",
+    }).then((response) => response.json());
 
-    fetchProjects
-      .then((projectsData) => {
+    Promise.all([fetchProjects, fetchTranslations])
+      .then(([projectsData, translationsData]) => {
         setProjects(projectsData);
+        setTranslations(translationsData);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
+
+  // The list shows each project's name/city/country in whatever language is
+  // currently selected on the site, not always the project's own source
+  // language — falls back to the source text when there's no translation
+  // for the current language, so a project never disappears from the admin's
+  // own list (unlike the public site, which hides untranslated projects).
+  const getDisplayFields = (project) => {
+    if (project.source_lang === i18n.language) {
+      return {
+        name: project.project_name,
+        city: project.project_city,
+        country: project.project_country,
+      };
+    }
+    const row = translations.find(
+      (t) => t.project_id === project.id && t.lang === i18n.language
+    );
+    return row
+      ? { name: row.name, city: row.city, country: row.country }
+      : {
+          name: project.project_name,
+          city: project.project_city,
+          country: project.project_country,
+        };
+  };
 
   const toggleRetranslateLang = (projectId, lang) => {
     setRetranslateSelection((prev) => {
@@ -241,7 +272,9 @@ const ProjectsEdit = observer(() => {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project, index) => (
+            {projects.map((project, index) => {
+              const display = getDisplayFields(project);
+              return (
               <React.Fragment key={project.id}>
               <tr
                 draggable={!editingProjectId}
@@ -251,15 +284,15 @@ const ProjectsEdit = observer(() => {
                 style={{ cursor: editingProjectId ? "default" : "grab" }}
               >
                 <td>
-                  {project.project_name}{" "}
+                  {display.name}{" "}
                   {project.is_hidden && (
                     <span className="badge text-bg-secondary">
                       {t("editPage.editProject.hidden")}
                     </span>
                   )}
                 </td>
-                <td>{project.project_city}</td>
-                <td>{project.project_country}</td>
+                <td>{display.city}</td>
+                <td>{display.country}</td>
                 <td>
                   <button
                     className="btn btn-dark"
@@ -381,7 +414,8 @@ const ProjectsEdit = observer(() => {
                 </tr>
               )}
               </React.Fragment>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
