@@ -46,7 +46,14 @@ const ProjectsEdit = () => {
       });
   }, []);
 
-  const handleRetranslateClick = async (projectId) => {
+  const handleRetranslateClick = async (projectId, projectName) => {
+    if (
+      !window.confirm(
+        `${t("editPage.editProject.retranslateConfirm")} "${projectName.trim()}"?`
+      )
+    )
+      return;
+
     setRetranslatingId(projectId);
     setRetranslateResult(null);
     try {
@@ -468,7 +475,12 @@ const ProjectsEdit = () => {
                       </button>
                       <button
                         className="btn btn-outline-dark ms-3"
-                        onClick={() => handleRetranslateClick(project.id)}
+                        onClick={() =>
+                          handleRetranslateClick(
+                            project.id,
+                            project.project_name
+                          )
+                        }
                         disabled={retranslatingId === project.id}
                       >
                         {retranslatingId === project.id && (

@@ -274,6 +274,7 @@
       "edit": "Edit",
       "delete": "Delete",
       "retranslate": "Retranslate",
+      "retranslateConfirm": "Retranslate (overwrites current translations) — project",
       "hide": "Hide",
       "show": "Show",
       "hidden": "Hidden",
