@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../config/api";
 import languagesStore from "../../store/languagesStore";
+import TranslationsEditor from "./TranslationsEditor";
 
 const LanguagesManager = () => {
   const [languages, setLanguages] = useState([]);
@@ -9,6 +10,7 @@ const LanguagesManager = () => {
   const [code, setCode] = useState("");
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [errorMessage, setErrorMessage] = useState("");
+  const [editingLang, setEditingLang] = useState(null);
 
   const loadLanguages = () => {
     setLoading(true);
@@ -42,7 +44,7 @@ const LanguagesManager = () => {
     setStatus("submitting");
     setErrorMessage("");
     try {
-      const sourceResponse = await fetch("/locales/ua/translation.json");
+      const sourceResponse = await fetch(`${API_URL}/languages/ua/translations`);
       const sourceContent = await sourceResponse.json();
 
       const response = await fetch(`${API_URL}/languages`, {
@@ -117,21 +119,42 @@ const LanguagesManager = () => {
           </thead>
           <tbody>
             {languages.map((lang) => (
-              <tr key={lang.code}>
-                <td>{lang.code.toUpperCase()}</td>
-                <td>{lang.name}</td>
-                <td>{lang.is_builtin ? "Вбудована" : "Додана"}</td>
-                <td>
-                  {!lang.is_builtin && (
+              <React.Fragment key={lang.code}>
+                <tr>
+                  <td>{lang.code.toUpperCase()}</td>
+                  <td>{lang.name}</td>
+                  <td>{lang.is_builtin ? "Вбудована" : "Додана"}</td>
+                  <td className="d-flex gap-2">
                     <button
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => handleDelete(lang.code)}
+                      className="btn btn-outline-dark btn-sm"
+                      onClick={() =>
+                        setEditingLang((prev) =>
+                          prev === lang.code ? null : lang.code
+                        )
+                      }
                     >
-                      Видалити
+                      {editingLang === lang.code
+                        ? "Закрити"
+                        : "Редагувати переклади"}
                     </button>
-                  )}
-                </td>
-              </tr>
+                    {!lang.is_builtin && (
+                      <button
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={() => handleDelete(lang.code)}
+                      >
+                        Видалити
+                      </button>
+                    )}
+                  </td>
+                </tr>
+                {editingLang === lang.code && (
+                  <tr>
+                    <td colSpan={4}>
+                      <TranslationsEditor langCode={lang.code} />
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
             ))}
           </tbody>
         </table>
