@@ -6,17 +6,27 @@ class PhotoStore {
   fileName = null;
   croppedImg = null;
   croppedProjectId = null;
+  // Bumped after a crop is successfully uploaded. Crop-and-replace uploads
+  // reuse the original filename, so the URL never changes and React/the
+  // browser has no reason to refetch it — components that display these
+  // images append this as a cache-busting query param and re-render when it
+  // changes (see CropImgesComponent.js).
+  savedVersion = 0;
+
   constructor() {
     makeObservable(this, {
       fileDataUrl: observable,
       fileName: observable,
       croppedImg: observable,
       croppedProjectId: observable,
+      savedVersion: observable,
       setFileDataUrl: action,
       fetchFile: action,
       setFileName: action,
       setCroppedImg: action,
       setCroppedProjectId: action,
+      bumpSavedVersion: action,
+      resetCrop: action,
     });
   }
 
@@ -31,6 +41,17 @@ class PhotoStore {
   }
   setCroppedProjectId(value) {
     this.croppedProjectId = value;
+  }
+  bumpSavedVersion() {
+    this.savedVersion += 1;
+  }
+  // Clears the in-progress crop (result image + source data URL) without
+  // touching fileName/croppedProjectId, which the next crop click overwrites
+  // anyway. Called when the modal is dismissed or a save completes, so an
+  // abandoned or just-saved crop can never resurface in a later save.
+  resetCrop() {
+    this.croppedImg = null;
+    this.fileDataUrl = null;
   }
 
   async fetchFile() {
@@ -58,46 +79,3 @@ class PhotoStore {
 
 const fileStore = new PhotoStore();
 export default fileStore;
-
-// import { makeObservable, observable, action } from "mobx";
-
-// class PhotoStore {
-//   fileDataUrl = null;
-
-//   constructor() {
-//     makeObservable(this, {
-//       fileDataUrl: observable,
-//       setFileDataUrl: action,
-//       fetchFile: action,
-//     });
-//   }
-
-//   setFileDataUrl(dataUrl) {
-//     this.fileDataUrl = dataUrl;
-//   }
-
-//   async fetchFile(fileName) {
-//     const url = `http://localhost:3001/get-file/${fileName}`;
-
-//     try {
-//       const response = await fetch(url);
-//       const blob = await response.blob();
-
-//       const reader = new FileReader();
-//       reader.onload = () => {
-//         const dataUrl = reader.result;
-//         this.setFileDataUrl(dataUrl);
-//       };
-
-//       reader.onerror = (error) => {
-//         console.error("Error reading file:", error);
-//       };
-//       reader.readAsDataURL(blob);
-//     } catch (error) {
-//       console.error("Error fetching file:", error);
-//     }
-//   }
-// }
-
-// const fileStore = new PhotoStore();
-// export default fileStore;

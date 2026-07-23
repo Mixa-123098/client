@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import useImageUploader from "../../custom-hooks/useImageUploader";
 
 import modalStore from "../../store/ModalStore";
@@ -6,8 +7,17 @@ import fileStore from "../../store/cropImgStore";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
 
-const CropImgDisplay = ({ label, src }) => {
+// Crop-and-replace uploads reuse the original filename, so the browser has
+// no reason to refetch the image after a crop — force it with a
+// cache-busting query param that changes whenever a crop is saved
+// (fileStore.savedVersion). Blob/object URLs (a file just picked, not yet
+// saved) are already unique and don't need it.
+const CropImgDisplay = observer(({ label, src }) => {
   const { imagePreview } = useImageUploader({ src });
+  const displaySrc =
+    imagePreview && !imagePreview.startsWith("blob:")
+      ? `${imagePreview}?v=${fileStore.savedVersion}`
+      : imagePreview;
 
   const handleModalClose = () => {
     fileStore.setFileName(src && src);
@@ -23,7 +33,7 @@ const CropImgDisplay = ({ label, src }) => {
       <div>{label}</div>
       {imagePreview && (
         <img
-          src={imagePreview}
+          src={displaySrc}
           alt="Preview"
           style={{ maxWidth: "100%", maxHeight: "200px" }}
           data-bs-toggle="modal"
@@ -33,7 +43,7 @@ const CropImgDisplay = ({ label, src }) => {
       )}
     </div>
   );
-};
+});
 
 const CropHeaderAndPrewImg = ({ data }) => {
   const { t } = useTranslation();
@@ -98,7 +108,7 @@ const CropHeaderAndPrewImg = ({ data }) => {
   );
 };
 
-const CroppedImges = ({ project_id }) => {
+const CroppedImges = observer(({ project_id }) => {
   const { t } = useTranslation();
 
   const [imges, setImges] = useState([]);
@@ -153,7 +163,7 @@ const CroppedImges = ({ project_id }) => {
               }}
             >
               <img
-                src={`/img/main_imges_folder/${element.img}`}
+                src={`/img/main_imges_folder/${element.img}?v=${fileStore.savedVersion}`}
                 alt=""
                 style={{ maxWidth: "100%" }}
                 data-bs-toggle="modal"
@@ -165,7 +175,7 @@ const CroppedImges = ({ project_id }) => {
       </div>
     </div>
   );
-};
+});
 
 const CropImgesComponent = () => {
   const { t } = useTranslation();

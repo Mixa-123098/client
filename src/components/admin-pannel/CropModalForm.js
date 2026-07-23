@@ -11,22 +11,40 @@ const CropModalForm = observer(() => {
   const { t } = useTranslation();
 
   const [projectData, setProjectData] = useState();
-  // console.log(projectData);
-  const { handleFileChange, handleUpload } = useFileUpload(
+  const [saveStatus, setSaveStatus] = useState("idle"); // idle | saving | success | error
+  const { handleFileChange, handleUpload, resetFiles } = useFileUpload(
     setProjectData,
     projectData,
     fileStore.croppedProjectId
   );
 
-  const handleSaveClick = (e) => {
+  const handleSaveClick = async () => {
     if (!fileStore.croppedImg) {
       alert(t("editPage.cropImages.noCroppedImage"));
-    } else if (window.confirm(`${t("editPage.cropImages.save")}?`)) {
-      handleUpload(`${API_URL}/upload`);
+      return;
+    }
+    if (!window.confirm(`${t("editPage.cropImages.save")}?`)) return;
+
+    setSaveStatus("saving");
+    try {
+      await handleUpload(`${API_URL}/upload`);
+      fileStore.bumpSavedVersion();
+      fileStore.resetCrop();
+      resetFiles();
+      setSaveStatus("success");
+    } catch (error) {
+      console.error("Error uploading cropped image:", error);
+      setSaveStatus("error");
     }
   };
+
   const handleModalDismiss = () => {
     modalStore.setIsModalReadyWithDelay(false, 0);
+    // Drop any crop that wasn't saved so it can't resurface and get
+    // uploaded the next time a different image is cropped and saved.
+    fileStore.resetCrop();
+    resetFiles();
+    setSaveStatus("idle");
   };
 
   const handleModalClick = (event) => {
@@ -74,6 +92,17 @@ const CropModalForm = observer(() => {
               </div>
             )}
 
+            {saveStatus === "success" && (
+              <div className="alert alert-success mx-3" role="alert">
+                {t("editPage.cropImages.saveSuccess")}
+              </div>
+            )}
+            {saveStatus === "error" && (
+              <div className="alert alert-danger mx-3" role="alert">
+                {t("editPage.cropImages.saveError")}
+              </div>
+            )}
+
             <div className="modal-footer">
               <button
                 type="button"
@@ -85,10 +114,18 @@ const CropModalForm = observer(() => {
               </button>
               <button
                 type="button"
-                className="btn btn-success"
+                className="btn btn-success d-flex align-items-center gap-2"
                 id="save-button"
-                onClick={(e) => handleSaveClick(e)}
+                onClick={handleSaveClick}
+                disabled={!fileStore.croppedImg || saveStatus === "saving"}
               >
+                {saveStatus === "saving" && (
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                )}
                 {t("editPage.cropImages.save")}
               </button>
             </div>
