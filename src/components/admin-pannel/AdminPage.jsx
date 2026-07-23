@@ -15,55 +15,67 @@ import ChangePasswordForm from "./ChangePasswordForm";
 import { useTranslation } from "react-i18next";
 import Loader from "../../loader/Loader";
 
+const ALL_TABS = [
+  {
+    key: "createProject",
+    labelKey: "editPage.createNewProject.open_close",
+    Component: CreateProject,
+    roles: ["admin", "moderator"],
+  },
+  {
+    key: "usersList",
+    labelKey: "editPage.usersList.open_close",
+    Component: UsersStatus,
+    roles: ["admin"],
+  },
+  {
+    key: "projectsEdit",
+    labelKey: "editPage.editProject.open_close",
+    Component: ProjectsEdit,
+    roles: ["admin", "moderator"],
+  },
+  {
+    key: "cropProjectsImges",
+    labelKey: "editPage.cropImages.open_close",
+    Component: CropImgesComponent,
+    roles: ["admin", "moderator"],
+  },
+  {
+    key: "languages",
+    labelKey: "editPage.languages.title",
+    Component: LanguagesManager,
+    roles: ["admin"],
+  },
+  {
+    key: "changePassword",
+    labelKey: "editPage.changePassword.open_close",
+    Component: ChangePasswordForm,
+    roles: ["admin", "moderator"],
+  },
+];
+
 const AdminPage = observer(() => {
   const { t } = useTranslation();
 
-  const { isReady, isAdmin, mustChangePassword } = authStore;
+  const { isReady, mustChangePassword, user } = authStore;
+  const role = user?.role;
+  const hasPanelAccess = role === "admin" || role === "moderator";
   const navigate = useNavigate();
 
-  const tabs = [
-    {
-      key: "createProject",
-      label: t("editPage.createNewProject.open_close"),
-      Component: CreateProject,
-    },
-    {
-      key: "usersList",
-      label: t("editPage.usersList.open_close"),
-      Component: UsersStatus,
-    },
-    {
-      key: "projectsEdit",
-      label: t("editPage.editProject.open_close"),
-      Component: ProjectsEdit,
-    },
-    {
-      key: "cropProjectsImges",
-      label: t("editPage.cropImages.open_close"),
-      Component: CropImgesComponent,
-    },
-    {
-      key: "languages",
-      label: t("editPage.languages.title"),
-      Component: LanguagesManager,
-    },
-    {
-      key: "changePassword",
-      label: t("editPage.changePassword.open_close"),
-      Component: ChangePasswordForm,
-    },
-  ];
+  const tabs = ALL_TABS.filter((tab) => tab.roles.includes(role)).map(
+    (tab) => ({ ...tab, label: t(tab.labelKey) })
+  );
 
-  const [activeTab, setActiveTab] = useState(tabs[0].key);
+  const [activeTab, setActiveTab] = useState(() => tabs[0]?.key);
 
-  // Non-admins normally have nowhere to go in the admin panel — but if they
+  // Non-staff normally have nowhere to go in the admin panel — but if they
   // were just password-reset, they still need to land here long enough to
   // change it, so the redirect is held off until that's resolved.
   useEffect(() => {
-    if (isReady && !isAdmin && !mustChangePassword) {
+    if (isReady && !hasPanelAccess && !mustChangePassword) {
       navigate("/");
     }
-  }, [navigate, isReady, isAdmin, mustChangePassword]);
+  }, [navigate, isReady, hasPanelAccess, mustChangePassword]);
 
   if (!isReady) {
     return <Loader />;
@@ -78,7 +90,7 @@ const AdminPage = observer(() => {
           <p className="text-muted">{t("editPage.changePassword.forcedHint")}</p>
           <ChangePasswordForm
             onSuccess={() => {
-              if (!isAdmin) navigate("/");
+              if (!hasPanelAccess) navigate("/");
             }}
           />
         </div>
@@ -87,11 +99,13 @@ const AdminPage = observer(() => {
     );
   }
 
-  if (!isAdmin) {
+  if (!hasPanelAccess) {
     return <Loader />;
   }
 
-  const ActiveComponent = tabs.find((tab) => tab.key === activeTab).Component;
+  const ActiveComponent = (
+    tabs.find((tab) => tab.key === activeTab) || tabs[0]
+  ).Component;
 
   return (
     <>

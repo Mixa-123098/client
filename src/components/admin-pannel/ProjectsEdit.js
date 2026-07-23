@@ -3,9 +3,11 @@ import DragAndDropImges from "./DragAndDropImges";
 import useFileUpload from "../../custom-hooks/useFileUpload";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
+import authStore from "../../store/authStore";
 
 const ProjectsEdit = () => {
   const { t } = useTranslation();
+  const canDelete = authStore.user?.role === "admin";
 
   const [projects, setProjects] = useState([]);
   const [editedProject, setEditedProject] = useState(null);
@@ -429,14 +431,16 @@ const ProjectsEdit = () => {
                         )}
                         {t("editPage.editProject.retranslate")}
                       </button>
-                      <button
-                        className="btn btn-danger ms-3"
-                        onClick={() =>
-                          handleDeleteClick(project.id, project.project_name)
-                        }
-                      >
-                        {t("editPage.editProject.delete")}
-                      </button>
+                      {canDelete && (
+                        <button
+                          className="btn btn-danger ms-3"
+                          onClick={() =>
+                            handleDeleteClick(project.id, project.project_name)
+                          }
+                        >
+                          {t("editPage.editProject.delete")}
+                        </button>
+                      )}
                       {retranslateResult && retranslateResult.id === project.id && (
                         <div
                           className={`small mt-1 ${
