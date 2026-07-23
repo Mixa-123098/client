@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import useFileUpload from "../../custom-hooks/useFileUpload";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
+import languagesStore from "../../store/languagesStore";
 
 const emptyProjectData = {
   project_name: "",
@@ -17,6 +19,7 @@ const emptyProjectData = {
   blueprint_img: "",
   blueprint_description: "",
   imges_list: [],
+  source_lang: "",
 };
 
 const Field = ({ label, required, children }) => (
@@ -39,8 +42,12 @@ const FilePreview = ({ src }) =>
     />
   ) : null;
 
-const CreateProject = () => {
+const CreateProject = observer(() => {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    languagesStore.fetchLanguages();
+  }, []);
 
   const [projectData, setProjectData] = useState(emptyProjectData);
   const [previews, setPreviews] = useState({});
@@ -89,6 +96,10 @@ const CreateProject = () => {
 
     if (isSpecializationInvalid) {
       alert(t("editPage.createNewProject.feedbacks.chooseSpecialization"));
+      return;
+    }
+    if (!projectData.source_lang) {
+      alert(t("editPage.createNewProject.feedbacks.chooseLanguage"));
       return;
     }
 
@@ -148,6 +159,25 @@ const CreateProject = () => {
         )}
 
         <fieldset disabled={status === "submitting"}>
+          <Field label={t("editPage.createNewProject.language")} required>
+            <select
+              name="source_lang"
+              className="form-select"
+              value={projectData.source_lang}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">
+                {t("editPage.createNewProject.chooseLanguage")}
+              </option>
+              {languagesStore.languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          </Field>
+
           <Field label={t("editPage.createNewProject.name")} required>
             <input
               type="text"
@@ -340,6 +370,6 @@ const CreateProject = () => {
       </form>
     </div>
   );
-};
+});
 
 export default CreateProject;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DragAndDropImges from "./DragAndDropImges";
+import ProjectTranslationsEditor from "./ProjectTranslationsEditor";
 import useFileUpload from "../../custom-hooks/useFileUpload";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
@@ -21,6 +22,7 @@ const ProjectsEdit = () => {
   const [retranslateResult, setRetranslateResult] = useState(null); // { id, ok } | null
   const [orderDirty, setOrderDirty] = useState(false);
   const [orderStatus, setOrderStatus] = useState("idle"); // idle | saving | success | error
+  const [translatingProjectId, setTranslatingProjectId] = useState(null);
 
   const { handleFileChange, handleUpload } = useFileUpload(
     setProjectData,
@@ -277,8 +279,8 @@ const ProjectsEdit = () => {
           </thead>
           <tbody>
             {projects.map((project, index) => (
+              <React.Fragment key={project.id}>
               <tr
-                key={project.id}
                 draggable={!editedProject}
                 onDragStart={(e) => handleRowDragStart(e, index)}
                 onDragOver={handleRowDragOver}
@@ -439,6 +441,18 @@ const ProjectsEdit = () => {
                         )}
                         {t("editPage.editProject.retranslate")}
                       </button>
+                      <button
+                        className="btn btn-outline-dark ms-3"
+                        onClick={() =>
+                          setTranslatingProjectId((prev) =>
+                            prev === project.id ? null : project.id
+                          )
+                        }
+                      >
+                        {translatingProjectId === project.id
+                          ? t("editPage.editProject.closeTranslations")
+                          : t("editPage.editProject.editTranslations")}
+                      </button>
                       {canDelete && (
                         <button
                           className="btn btn-danger ms-3"
@@ -464,6 +478,14 @@ const ProjectsEdit = () => {
                   </>
                 )}
               </tr>
+              {translatingProjectId === project.id && (
+                <tr>
+                  <td colSpan={4}>
+                    <ProjectTranslationsEditor projectId={project.id} />
+                  </td>
+                </tr>
+              )}
+              </React.Fragment>
             ))}
           </tbody>
         </table>
