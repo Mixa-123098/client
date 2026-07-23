@@ -3,9 +3,9 @@ import { API_URL } from "../config/api";
 
 class LanguagesStore {
   languages = [
-    { code: "en", name: "English", is_builtin: true },
-    { code: "ua", name: "Ukrainian", is_builtin: true },
-    { code: "sk", name: "Slovak", is_builtin: true },
+    { code: "en", name: "English" },
+    { code: "ua", name: "Ukrainian" },
+    { code: "sk", name: "Slovak" },
   ];
   isLoading = false;
   hasFetched = false;

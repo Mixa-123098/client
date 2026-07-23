@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import DragAndDropImges from "./DragAndDropImges";
 import ProjectTranslationsEditor from "./ProjectTranslationsEditor";
 import useFileUpload from "../../custom-hooks/useFileUpload";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
 import authStore from "../../store/authStore";
+import languagesStore from "../../store/languagesStore";
 
-const ProjectsEdit = () => {
+const ProjectsEdit = observer(() => {
   const { t } = useTranslation();
   const canDelete = authStore.user?.role === "admin";
+
+  useEffect(() => {
+    languagesStore.fetchLanguages();
+  }, []);
 
   const [projects, setProjects] = useState([]);
   const [editedProject, setEditedProject] = useState(null);
@@ -23,6 +29,7 @@ const ProjectsEdit = () => {
   const [orderDirty, setOrderDirty] = useState(false);
   const [orderStatus, setOrderStatus] = useState("idle"); // idle | saving | success | error
   const [translatingProjectId, setTranslatingProjectId] = useState(null);
+  const [retranslateSelection, setRetranslateSelection] = useState({}); // { [projectId]: Set<lang> }
 
   const { handleFileChange, handleUpload } = useFileUpload(
     setProjectData,
@@ -46,10 +53,27 @@ const ProjectsEdit = () => {
       });
   }, []);
 
+  const toggleRetranslateLang = (projectId, lang) => {
+    setRetranslateSelection((prev) => {
+      const current = new Set(prev[projectId] || []);
+      if (current.has(lang)) {
+        current.delete(lang);
+      } else {
+        current.add(lang);
+      }
+      return { ...prev, [projectId]: current };
+    });
+  };
+
   const handleRetranslateClick = async (projectId, projectName) => {
+    const selectedLangs = Array.from(retranslateSelection[projectId] || []);
+    if (selectedLangs.length === 0) return;
+
     if (
       !window.confirm(
-        `${t("editPage.editProject.retranslateConfirm")} "${projectName.trim()}"?`
+        `${t("editPage.editProject.retranslateConfirm")} "${projectName.trim()}" (${selectedLangs
+          .map((l) => l.toUpperCase())
+          .join(", ")})?`
       )
     )
       return;
@@ -60,8 +84,13 @@ const ProjectsEdit = () => {
       const response = await fetch(`${API_URL}/projects/${projectId}/retranslate`, {
         method: "POST",
         credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ langs: selectedLangs }),
       });
       setRetranslateResult({ id: projectId, ok: response.ok });
+      if (response.ok) {
+        setRetranslateSelection((prev) => ({ ...prev, [projectId]: new Set() }));
+      }
     } catch (error) {
       console.error("Error retranslating project:", error);
       setRetranslateResult({ id: projectId, ok: false });
@@ -473,25 +502,71 @@ const ProjectsEdit = () => {
                           ? t("editPage.editProject.show")
                           : t("editPage.editProject.hide")}
                       </button>
-                      <button
-                        className="btn btn-outline-dark ms-3"
-                        onClick={() =>
-                          handleRetranslateClick(
-                            project.id,
-                            project.project_name
-                          )
-                        }
-                        disabled={retranslatingId === project.id}
-                      >
-                        {retranslatingId === project.id && (
-                          <span
-                            className="spinner-border spinner-border-sm me-1"
-                            role="status"
-                            aria-hidden="true"
-                          ></span>
-                        )}
-                        {t("editPage.editProject.retranslate")}
-                      </button>
+                      <div className="dropdown d-inline-block ms-3">
+                        <button
+                          type="button"
+                          className="btn btn-outline-dark dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                          data-bs-auto-close="outside"
+                          aria-expanded="false"
+                          disabled={retranslatingId === project.id}
+                        >
+                          {retranslatingId === project.id && (
+                            <span
+                              className="spinner-border spinner-border-sm me-1"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                          )}
+                          {t("editPage.editProject.retranslate")}
+                        </button>
+                        <div className="dropdown-menu p-3" style={{ minWidth: 220 }}>
+                          <div className="small text-muted mb-2">
+                            {t("editPage.editProject.retranslateChooseLangs")}
+                          </div>
+                          {languagesStore.languages
+                            .filter((lang) => lang.code !== project.source_lang)
+                            .map((lang) => (
+                              <div className="form-check" key={lang.code}>
+                                <input
+                                  type="checkbox"
+                                  className="form-check-input"
+                                  id={`retranslate-${project.id}-${lang.code}`}
+                                  checked={
+                                    retranslateSelection[project.id]?.has(
+                                      lang.code
+                                    ) || false
+                                  }
+                                  onChange={() =>
+                                    toggleRetranslateLang(project.id, lang.code)
+                                  }
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor={`retranslate-${project.id}-${lang.code}`}
+                                >
+                                  {lang.code.toUpperCase()} — {lang.name}
+                                </label>
+                              </div>
+                            ))}
+                          <button
+                            type="button"
+                            className="btn btn-dark btn-sm mt-2 w-100"
+                            disabled={
+                              !retranslateSelection[project.id]?.size ||
+                              retranslatingId === project.id
+                            }
+                            onClick={() =>
+                              handleRetranslateClick(
+                                project.id,
+                                project.project_name
+                              )
+                            }
+                          >
+                            {t("editPage.editProject.retranslateSubmit")}
+                          </button>
+                        </div>
+                      </div>
                       <button
                         className="btn btn-outline-dark ms-3"
                         onClick={() =>
@@ -543,6 +618,6 @@ const ProjectsEdit = () => {
       </div>
     </>
   );
-};
+});
 
 export default ProjectsEdit;

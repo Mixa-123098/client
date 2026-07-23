@@ -95,10 +95,21 @@ const Projects = ({ indexFromSecBlock }) => {
     setCurrentPage(1);
   };
 
+  // A project with no translation into the current language shouldn't show
+  // up at all — previously it silently fell back to the source-language
+  // text, which looked like a translation existed when it didn't.
+  const availableInLanguage = dataList.filter(
+    (project) =>
+      project.source_lang === i18n.language ||
+      translations.some(
+        (row) => row.project_id === project.id && row.lang === i18n.language
+      )
+  );
+
   const filteredData =
     focusedIndex === 0
-      ? dataList
-      : dataList.filter(
+      ? availableInLanguage
+      : availableInLanguage.filter(
           // eslint-disable-next-line
           (element) => element.project_specialization == focusedIndex
         );

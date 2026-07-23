@@ -92,12 +92,19 @@ const LanguagesManager = () => {
         method: "DELETE",
         credentials: "include",
       });
-      if (!response.ok) throw new Error("delete_failed");
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "delete_failed");
+      }
       loadLanguages();
       languagesStore.refresh();
     } catch (error) {
       console.error("Error deleting language:", error);
-      alert("Не вдалося видалити мову");
+      alert(
+        error.message === "cannot_delete_last_language"
+          ? "Не можна видалити останню мову сайту"
+          : "Не вдалося видалити мову"
+      );
     }
   };
 
@@ -113,7 +120,6 @@ const LanguagesManager = () => {
             <tr>
               <th>Код</th>
               <th>Назва</th>
-              <th>Тип</th>
               <th></th>
             </tr>
           </thead>
@@ -123,7 +129,6 @@ const LanguagesManager = () => {
                 <tr>
                   <td>{lang.code.toUpperCase()}</td>
                   <td>{lang.name}</td>
-                  <td>{lang.is_builtin ? "Вбудована" : "Додана"}</td>
                   <td className="d-flex gap-2">
                     <button
                       className="btn btn-outline-dark btn-sm"
@@ -137,19 +142,17 @@ const LanguagesManager = () => {
                         ? "Закрити"
                         : "Редагувати переклади"}
                     </button>
-                    {!lang.is_builtin && (
-                      <button
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => handleDelete(lang.code)}
-                      >
-                        Видалити
-                      </button>
-                    )}
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => handleDelete(lang.code)}
+                    >
+                      Видалити
+                    </button>
                   </td>
                 </tr>
                 {editingLang === lang.code && (
                   <tr>
-                    <td colSpan={4}>
+                    <td colSpan={3}>
                       <TranslationsEditor langCode={lang.code} />
                     </td>
                   </tr>

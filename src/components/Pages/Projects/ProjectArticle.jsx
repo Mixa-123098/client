@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import "./ProjectArticle.css";
@@ -330,49 +330,59 @@ const PrevAndNextProject = ({ id }) => {
 const ProjectArticle = observer(() => {
   const { t } = useTranslation();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [dataList, setDataList] = useState();
   const [translation, setTranslation] = useState(null);
+  // A project with no translation into the current language shouldn't be
+  // viewable there — it used to silently fall back to the source-language
+  // text, which looked translated when it wasn't.
+  const [notAvailable, setNotAvailable] = useState(false);
   // console.log(dataList);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    // setLoading(true);
+    let cancelled = false;
     // credentials included so a logged-in admin/moderator can preview a
     // hidden (draft) project exactly as it will look once published —
     // anonymous visitors get filtered results from the server either way.
     fetch(`${API_URL}/projects`, { credentials: "include" })
       .then((response) => response.json())
-      // .then((data) => setDataList(data[id - 6]));
       .then((data) => {
-        setDataList(data.find((project) => project.id === parseInt(id)));
-        setLoading(false); // Set loading to false after data is fetched
+        if (cancelled) return;
+        const project = data.find((p) => p.id === parseInt(id));
+        setDataList(project);
+        setLoading(false);
+
+        if (!project) return;
+
+        if (i18n.language === project.source_lang) {
+          setTranslation(null);
+          setNotAvailable(false);
+          return;
+        }
+
+        // Machine-translated fields for languages other than the project's
+        // own source_lang (see components below: they try the static i18n
+        // key first, and only fall back to this).
+        fetch(`${API_URL}/project_translations`, { credentials: "include" })
+          .then((response) => response.json())
+          .then((tdata) => {
+            if (cancelled) return;
+            const row = tdata.find(
+              (r) => r.project_id === parseInt(id) && r.lang === i18n.language
+            );
+            setTranslation(row || null);
+            setNotAvailable(!row);
+          })
+          .catch((error) => {
+            console.error("Error fetching project translations:", error);
+          });
       })
       .catch((error) => {
         console.error("Error fetching project data:", error);
-        setLoading(false); // Ensure loading stops even if there's an error
+        setLoading(false);
       });
-
-    // Machine-translated fields for projects that don't have hand-written
-    // translations in the static i18n files (see components below: they try
-    // the static key first, and only fall back to this).
-    if (i18n.language !== "ua") {
-      fetch(`${API_URL}/project_translations`, { credentials: "include" })
-        .then((response) => response.json())
-        .then((data) =>
-          setTranslation(
-            data.find(
-              (row) =>
-                row.project_id === parseInt(id) && row.lang === i18n.language
-            )
-          )
-        )
-        .catch((error) => {
-          console.error("Error fetching project translations:", error);
-        });
-    } else {
-      setTranslation(null);
-    }
 
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -381,13 +391,20 @@ const ProjectArticle = observer(() => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      cancelled = true;
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [id]);
+  }, [id, i18n.language]);
+
+  useEffect(() => {
+    if (notAvailable) {
+      navigate("/projects");
+    }
+  }, [notAvailable, navigate]);
 
   const parallaxOffset = 1 * scrollY * 0.5;
 
-  if (loading) {
+  if (loading || notAvailable) {
     return <Loader />;
   }
 
