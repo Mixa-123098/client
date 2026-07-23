@@ -13,6 +13,8 @@ const UsersStatus = observer(() => {
   const [savingUserId, setSavingUserId] = useState(null);
   const [errorUserId, setErrorUserId] = useState(null);
   const [resetErrorUserId, setResetErrorUserId] = useState(null);
+  const [deleteErrorUserId, setDeleteErrorUserId] = useState(null);
+  const [deleteErrorMessage, setDeleteErrorMessage] = useState("");
   const [resetResult, setResetResult] = useState(null); // { username, tempPassword } | null
   const [newUser, setNewUser] = useState({ username: "", email: "", password: "" });
   const [createStatus, setCreateStatus] = useState("idle"); // idle | submitting | error
@@ -75,6 +77,39 @@ const UsersStatus = observer(() => {
     } catch (error) {
       console.error("Error resetting password:", error);
       setResetErrorUserId(user.id);
+    } finally {
+      setSavingUserId(null);
+    }
+  };
+
+  const handleDeleteUser = async (user) => {
+    if (
+      !window.confirm(
+        `${t("editPage.usersList.deleteUserConfirm")} "${user.username}"?`
+      )
+    )
+      return;
+
+    setDeleteErrorUserId(null);
+    setSavingUserId(user.id);
+    try {
+      const response = await fetch(`${API_URL}/users/${user.username}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "delete_failed");
+      }
+      setUsers((prevUsers) => prevUsers.filter((u) => u.id !== user.id));
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      setDeleteErrorUserId(user.id);
+      setDeleteErrorMessage(
+        error.message === "cannot_delete_last_admin"
+          ? t("editPage.usersList.cannotDeleteLastAdmin")
+          : t("editPage.usersList.deleteUserError")
+      );
     } finally {
       setSavingUserId(null);
     }
@@ -317,6 +352,11 @@ const UsersStatus = observer(() => {
                       {t("editPage.usersList.resetPasswordError")}
                     </div>
                   )}
+                  {deleteErrorUserId === user.id && (
+                    <div className="text-danger small">
+                      {deleteErrorMessage}
+                    </div>
+                  )}
                 </td>
                 <td>
                   <select
@@ -354,6 +394,17 @@ const UsersStatus = observer(() => {
                           {t("editPage.usersList.resetPassword")}
                         </button>
                       </li>
+                      {!isSelf && (
+                        <li>
+                          <button
+                            type="button"
+                            className="dropdown-item text-danger"
+                            onClick={() => handleDeleteUser(user)}
+                          >
+                            {t("editPage.usersList.deleteUser")}
+                          </button>
+                        </li>
+                      )}
                     </ul>
                   </div>
                 </td>

@@ -33,9 +33,9 @@ const ProjectsEdit = () => {
   useEffect(() => {
     setLoading(true);
 
-    const fetchProjects = fetch(`${API_URL}/projects`).then((response) =>
-      response.json()
-    );
+    const fetchProjects = fetch(`${API_URL}/projects`, {
+      credentials: "include",
+    }).then((response) => response.json());
 
     fetchProjects
       .then((projectsData) => {
@@ -161,6 +161,30 @@ const ProjectsEdit = () => {
       } catch (error) {
         console.error("Error sending delete request:", error);
       }
+    }
+  };
+
+  const handleToggleVisibility = async (project) => {
+    const nextHidden = !project.is_hidden;
+    try {
+      const response = await fetch(
+        `${API_URL}/projects/${project.id}/visibility`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ is_hidden: nextHidden }),
+        }
+      );
+      if (!response.ok) throw new Error("visibility_update_failed");
+      setProjects((prevProjects) =>
+        prevProjects.map((p) =>
+          p.id === project.id ? { ...p, is_hidden: nextHidden } : p
+        )
+      );
+    } catch (error) {
+      console.error("Error toggling project visibility:", error);
+      alert(t("editPage.editProject.visibilityError"));
     }
   };
 
@@ -417,7 +441,14 @@ const ProjectsEdit = () => {
                   </td>
                 ) : (
                   <>
-                    <td>{project.project_name}</td>
+                    <td>
+                      {project.project_name}{" "}
+                      {project.is_hidden && (
+                        <span className="badge text-bg-secondary">
+                          {t("editPage.editProject.hidden")}
+                        </span>
+                      )}
+                    </td>
                     <td>{project.project_city}</td>
                     <td>{project.project_country}</td>
                     <td>
@@ -426,6 +457,14 @@ const ProjectsEdit = () => {
                         onClick={() => handleEditClick(project)}
                       >
                         {t("editPage.editProject.edit")}
+                      </button>
+                      <button
+                        className="btn btn-outline-dark ms-3"
+                        onClick={() => handleToggleVisibility(project)}
+                      >
+                        {project.is_hidden
+                          ? t("editPage.editProject.show")
+                          : t("editPage.editProject.hide")}
                       </button>
                       <button
                         className="btn btn-outline-dark ms-3"

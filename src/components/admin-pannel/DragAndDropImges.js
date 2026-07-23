@@ -9,7 +9,7 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
   const [newImagePreviews, setNewImagePreviews] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_URL}/project_imges`)
+    fetch(`${API_URL}/project_imges`, { credentials: "include" })
       .then((response) => response.json())
       .then((data) => {
         setImges(

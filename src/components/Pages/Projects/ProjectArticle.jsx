@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import "./ProjectArticle.css";
 import Header from "../../Header";
 import Seo from "../../Seo";
@@ -10,6 +11,7 @@ import i18n from "../../../i18n.js";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../loader/Loader.jsx";
 import { API_URL } from "../../../config/api";
+import authStore from "../../../store/authStore";
 
 const ProjectHeader = ({ dataList, parallaxOffset }) => {
   const { t } = useTranslation();
@@ -163,7 +165,7 @@ const ProjectArticlePlanning = ({ id, translation }) => {
   const [blueprints, setBlueprint] = useState();
 
   useEffect(() => {
-    fetch(`${API_URL}/blueprints`)
+    fetch(`${API_URL}/blueprints`, { credentials: "include" })
       .then((response) => response.json())
       // eslint-disable-next-line eqeqeq
       .then((data) => setBlueprint(data.find((item) => item.project_id == id)));
@@ -204,7 +206,7 @@ const ProjectArticleImges = ({ id }) => {
   const [projectImges, setProjectImges] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_URL}/project_imges`)
+    fetch(`${API_URL}/project_imges`, { credentials: "include" })
       .then((response) => response.json())
       .then((data) =>
         setProjectImges(
@@ -246,7 +248,7 @@ const PrevAndNextProject = ({ id }) => {
   const [currentIndex, setCurrentIndex] = useState(null);
   // console.log(dataList);
   useEffect(() => {
-    fetch(`${API_URL}/projects`)
+    fetch(`${API_URL}/projects`, { credentials: "include" })
       .then((response) => response.json())
       .then((data) => {
         setDataList(data);
@@ -325,7 +327,7 @@ const PrevAndNextProject = ({ id }) => {
 //     </>
 //   );
 // };
-const ProjectArticle = () => {
+const ProjectArticle = observer(() => {
   const { t } = useTranslation();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
@@ -336,7 +338,10 @@ const ProjectArticle = () => {
 
   useEffect(() => {
     // setLoading(true);
-    fetch(`${API_URL}/projects`)
+    // credentials included so a logged-in admin/moderator can preview a
+    // hidden (draft) project exactly as it will look once published —
+    // anonymous visitors get filtered results from the server either way.
+    fetch(`${API_URL}/projects`, { credentials: "include" })
       .then((response) => response.json())
       // .then((data) => setDataList(data[id - 6]));
       .then((data) => {
@@ -352,7 +357,7 @@ const ProjectArticle = () => {
     // translations in the static i18n files (see components below: they try
     // the static key first, and only fall back to this).
     if (i18n.language !== "ua") {
-      fetch(`${API_URL}/project_translations`)
+      fetch(`${API_URL}/project_translations`, { credentials: "include" })
         .then((response) => response.json())
         .then((data) =>
           setTranslation(
@@ -410,9 +415,20 @@ const ProjectArticle = () => {
     resolvedDataList &&
     (t(briefKey) !== briefKey ? t(briefKey) : resolvedDataList.project_brief);
 
+  const isStaff =
+    authStore.user?.role === "admin" || authStore.user?.role === "moderator";
+
   return (
     <>
       <Seo title={seoTitle} description={seoDescription} />
+      {isStaff && resolvedDataList?.is_hidden && (
+        <div
+          className="alert alert-warning text-center mb-0 rounded-0"
+          role="alert"
+        >
+          {t("projects.draftPreview")}
+        </div>
+      )}
       <Header />
       <ProjectHeader dataList={resolvedDataList} parallaxOffset={parallaxOffset} />
       <ProjectArticleBrief dataList={resolvedDataList} />
@@ -423,6 +439,6 @@ const ProjectArticle = () => {
       <Footer />
     </>
   );
-};
+});
 
 export default ProjectArticle;

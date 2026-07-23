@@ -47,11 +47,11 @@ const CropHeaderAndPrewImg = ({ data }) => {
     setLoading(true);
 
     Promise.all([
-      fetch(`${API_URL}/projects`).then((response) =>
-        response.json()
+      fetch(`${API_URL}/projects`, { credentials: "include" }).then(
+        (response) => response.json()
       ),
-      fetch(`${API_URL}/blueprints`).then((response) =>
-        response.json()
+      fetch(`${API_URL}/blueprints`, { credentials: "include" }).then(
+        (response) => response.json()
       ),
     ])
       .then(([projectsData, blueprintsData]) => {
@@ -111,7 +111,7 @@ const CroppedImges = ({ project_id }) => {
   };
 
   useEffect(() => {
-    fetch(`${API_URL}/project_imges`)
+    fetch(`${API_URL}/project_imges`, { credentials: "include" })
       .then((response) => response.json())
       .then((data) => {
         setImges(
@@ -177,7 +177,7 @@ const CropImgesComponent = () => {
   // console.log(editedProject);
   useEffect(() => {
     setLoading(true);
-    fetch(`${API_URL}/projects`)
+    fetch(`${API_URL}/projects`, { credentials: "include" })
       .then((response) => response.json())
       .then((data) => {
         setProjects(data);

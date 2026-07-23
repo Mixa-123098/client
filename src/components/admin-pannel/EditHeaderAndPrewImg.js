@@ -49,11 +49,11 @@ const EditHeaderAndPrewImg = ({ data, handleFileChange }) => {
     setLoading(true);
 
     Promise.all([
-      fetch(`${API_URL}/projects`).then((response) =>
-        response.json()
+      fetch(`${API_URL}/projects`, { credentials: "include" }).then(
+        (response) => response.json()
       ),
-      fetch(`${API_URL}/blueprints`).then((response) =>
-        response.json()
+      fetch(`${API_URL}/blueprints`, { credentials: "include" }).then(
+        (response) => response.json()
       ),
     ])
       .then(([projectsData, blueprintsData]) => {
