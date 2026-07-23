@@ -15,7 +15,7 @@ const makeUniqueFileName = (originalName) => {
   return `${safeBase}_${unique}${ext}`;
 };
 
-const useFileUpload = (updateProjectData, projectData, project_id) => {
+const useFileUpload = (updateProjectData, projectData) => {
   const [files, setFiles] = useState([]);
 
   const handleFileChange = (e, fileDataUrlName) => {

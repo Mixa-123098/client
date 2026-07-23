@@ -10,7 +10,6 @@ import ProjectsEdit from "./ProjectsEdit";
 import LanguagesManager from "./LanguagesManager";
 import Footer from "../Footer";
 import CropModalForm from "./CropModalForm";
-import CropImgesComponent from "./CropImgesComponent";
 import ChangePasswordForm from "./ChangePasswordForm";
 import { useTranslation } from "react-i18next";
 import Loader from "../../loader/Loader";
@@ -32,12 +31,6 @@ const ALL_TABS = [
     key: "projectsEdit",
     labelKey: "editPage.editProject.open_close",
     Component: ProjectsEdit,
-    roles: ["admin", "moderator"],
-  },
-  {
-    key: "cropProjectsImges",
-    labelKey: "editPage.cropImages.open_close",
-    Component: CropImgesComponent,
     roles: ["admin", "moderator"],
   },
   {

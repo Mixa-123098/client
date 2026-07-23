@@ -42,8 +42,7 @@ const ProjectEditor = ({ project, onSaved, onClose }) => {
   const [projectData, setProjectData] = useState({});
   const { handleFileChange, handleUpload } = useFileUpload(
     setProjectData,
-    projectData,
-    project.id
+    projectData
   );
 
   useEffect(() => {

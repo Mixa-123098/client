@@ -76,9 +76,9 @@ const AuthForm = observer(() => {
           </button>
         </div>
         <div onClick={() => navigate("/")}>
-          <lable className="text-decoration-underline cursor-pointer">
+          <span className="text-decoration-underline cursor-pointer">
             {t("authForm.toTheHomePage")}
-          </lable>
+          </span>
         </div>
       </form>
     </div>

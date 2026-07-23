@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import EditHeaderAndPrewImg from "./EditHeaderAndPrewImg";
 import { useTranslation } from "react-i18next";
 import { API_URL } from "../../config/api";
+import modalStore from "../../store/ModalStore";
+import fileStore from "../../store/cropImgStore";
 
-const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
+const DragAndDropImges = observer(({ project_id, setOrder, handleFileChange }) => {
   const { t } = useTranslation();
   const [imges, setImges] = useState([]);
   const [newImagePreviews, setNewImagePreviews] = useState([]);
@@ -54,6 +57,13 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
     handleFileChange(e);
   };
 
+  const handleCropClick = (imgFilename) => {
+    fileStore.setFileName(imgFilename);
+    fileStore.fetchFile().then(() => {
+      modalStore.setIsModalReadyWithDelay(true, 0);
+    });
+  };
+
   const handleRemoveImage = async (imgId) => {
     if (!window.confirm(t("editPage.editProject.removeImageConfirm"))) {
       return;
@@ -87,6 +97,9 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
         }}
       >
         {t("editPage.editProject.imagesInsideTheProject")}
+        <div className="small text-muted">
+          {t("editPage.editProject.clickToCrop")}
+        </div>
       </div>
 
       <div className="d-flex flex-wrap" style={{ maxWidth: "75vw" }}>
@@ -116,9 +129,12 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
                 ×
               </button>
               <img
-                src={`/img/main_imges_folder/${element.img}`}
+                src={`/img/main_imges_folder/${element.img}?v=${fileStore.savedVersion}`}
                 alt=""
-                style={{ maxWidth: "100%" }}
+                style={{ maxWidth: "100%", cursor: "pointer" }}
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                onClick={() => handleCropClick(element.img)}
               />
             </div>
           ))}
@@ -151,6 +167,6 @@ const DragAndDropImges = ({ project_id, setOrder, handleFileChange }) => {
       </div>
     </div>
   );
-};
+});
 
 export default DragAndDropImges;

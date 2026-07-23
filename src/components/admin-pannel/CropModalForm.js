@@ -14,8 +14,7 @@ const CropModalForm = observer(() => {
   const [saveStatus, setSaveStatus] = useState("idle"); // idle | saving | success | error
   const { handleFileChange, handleUpload, resetFiles } = useFileUpload(
     setProjectData,
-    projectData,
-    fileStore.croppedProjectId
+    projectData
   );
 
   const handleSaveClick = async () => {

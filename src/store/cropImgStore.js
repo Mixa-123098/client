@@ -5,12 +5,11 @@ class PhotoStore {
   fileDataUrl = null;
   fileName = null;
   croppedImg = null;
-  croppedProjectId = null;
   // Bumped after a crop is successfully uploaded. Crop-and-replace uploads
   // reuse the original filename, so the URL never changes and React/the
   // browser has no reason to refetch it — components that display these
   // images append this as a cache-busting query param and re-render when it
-  // changes (see CropImgesComponent.js).
+  // changes.
   savedVersion = 0;
 
   constructor() {
@@ -18,13 +17,11 @@ class PhotoStore {
       fileDataUrl: observable,
       fileName: observable,
       croppedImg: observable,
-      croppedProjectId: observable,
       savedVersion: observable,
       setFileDataUrl: action,
       fetchFile: action,
       setFileName: action,
       setCroppedImg: action,
-      setCroppedProjectId: action,
       bumpSavedVersion: action,
       resetCrop: action,
     });
@@ -39,16 +36,13 @@ class PhotoStore {
   setCroppedImg(value) {
     this.croppedImg = value;
   }
-  setCroppedProjectId(value) {
-    this.croppedProjectId = value;
-  }
   bumpSavedVersion() {
     this.savedVersion += 1;
   }
   // Clears the in-progress crop (result image + source data URL) without
-  // touching fileName/croppedProjectId, which the next crop click overwrites
-  // anyway. Called when the modal is dismissed or a save completes, so an
-  // abandoned or just-saved crop can never resurface in a later save.
+  // touching fileName, which the next crop click overwrites anyway. Called
+  // when the modal is dismissed or a save completes, so an abandoned or
+  // just-saved crop can never resurface in a later save.
   resetCrop() {
     this.croppedImg = null;
     this.fileDataUrl = null;
