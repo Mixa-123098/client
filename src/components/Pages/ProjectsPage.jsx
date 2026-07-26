@@ -33,11 +33,18 @@ const ProjectsList = ({ focusedPage, itemsPerPage, filteredData, translations })
             to={`/projects/${element.id} `}
             className="text-center link-style"
           >
-            <img
-              src={`/img/main_imges_folder/${element.project_img_src}`}
-              alt=""
-              className="project_img "
-            />
+            <div className="project-thumb-wrap">
+              <img
+                src={`/img/main_imges_folder/${element.project_img_src}`}
+                alt=""
+                className="project_img "
+              />
+              {element.is_hidden && (
+                <span className="badge text-bg-secondary project-hidden-badge">
+                  {t("editPage.editProject.hidden")}
+                </span>
+              )}
+            </div>
 
             <h5 className="project_name">
               {element &&
@@ -63,13 +70,13 @@ const Projects = ({ indexFromSecBlock }) => {
   const [translations, setTranslations] = useState([]);
   const index = indexFromSecBlock || 0;
   useEffect(() => {
-    fetch(`${API_URL}/projects`)
+    fetch(`${API_URL}/projects`, { credentials: "include" })
       .then((response) => response.json())
       .then((data) => setDataList(data))
       .catch((error) => {
         console.error("Ошибка получения данных:", error);
       });
-    fetch(`${API_URL}/project_translations`)
+    fetch(`${API_URL}/project_translations`, { credentials: "include" })
       .then((response) => response.json())
       .then((data) => setTranslations(data))
       .catch((error) => {

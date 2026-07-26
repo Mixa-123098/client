@@ -31,6 +31,11 @@ const ProjectHeader = ({ dataList, parallaxOffset }) => {
                 `projects.project${dataList.id}.name`
                   ? t(`projects.project${dataList.id}.name`)
                   : dataList.project_name)}
+              {dataList && dataList.is_hidden && (
+                <span className="badge text-bg-secondary ms-2 align-middle">
+                  {t("editPage.editProject.hidden")}
+                </span>
+              )}
             </h1>
           </div>
         </div>

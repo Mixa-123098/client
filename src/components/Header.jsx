@@ -110,7 +110,9 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
                 {t("navbar.logoutButton")}
               </h6>
             ) : null}
-            <LanguageSelector />
+            <li>
+              <LanguageSelector />
+            </li>
           </ul>
         </div>
       </nav>

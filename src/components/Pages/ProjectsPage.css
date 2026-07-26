@@ -72,6 +72,19 @@
     padding: min(0.5vw, 10px);
 }
 
+.project-thumb-wrap {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.project-hidden-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+}
+
 .project_name {
     padding-top: 1vw;
 }
