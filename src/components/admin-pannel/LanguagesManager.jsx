@@ -11,6 +11,11 @@ const LanguagesManager = () => {
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [errorMessage, setErrorMessage] = useState("");
   const [editingLang, setEditingLang] = useState(null);
+  const [editingMeta, setEditingMeta] = useState(null); // code of the row whose code/name is being edited
+  const [metaCode, setMetaCode] = useState("");
+  const [metaName, setMetaName] = useState("");
+  const [metaStatus, setMetaStatus] = useState("idle"); // idle | submitting | error
+  const [metaError, setMetaError] = useState("");
 
   const loadLanguages = () => {
     setLoading(true);
@@ -108,6 +113,65 @@ const LanguagesManager = () => {
     }
   };
 
+  const startEditingMeta = (lang) => {
+    setEditingMeta(lang.code);
+    setMetaCode(lang.code);
+    setMetaName(lang.name);
+    setMetaStatus("idle");
+    setMetaError("");
+  };
+
+  const cancelEditingMeta = () => {
+    setEditingMeta(null);
+    setMetaStatus("idle");
+    setMetaError("");
+  };
+
+  const handleSaveMeta = async (oldCode) => {
+    const trimmedCode = metaCode.trim().toLowerCase();
+    const trimmedName = metaName.trim();
+
+    if (!/^[a-z]{2,3}$/.test(trimmedCode)) {
+      setMetaStatus("error");
+      setMetaError("Код мови має бути з 2-3 латинських літер, напр. \"pl\"");
+      return;
+    }
+    if (!trimmedName) {
+      setMetaStatus("error");
+      setMetaError("Вкажіть назву мови");
+      return;
+    }
+
+    setMetaStatus("submitting");
+    setMetaError("");
+    try {
+      const response = await fetch(`${API_URL}/languages/${oldCode}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: trimmedCode, name: trimmedName }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "request_failed");
+      }
+
+      setEditingMeta(null);
+      setMetaStatus("idle");
+      loadLanguages();
+      languagesStore.refresh();
+    } catch (error) {
+      console.error("Error updating language:", error);
+      setMetaStatus("error");
+      setMetaError(
+        error.message === "language_exists"
+          ? "Мова з таким кодом вже існує"
+          : "Не вдалося зберегти зміни. Спробуйте ще раз."
+      );
+    }
+  };
+
   return (
     <div className="container">
       <h2 className="mb-4">Мови сайту</h2>
@@ -127,29 +191,88 @@ const LanguagesManager = () => {
             {languages.map((lang) => (
               <React.Fragment key={lang.code}>
                 <tr>
-                  <td>{lang.code.toUpperCase()}</td>
-                  <td>{lang.name}</td>
-                  <td className="d-flex gap-2">
-                    <button
-                      className="btn btn-outline-dark btn-sm"
-                      onClick={() =>
-                        setEditingLang((prev) =>
-                          prev === lang.code ? null : lang.code
-                        )
-                      }
-                    >
-                      {editingLang === lang.code
-                        ? "Закрити"
-                        : "Редагувати переклади"}
-                    </button>
-                    <button
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => handleDelete(lang.code)}
-                    >
-                      Видалити
-                    </button>
-                  </td>
+                  {editingMeta === lang.code ? (
+                    <>
+                      <td>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm"
+                          value={metaCode}
+                          onChange={(e) => setMetaCode(e.target.value)}
+                          disabled={metaStatus === "submitting"}
+                          style={{ maxWidth: 90 }}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm"
+                          value={metaName}
+                          onChange={(e) => setMetaName(e.target.value)}
+                          disabled={metaStatus === "submitting"}
+                        />
+                      </td>
+                      <td className="d-flex gap-2">
+                        <button
+                          className="btn btn-dark btn-sm"
+                          onClick={() => handleSaveMeta(lang.code)}
+                          disabled={metaStatus === "submitting"}
+                        >
+                          {metaStatus === "submitting"
+                            ? "Збереження..."
+                            : "Зберегти"}
+                        </button>
+                        <button
+                          className="btn btn-outline-secondary btn-sm"
+                          onClick={cancelEditingMeta}
+                          disabled={metaStatus === "submitting"}
+                        >
+                          Скасувати
+                        </button>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td>{lang.code.toUpperCase()}</td>
+                      <td>{lang.name}</td>
+                      <td className="d-flex gap-2">
+                        <button
+                          className="btn btn-outline-dark btn-sm"
+                          onClick={() => startEditingMeta(lang)}
+                        >
+                          Редагувати
+                        </button>
+                        <button
+                          className="btn btn-outline-dark btn-sm"
+                          onClick={() =>
+                            setEditingLang((prev) =>
+                              prev === lang.code ? null : lang.code
+                            )
+                          }
+                        >
+                          {editingLang === lang.code
+                            ? "Закрити"
+                            : "Редагувати переклади"}
+                        </button>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => handleDelete(lang.code)}
+                        >
+                          Видалити
+                        </button>
+                      </td>
+                    </>
+                  )}
                 </tr>
+                {editingMeta === lang.code && metaStatus === "error" && (
+                  <tr>
+                    <td colSpan={3}>
+                      <div className="alert alert-danger py-1 small mb-0" role="alert">
+                        {metaError}
+                      </div>
+                    </td>
+                  </tr>
+                )}
                 {editingLang === lang.code && (
                   <tr>
                     <td colSpan={3}>
