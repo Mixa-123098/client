@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const Footer = ({ settings }) => {
   const { color, bgColor } = settings || {};
+  const resolvedColor = color || "white";
+  const resolvedBgColor = bgColor || "#5c5c5c";
   const { t, i18n } = useTranslation();
 
   const mapLanguages = { ua: "uk", en: "en", sk: "sk" };
   const mapLang = mapLanguages[i18n.language] || "en";
+
+  const cities = [
+    { key: "kyiv", label: t("footer.cities.kyiv"), query: "Kyiv, Ukraine" },
+    {
+      key: "dnipro",
+      label: t("footer.cities.dnipro"),
+      query: "Dnipro, Ukraine",
+    },
+  ];
+  const [activeCity, setActiveCity] = useState(cities[0].key);
+  const selectedCity =
+    cities.find((city) => city.key === activeCity) || cities[0];
 
   const contactInfo = {
     phone: "+123 456 7890",
@@ -92,12 +106,43 @@ const Footer = ({ settings }) => {
           <div className="row justify-content-center mb-4">
             <div className="col-md-6">
               <h4>{t("footer.map")}</h4>
+              <div className="mb-2" role="tablist">
+                {cities.map((city) => {
+                  const isActive = city.key === activeCity;
+                  return (
+                    <button
+                      key={city.key}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => setActiveCity(city.key)}
+                      style={{
+                        marginRight: "8px",
+                        padding: "4px 14px",
+                        borderRadius: "999px",
+                        border: `1px solid ${resolvedColor}`,
+                        backgroundColor: isActive
+                          ? resolvedColor
+                          : "transparent",
+                        color: isActive ? resolvedBgColor : resolvedColor,
+                        cursor: "pointer",
+                        transition: "background-color 0.15s ease",
+                      }}
+                    >
+                      {city.label}
+                    </button>
+                  );
+                })}
+              </div>
               <iframe
-                title="Location Map"
-                src={`https://maps.google.com/maps?q=Kyiv%2C%20Ukraine&output=embed&hl=${mapLang}`}
+                key={selectedCity.key}
+                title={`Location Map - ${selectedCity.label}`}
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                  selectedCity.query
+                )}&output=embed&hl=${mapLang}`}
                 width="100%"
                 height="200"
-                style={{ border: "0" }}
+                style={{ border: "0", borderRadius: "6px" }}
                 allowFullScreen=""
                 loading="lazy"
               ></iframe>
