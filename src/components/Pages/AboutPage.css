@@ -1,13 +1,91 @@
-.philosophy{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+/* Scoped to .about-page so nothing here leaks into other pages that reuse
+   shared classes like .first-block / .card / .row. */
+
+.about-page .first-block.about-hero-block {
+  min-height: 50vh;
+  margin: 7.5vw 0;
+}
+
+@media (max-width: 576px) {
+  .about-page .first-block.about-hero-block {
+    min-height: auto;
     height: auto;
-    /* height: max(50vh,50vw); */
+    margin: 12vw 0;
+    padding: 8vw 0;
+  }
 }
-.cinnosti{
-    width: 100%;
+
+.about-section {
+  padding: 3rem 1rem;
 }
-.cinnosti-two{
-    width: 50%;
+
+.about-section-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.about-section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #5c5c5c;
+  margin: 1rem auto 0;
+}
+
+.values-section {
+  padding: 4rem 1rem;
+}
+
+.values-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.values-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #5c5c5c;
+  margin: 1rem auto 0;
+}
+
+.values-section .row {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-page .card {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-page .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.about-cta {
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .values-title {
+    font-size: 2rem;
+  }
+
+  .about-section-title {
+    font-size: 1.8rem;
+  }
 }

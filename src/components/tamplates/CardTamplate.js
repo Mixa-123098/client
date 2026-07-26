@@ -5,8 +5,10 @@ const CardTemplate = ({
   subtitle,
   card_content,
   img_src,
+  alt,
   isList,
   height,
+  imgHeight,
   border,
 }) => {
   const splited_content =
@@ -25,10 +27,11 @@ const CardTemplate = ({
       {img_src && (
         <img
           src={`${img_src}`}
-          alt="img"
+          alt={alt || title || "img"}
           className="card-img-top"
           style={{
             width: "100%",
+            height: imgHeight,
             objectFit: "cover",
             objectPosition: "top",
             borderRadius: "5px",

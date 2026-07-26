@@ -5,15 +5,14 @@ import PagesHeader from "./PagesHeader";
 import Footer from "../Footer";
 import Seo from "../Seo";
 import CardTamplate from "../tamplates/CardTamplate";
+import { Link } from "react-router-dom";
+import ScrollToTop from "../../custom-hooks/ScrollToTop";
 import { useTranslation } from "react-i18next";
 
 const IdeologyTemplate = ({ header, text1, text2 }) => {
   return (
     <>
-      <div
-        className={`first-block pt-4`}
-        style={{ minHeight: "50vh", position: "relative", margin: "7.5vw 0 " }}
-      >
+      <div className="first-block about-hero-block pt-4">
         <div className="first-block-content-container align-items-center">
           <h1 className="text-center">{header}</h1>
           <div className="row mt-4 pt-4 pb-2 justify-content-center">
@@ -84,21 +83,25 @@ const OurTeam = () => {
     },
   ];
   return (
-    <>
+    <section className="about-section">
+      <h1 className="text-center about-section-title">
+        {t("aboutPage.block2.title")}
+      </h1>
       <div className="row justify-content-center">
         {imgesList.map((person, index) => (
           <div key={index} className="col-lg-3 col-md-4 col-sm-6 mb-4">
             <CardTamplate
               img_src={`/img/main_imges_folder/${person.img}`}
+              alt={person.name}
               title={person.name}
-              // height={"25vw"}
+              imgHeight="320px"
               subtitle={person.jobTitle}
               border={false}
             />
           </div>
         ))}
       </div>
-    </>
+    </section>
   );
 };
 
@@ -130,127 +133,32 @@ const Cinnosty = () => {
             </div>
           ))}
       </div>
-
-      <style>{`
-        .values-section {
-          padding: 4rem 2rem;
-        }
-
-        .values-title {
-          font-family: "Montserrat", sans-serif;
-          font-weight: 700;
-          font-size: 2.5rem;
-          color: #333;
-          margin-bottom: 2rem;
-          position: relative;
-        }
-
-        .values-title::after {
-          content: "";
-          display: block;
-          width: 60px;
-          height: 4px;
-          background: #5c5c5c;
-          margin: 1rem auto 0;
-        }
-
-        .row {
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-          .values-title {
-            font-size: 2rem;
-          }
-        }
-      `}</style>
     </section>
   );
 };
 
-// const Cinnosty = () => {
-//   const titlesList = [
-//     "ПРОФЕСІЙНІСТЬ",
-//     "ІННОВАЦІЇ",
-//     "РЕПУТАЦІЯ",
-//     "КОМАНДА",
-//     "БЕЗПЕКА",
-//     "ЯКІСТЬ",
-//   ];
-//   const contentsList = [
-//     `Ми експерти своєї справи; Ми будуємо системну роботу; Ми будуємо ефективну комунікацію; Ми застосовуємо індивідуальний підхід до кожного клієнта; Ми безперервно професійно розвиваємося та навчаємося`,
-//     `Ми відкриті для нових ідей і технологій; Ми проактивні; Ми створюємо атмосферу, яка стимулює творчий пошук, народження креативних ідей; Ми прагнемо запропонувати те, що не можуть запропонувати інші`,
-//     `Це прозорість, чесність і надійність; Це чітке виконання договірних зобов'язань; Це позитивні відгуки клієнтів; Це дотримання законодавства`,
-//     `Нас всіх об'єднує єдина мета; Ми націлені на спільний кінцевий результат; Ми згуртовані і підтримуємо один одного в досягненні поставлених завдань`,
-//     `Це гарантія запобігання загроз та ризиків для працівників, партнерів і навколишнього середовища; Це комплексний підхід до питань безпеки; Це стовідсоткове резервне забезпечення всіх життєдіяльних систем; Це високотехнологічна інженерія складського комплексу`,
-//     `Ми виконуємо роботу згідно існуючої системи якості; Ми контролюємо кожен етап процесу і його відповідність існуючим стандартам якості; Всі процеси відповідають міжнародним стандартам і регламентовані письмовими інструкціями; Впроваджена система аналізу ризиків`,
-//   ];
+const AboutCta = () => {
+  const { t } = useTranslation();
 
-//   return (
-//     <section className="values-section">
-//       <h1 className="text-center values-title">Наші цінності</h1>
-
-//       <div className="row g-4 justify-content-center pt-4 pb-2">
-//         {titlesList.map((element, index) => (
-//           <div
-//             className="col-lg-4 col-md-6 col-sm-12"
-//             key={titlesList[index]}
-//             data-aos="fade-up"
-//             data-aos-delay={index * 100}
-//           >
-//             <CardTamplate
-//               title={element}
-//               card_content={contentsList[index]}
-//               isList={true}
-//             />
-//           </div>
-//         ))}
-//       </div>
-
-//       <style>{`
-//         .values-section {
-//           padding: 4rem 2rem;
-//         }
-
-//         .values-title {
-//           font-family: "Montserrat", sans-serif;
-//           font-weight: 700;
-//           font-size: 2.5rem;
-//           color: #333;
-//           margin-bottom: 2rem;
-//           position: relative;
-//         }
-
-//         .values-title::after {
-//           content: "";
-//           display: block;
-//           width: 60px;
-//           height: 4px;
-//           background: #5c5c5c;
-//           margin: 1rem auto 0;
-//         }
-
-//         .row {
-//           max-width: 1200px;
-//           margin: 0 auto;
-//         }
-
-//         @media (max-width: 768px) {
-//           .values-title {
-//             font-size: 2rem;
-//           }
-//         }
-//       `}</style>
-//     </section>
-//   );
-// };
+  return (
+    <section className="about-cta">
+      <h2>{t("aboutPage.cta.title")}</h2>
+      <Link
+        className="btn btn-dark mt-3"
+        to={"/contacts"}
+        onClick={ScrollToTop}
+      >
+        {t("aboutPage.cta.button")}
+      </Link>
+    </section>
+  );
+};
 
 const AboutPage = () => {
   const { t } = useTranslation();
 
   return (
-    <>
+    <div className="about-page">
       <Seo
         title="About Us"
         description="Meet the ODA team — architects and interior designers working in Dnipro and Kyiv, Ukraine, with over 20 years of combined experience."
@@ -263,10 +171,11 @@ const AboutPage = () => {
         <OurTeam />
         <Ideology />
         <Cinnosty />
+        <AboutCta />
       </div>
 
       <Footer settings={{ color: `black`, bgColor: `white`, shadow: true }} />
-    </>
+    </div>
   );
 };
 
