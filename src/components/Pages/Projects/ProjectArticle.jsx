@@ -389,11 +389,23 @@ const ProjectArticle = observer(() => {
         setLoading(false);
       });
 
+    // rAF-throttled + passive: an un-throttled scroll listener updates state
+    // on every single scroll event, which on mobile's high-frequency touch
+    // scroll can't keep up - the image visibly lags behind and jumps in
+    // chunks relative to the static .overlay scrim, looking like the shadow
+    // is "sliding" separately from the photo.
+    let ticking = false;
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       cancelled = true;
@@ -407,7 +419,15 @@ const ProjectArticle = observer(() => {
     }
   }, [notAvailable, navigate]);
 
-  const parallaxOffset = 1 * scrollY * 0.5;
+  // On phones, the header image is also 100vh, which the mobile browser
+  // resizes as its address bar hides/shows mid-scroll - combined with the
+  // JS-driven translateY, that made the image drift out of sync with the
+  // static overlay/text on top of it. Disabling the motion on narrow
+  // viewports (same breakpoint the nav already treats as "mobile") removes
+  // the effect where it can't be done reliably, while leaving desktop as-is.
+  const isMobileViewport =
+    typeof window !== "undefined" && window.innerWidth <= 1000;
+  const parallaxOffset = isMobileViewport ? 0 : scrollY * 0.5;
 
   if (loading || notAvailable) {
     return <Loader />;
