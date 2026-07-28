@@ -134,9 +134,21 @@ video {
   position: absolute;
   top: 0;
   left: 0;
-  width: var(--fullWidth);
-  height: calc(var(--fullWidth));
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  /* was calc(var(--fullWidth)) = calc(100%), which resolved against the
+     containing block (not the 100svh videos) and left a mismatched dark
+     strip on mobile. Match the video height and use a gradient scrim
+     instead of a flat 50% wash: darker at the top (logo/nav) and bottom
+     (hero title + slide bar) for legibility, letting the footage stay
+     vivid through the middle. */
+  height: 100svh;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.18) 26%,
+    rgba(0, 0, 0, 0.18) 52%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
   z-index: 2;
 }
 
@@ -162,6 +174,10 @@ video {
 
 .countPage {
   font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
+  letter-spacing: 0.06em;
+  font-weight: 300;
+  opacity: 0.9;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
 
 .bigger-text {
@@ -171,16 +187,45 @@ video {
 }
 
 .titlePage {
+  font-family: "Playfair Display", "Inter", serif;
   font-size: clamp(2rem, 2.5vw + 2.5vh, 10rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: 0.005em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 
 .subtitlePage {
   font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
+  margin-top: 0.4em;
 }
 
 .subtitlePage a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 10px 0;
+  font-size: 0.72em;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  transition: gap 0.2s ease, border-color 0.2s ease;
+}
+
+.subtitlePage a::after {
+  content: "→";
+  font-size: 1.1em;
+  transition: transform 0.2s ease;
+}
+
+.subtitlePage a:hover {
+  gap: 12px;
+  border-color: #fff;
+}
+
+.subtitlePage a:hover::after {
+  transform: translateX(3px);
 }
 
 .nav-styles {
@@ -380,6 +425,8 @@ video {
   opacity: 0.5;
   font-size: 1.2rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
   transition: opacity 0.2s, font-size 0.2s;
 }
 
@@ -408,6 +455,7 @@ video {
   font-size: 1.3rem;
   margin-left: max(1vw, 14px);
   opacity: 0.85;
+  filter: drop-shadow(0 1px 8px rgba(0, 0, 0, 0.4));
   transition: opacity 0.2s, transform 0.2s;
 }
 
@@ -525,6 +573,39 @@ footer {
     text-align: justify;
   }
 
+  /* Hero overlay — untouched by any media query before, so it rode entirely
+     on desktop-oriented clamp()/vw math. Tighten the composition on phones:
+     pull the title block up, cap the title size on vw alone (no vh term, so
+     it doesn't jump with the address bar), and let the bottom bar span the
+     full width with safe padding instead of a 99%/0.5vw offset that can
+     cause horizontal scroll. */
+  .header-text {
+    margin-top: max(24vw, 110px);
+    margin-left: 7vw;
+  }
+
+  .textPage {
+    margin-left: 4vw;
+  }
+
+  .titlePage {
+    font-size: clamp(1.7rem, 6.8vw, 2.6rem);
+  }
+
+  .countPage {
+    font-size: clamp(0.9rem, 3.6vw, 1.3rem);
+  }
+
+  .subtitlePage a {
+    letter-spacing: 0.14em;
+  }
+
+  .bottomHeader {
+    width: 100%;
+    left: 0;
+    bottom: 2.5vh;
+    padding: 0 6vw;
+  }
 }
 
 @media only screen and (max-width: 700px) {
