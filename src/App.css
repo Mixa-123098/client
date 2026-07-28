@@ -144,9 +144,9 @@ video {
   height: 100svh;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.18) 26%,
-    rgba(0, 0, 0, 0.18) 52%,
+    rgba(0, 0, 0, 0.52) 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.32) 55%,
     rgba(0, 0, 0, 0.72) 100%
   );
   z-index: 2;
@@ -177,7 +177,7 @@ video {
   letter-spacing: 0.06em;
   font-weight: 300;
   opacity: 0.9;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
 .bigger-text {
@@ -192,12 +192,15 @@ video {
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: 0.005em;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  /* Two layers: a tight dark halo hugging the glyphs for legibility over
+     bright video frames, plus a wider soft shadow for depth. */
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65), 0 2px 22px rgba(0, 0, 0, 0.5);
 }
 
 .subtitlePage {
   font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
   margin-top: 0.4em;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
 .subtitlePage a {
