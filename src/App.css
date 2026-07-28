@@ -177,7 +177,7 @@ video {
   letter-spacing: 0.06em;
   font-weight: 300;
   opacity: 0.9;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 2px 14px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.32);
 }
 
 .bigger-text {
@@ -192,15 +192,14 @@ video {
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: 0.005em;
-  /* Two layers: a tight dark halo hugging the glyphs for legibility over
-     bright video frames, plus a wider soft shadow for depth. */
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65), 0 2px 22px rgba(0, 0, 0, 0.5);
+  /* One wide, low-opacity shadow reads as soft depth; the scrim gradient
+     does the actual legibility work, so no tight dark outline is needed. */
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
 }
 
 .subtitlePage {
   font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
   margin-top: 0.4em;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
 .subtitlePage a {
@@ -429,7 +428,7 @@ video {
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
   transition: opacity 0.2s, font-size 0.2s;
 }
 
@@ -458,7 +457,7 @@ video {
   font-size: 1.3rem;
   margin-left: max(1vw, 14px);
   opacity: 0.85;
-  filter: drop-shadow(0 1px 8px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.3));
   transition: opacity 0.2s, transform 0.2s;
 }
 
