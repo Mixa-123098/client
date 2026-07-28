@@ -8,9 +8,13 @@ import BottomHeader from "./components/BottomHeader";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Footer from "./components/Footer";
 import Seo from "./components/Seo";
-import loft from "./assets/loft.mov";
+import loftWebm from "./assets/loft-1080.webm";
+import loftMp4 from "./assets/loft-1080.mp4";
+import loftPoster from "./assets/loft-poster.jpg";
 import bgvideo3 from "./assets/photo_2023-11-03_12-03-29.jpg";
-import cheh from "./assets/cheh.mov";
+import chehWebm from "./assets/cheh-1080.webm";
+import chehMp4 from "./assets/cheh-1080.mp4";
+import chehPoster from "./assets/cheh-poster.jpg";
 // import { ProjectsPage } from "./components/Pages/ProjectsPage";
 
 // Lazy-loaded components
@@ -40,14 +44,27 @@ const MainPageContainer = ({ updateIndexFromSecBlock }) => {
         <div className="overlay"></div>
 
         <video
-          src={loft}
           autoPlay
           loop
           muted
           playsInline
+          poster={loftPoster}
           className="img video active "
-        />
-        <video src={cheh} autoPlay loop muted playsInline className="video a" />
+        >
+          <source src={loftWebm} type="video/webm" />
+          <source src={loftMp4} type="video/mp4" />
+        </video>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={chehPoster}
+          className="video a"
+        >
+          <source src={chehWebm} type="video/webm" />
+          <source src={chehMp4} type="video/mp4" />
+        </video>
         <img src={bgvideo3} alt="" className="img video a" />
 
         <div className="header-content">
