@@ -11,7 +11,7 @@ import LanguageSelector from "./LanguageSelector";
 const Navbar = observer(({ fontColor, scroll, rep }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isAuthenticated, isAdmin } = authStore;
+  const { isAuthenticated, isStaff } = authStore;
   const navbarItemsList = [
     t("navbar.mainPage"),
     t("navbar.projectsPage"),
@@ -22,7 +22,7 @@ const Navbar = observer(({ fontColor, scroll, rep }) => {
 
   const navbarItemsWays = [];
 
-  if (isAdmin) {
+  if (isStaff) {
     navbarItemsList.push(t("navbar.editPage"));
     navbarItemsWays.push(
       " ",

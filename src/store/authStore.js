@@ -71,6 +71,13 @@ class AuthStore {
     });
   }
 
+  // Mirrors the server's requireStaff (admin OR moderator). Used to decide
+  // whether to surface staff-only UI like the header's edit-panel link —
+  // isAdmin alone wrongly hid it from moderators, who do have panel access.
+  get isStaff() {
+    return this.user?.role === "admin" || this.user?.role === "moderator";
+  }
+
   get mustChangePassword() {
     return !!this.user?.must_change_password;
   }
