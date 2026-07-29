@@ -54,7 +54,7 @@ const CropImg = ({ fileDataUrl, handleFileChange }) => {
           <h5>{t("editPage.cropImages.preview")}</h5>
           <Cropper
             ref={cropperRef}
-            style={{ width: "100%", height: "500px" }}
+            style={{ width: "100%", height: "min(500px, 55vh)" }}
             zoomTo={0.5}
             initialAspectRatio={4 / 3}
             src={image}
@@ -84,7 +84,7 @@ const CropImg = ({ fileDataUrl, handleFileChange }) => {
         </div>
       </div>
 
-      <div className="container d-flex justify-content-center mt-5 mb-5">
+      <div className="container d-flex justify-content-center mt-4 mb-2">
         <button onClick={getCropData} className="col-5 btn btn-dark p-1">
           <h3>{t("editPage.cropImages.cropImage")}</h3>
         </button>

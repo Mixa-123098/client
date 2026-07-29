@@ -63,7 +63,7 @@ const CropModalForm = observer(() => {
         data-bs-keyboard="false"
         onClick={handleModalClick}
       >
-        <div className="modal-dialog modal-xl">
+        <div className="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
@@ -78,29 +78,29 @@ const CropModalForm = observer(() => {
               ></button>
             </div>
 
-            {!modalStore.isModalReady ? (
-              <h3 className="d-flex justify-content-center">
-                {t("editPage.cropImages.loading")}
-              </h3>
-            ) : (
-              <div className="mt-4">
+            <div className="modal-body">
+              {!modalStore.isModalReady ? (
+                <h3 className="d-flex justify-content-center">
+                  {t("editPage.cropImages.loading")}
+                </h3>
+              ) : (
                 <CropImg
                   fileDataUrl={fileStore.fileDataUrl}
                   handleFileChange={handleFileChange}
                 />
-              </div>
-            )}
+              )}
 
-            {saveStatus === "success" && (
-              <div className="alert alert-success mx-3" role="alert">
-                {t("editPage.cropImages.saveSuccess")}
-              </div>
-            )}
-            {saveStatus === "error" && (
-              <div className="alert alert-danger mx-3" role="alert">
-                {t("editPage.cropImages.saveError")}
-              </div>
-            )}
+              {saveStatus === "success" && (
+                <div className="alert alert-success" role="alert">
+                  {t("editPage.cropImages.saveSuccess")}
+                </div>
+              )}
+              {saveStatus === "error" && (
+                <div className="alert alert-danger" role="alert">
+                  {t("editPage.cropImages.saveError")}
+                </div>
+              )}
+            </div>
 
             <div className="modal-footer">
               <button
