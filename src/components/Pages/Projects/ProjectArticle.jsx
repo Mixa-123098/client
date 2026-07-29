@@ -225,9 +225,9 @@ const ProjectArticleImges = ({ id }) => {
 
   const imges =
     projectImges &&
-    projectImges.map((element, index) => (
+    projectImges.map((element) => (
       <div
-        key={index}
+        key={element.id}
         className="col-lg-5 col-sm-6  p-lg-3 p-2 d-flex justify-content-center"
       >
         <img

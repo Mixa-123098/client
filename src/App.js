@@ -8,6 +8,14 @@ import BottomHeader from "./components/BottomHeader";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Footer from "./components/Footer";
 import Seo from "./components/Seo";
+// Homepage sections are above the fold on "/", so lazy-loading them only
+// bought a "Loading..." flash + layout shift right under the hero. Imported
+// statically instead; lazy() is kept below only for off-route pages.
+import FirstBlok from "./components/Bloks/FirstBlok";
+import SecondBlock from "./components/Bloks/SecondBlock";
+import SixBlock from "./components/Bloks/SixBlock";
+import ForthBlock from "./components/Bloks/ForthBlock";
+import FifthBlock from "./components/Bloks/FifthBlock";
 import loftWebm from "./assets/loft-1080.webm";
 import loftMp4 from "./assets/loft-1080.mp4";
 import loftPoster from "./assets/loft-poster.jpg";
@@ -28,12 +36,6 @@ const AdminPage = lazy(() => import("./components/admin-pannel/AdminPage"));
 const ContactsPage = lazy(() => import("./components/Pages/ContactsPage"));
 const PricePage = lazy(() => import("./components/Pages/PricePage"));
 const NotFoundPage = lazy(() => import("./components/Pages/NotFoundPage"));
-
-const FirstBlok = lazy(() => import("./components/Bloks/FirstBlok"));
-const SecondBlock = lazy(() => import("./components/Bloks/SecondBlock"));
-const ForthBlock = lazy(() => import("./components/Bloks/ForthBlock"));
-const FifthBlock = lazy(() => import("./components/Bloks/FifthBlock"));
-const SixBlock = lazy(() => import("./components/Bloks/SixBlock"));
 
 const MainPageContainer = ({ updateIndexFromSecBlock }) => {
   return (
@@ -72,13 +74,11 @@ const MainPageContainer = ({ updateIndexFromSecBlock }) => {
         </div>
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <FirstBlok />
-        <SecondBlock updateIndexFromSecBlock={updateIndexFromSecBlock} />
-        <SixBlock />
-        <ForthBlock />
-        <FifthBlock />
-      </Suspense>
+      <FirstBlok />
+      <SecondBlock updateIndexFromSecBlock={updateIndexFromSecBlock} />
+      <SixBlock />
+      <ForthBlock />
+      <FifthBlock />
       <Footer />
     </div>
   );

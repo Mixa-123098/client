@@ -3,20 +3,29 @@ import ScrollToTop from "../custom-hooks/ScrollToTop";
 import "./ScrollToTopButton.css";
 
 const ScrollToTopButton = () => {
-  const [scroll, setScroll] = useState(0);
-  // let opacity;
+  // Only the >= 0.75 threshold matters, so store the boolean: the component
+  // then re-renders only when the button's visibility actually flips, not on
+  // every scroll event. rAF-throttled + passive; listener attached once.
+  const [showButton, setShowButton] = useState(false);
   useEffect(() => {
-    const handleScroll = (event) => {
-      setScroll(window.pageYOffset / 500);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setShowButton(window.pageYOffset / 500 >= 0.75);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scroll]);
-  if (scroll >= 0.75) {
+  }, []);
+  if (showButton) {
     return (
       <div className="container-fluid">
         <button

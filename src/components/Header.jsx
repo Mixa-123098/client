@@ -124,16 +124,28 @@ function Header({ fontColor, invert, rep }) {
   const [scroll, setScroll] = useState(0);
   let opacity;
   useEffect(() => {
-    const handleScroll = (event) => {
-      setScroll(window.pageYOffset / 500);
+    // rAF-throttled + passive: the previous handler ran setScroll on every
+    // scroll event and re-subscribed the listener on every change (deps was
+    // [scroll]). Same computed value (pageYOffset/500 read at frame time, so
+    // the resting position is identical), just coalesced to one update per
+    // frame with the listener attached once.
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScroll(window.pageYOffset / 500);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scroll]);
+  }, []);
   if (scroll >= 1) {
     opacity = 1;
   } else {

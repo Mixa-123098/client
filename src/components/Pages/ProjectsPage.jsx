@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import "./ProjectsPage.css";
 
@@ -28,7 +28,7 @@ const ProjectsList = ({ focusedPage, itemsPerPage, filteredData, translations })
         );
 
       return (
-        <div key={index} id={index}>
+        <div key={element.id} id={index}>
           <Link
             to={`/projects/${element.id} `}
             className="text-center link-style"
@@ -105,21 +105,33 @@ const Projects = ({ indexFromSecBlock }) => {
   // A project with no translation into the current language shouldn't show
   // up at all — previously it silently fell back to the source-language
   // text, which looked like a translation existed when it didn't.
-  const availableInLanguage = dataList.filter(
-    (project) =>
-      project.source_lang === i18n.language ||
-      translations.some(
-        (row) => row.project_id === project.id && row.lang === i18n.language
-      )
-  );
+  //
+  // Memoized so it only recomputes when its inputs change (was recomputed on
+  // every render, including a category click or pagination). The Set of
+  // translated project ids turns the previous O(projects x translations)
+  // nested scan into O(projects); the resulting set of projects is identical.
+  const availableInLanguage = useMemo(() => {
+    const translatedIds = new Set(
+      translations
+        .filter((row) => row.lang === i18n.language)
+        .map((row) => row.project_id)
+    );
+    return dataList.filter(
+      (project) =>
+        project.source_lang === i18n.language || translatedIds.has(project.id)
+    );
+  }, [dataList, translations, i18n.language]);
 
-  const filteredData =
-    focusedIndex === 0
-      ? availableInLanguage
-      : availableInLanguage.filter(
-          // eslint-disable-next-line
-          (element) => element.project_specialization == focusedIndex
-        );
+  const filteredData = useMemo(
+    () =>
+      focusedIndex === 0
+        ? availableInLanguage
+        : availableInLanguage.filter(
+            // eslint-disable-next-line eqeqeq
+            (element) => element.project_specialization == focusedIndex
+          ),
+    [availableInLanguage, focusedIndex]
+  );
   const categories = categoriesList.map((category, index) => {
     return (
       <button
