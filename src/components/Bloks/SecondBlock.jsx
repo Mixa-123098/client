@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import "./SecondBlock.css";
 
 import Commercial from "../../assets/photo_2023-11-03_12-42-15.jpg";
-import Resident from "../../assets/msedge_YN25gnaTlM.png";
-import Architecture from "../../assets/aero5-1.png";
+import Resident from "../../assets/msedge_YN25gnaTlM.webp";
+import Architecture from "../../assets/aero5-1.webp";
 import { Link } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
