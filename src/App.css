@@ -546,8 +546,19 @@ footer {
      it doesn't jump with the address bar), and let the bottom bar span the
      full width with safe padding instead of a 99%/0.5vw offset that can
      cause horizontal scroll. */
+  /* Center the hero text vertically between the logo and the bottom bar. On
+     phones the old top-anchored placement left it stranded near the top with
+     a large empty video area below. .header-content is a fixed-height
+     absolute box, so flex-centering its one in-flow child (.header-text) does
+     this cleanly; .bottomHeader stays absolutely pinned to the bottom. */
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .header-text {
-    margin-top: max(24vw, 110px);
+    margin-top: 0;
     margin-left: 7vw;
   }
 
