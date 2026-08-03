@@ -23,20 +23,20 @@ const Footer = ({ settings }) => {
     cities.find((city) => city.key === activeCity) || cities[0];
 
   const contactInfo = {
-    phone: "+123 456 7890",
-    email: "example@gmail.com",
+    phone: "+380 67 639 70 18",
+    email: "marynaprokhorova@gmail.com",
   };
 
   const socialMediaLinks = [
     {
       name: t("footer.social_media.viber"),
-      url: "viber://chat?number=+1234567890",
+      url: "viber://chat?number=%2B380676397018",
     },
     {
       name: t("footer.social_media.instagram"),
       url: "https://www.instagram.com/oda_archetecture/?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr",
     },
-    { name: t("footer.social_media.telegram"), url: "https://t.me/example" },
+    { name: t("footer.social_media.telegram"), url: "https://t.me/+380676397018" },
   ];
 
   const businessHours = [

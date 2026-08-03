@@ -144,26 +144,39 @@ const ContactsPage = () => {
                 <ul className="list-unstyled">
                   <li>
                     {t("contactsPage.telegram")}:{" "}
-                    <a className="text-dark   " href="https://t.me/example">
-                      @example
-                    </a>
-                  </li>
-                  <li>
-                    {t("contactsPage.instagram")}:{" "}
-                    <a
-                      className="text-dark  "
-                      href="https://www.instagram.com/oda_archetecture/"
-                    >
-                      @oda_archetecture
+                    <a className="text-dark" href="https://t.me/+380676397018">
+                      +380 67 639 70 18
                     </a>
                   </li>
                   <li>
                     {t("contactsPage.viber")}:{" "}
                     <a
-                      className="text-dark "
-                      href="viber://chat?number=+1234567890"
+                      className="text-dark"
+                      href="viber://chat?number=%2B380676397018"
                     >
-                      +123 456 7890
+                      +380 67 639 70 18
+                    </a>
+                  </li>
+                  <li>
+                    WhatsApp:{" "}
+                    <a
+                      className="text-dark"
+                      href="https://wa.me/380676397018"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      +380 67 639 70 18
+                    </a>
+                  </li>
+                  <li>
+                    {t("contactsPage.instagram")}:{" "}
+                    <a
+                      className="text-dark"
+                      href="https://www.instagram.com/oda_archetecture/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      @oda_archetecture
                     </a>
                   </li>
                 </ul>
@@ -172,16 +185,16 @@ const ContactsPage = () => {
                   <li>
                     {t("contactsPage.email")}:{" "}
                     <a
-                      className="text-dark  "
-                      href="mailto:example@example.com"
+                      className="text-dark"
+                      href="mailto:marynaprokhorova@gmail.com"
                     >
-                      example@example.com
+                      marynaprokhorova@gmail.com
                     </a>
                   </li>
                   <li>
                     {t("contactsPage.telephone")}:{" "}
-                    <a className="text-dark    " href="tel:+1234567890">
-                      +123 456 7890
+                    <a className="text-dark" href="tel:+380676397018">
+                      +380 67 639 70 18
                     </a>
                   </li>
                 </ul>

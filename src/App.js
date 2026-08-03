@@ -6,6 +6,7 @@ import authStore from "./store/authStore";
 import Header from "./components/Header";
 import BottomHeader from "./components/BottomHeader";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import QuickContact from "./components/QuickContact";
 import Footer from "./components/Footer";
 import Seo from "./components/Seo";
 // Homepage sections are above the fold on "/", so lazy-loading them only
@@ -171,6 +172,7 @@ function App() {
         />
       </Routes>
 
+      <QuickContact />
       <ScrollToTopButton />
     </div>
   );

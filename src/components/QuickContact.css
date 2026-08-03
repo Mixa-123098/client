@@ -1,0 +1,61 @@
+.quick-contact {
+  position: fixed;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* below Bootstrap modals (~1050) so it never covers a dialog, above page
+     content */
+  z-index: 1000;
+}
+
+.qc-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.4rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.qc-btn:hover {
+  color: #fff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.qc-call {
+  background: #2fa84f;
+}
+
+.qc-viber {
+  background: #7360f2;
+}
+
+.qc-whatsapp {
+  background: #25d366;
+}
+
+.qc-telegram {
+  background: #29b6f6;
+}
+
+@media (max-width: 768px) {
+  .quick-contact {
+    right: 10px;
+    gap: 8px;
+  }
+
+  .qc-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.25rem;
+  }
+}
