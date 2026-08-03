@@ -8,6 +8,7 @@ import CreateProject from "./CreateProject";
 import UsersStatus from "./UsersStatus";
 import ProjectsEdit from "./ProjectsEdit";
 import LanguagesManager from "./LanguagesManager";
+import InquiriesManager from "./InquiriesManager";
 import Footer from "../Footer";
 import CropModalForm from "./CropModalForm";
 import ChangePasswordForm from "./ChangePasswordForm";
@@ -15,6 +16,12 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../loader/Loader";
 
 const ALL_TABS = [
+  {
+    key: "inquiries",
+    labelKey: "editPage.inquiries.tab",
+    Component: InquiriesManager,
+    roles: ["admin", "moderator"],
+  },
   {
     key: "createProject",
     labelKey: "editPage.createNewProject.open_close",
