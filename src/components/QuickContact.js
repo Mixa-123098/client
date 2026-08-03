@@ -21,7 +21,7 @@ const channels = [
     newTab: true,
   },
   {
-    href: "https://t.me/+380676397018",
+    href: "https://t.me/marynaprokhorova_design",
     Icon: FaTelegramPlane,
     label: "Telegram",
     cls: "qc-telegram",

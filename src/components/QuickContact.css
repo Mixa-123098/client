@@ -48,8 +48,14 @@
 }
 
 @media (max-width: 768px) {
+  /* Vertically-centred on phones the rail sat on top of the hero title, so
+     anchor it to the lower-right instead — above the "scroll to top" button
+     and the hero's bottom bar, below the centred hero text. */
   .quick-contact {
+    top: auto;
+    bottom: 84px;
     right: 10px;
+    transform: none;
     gap: 8px;
   }
 

@@ -144,8 +144,13 @@ const ContactsPage = () => {
                 <ul className="list-unstyled">
                   <li>
                     {t("contactsPage.telegram")}:{" "}
-                    <a className="text-dark" href="https://t.me/+380676397018">
-                      +380 67 639 70 18
+                    <a
+                      className="text-dark"
+                      href="https://t.me/marynaprokhorova_design"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      @marynaprokhorova_design
                     </a>
                   </li>
                   <li>

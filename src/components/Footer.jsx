@@ -36,7 +36,10 @@ const Footer = ({ settings }) => {
       name: t("footer.social_media.instagram"),
       url: "https://www.instagram.com/oda_archetecture/?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr",
     },
-    { name: t("footer.social_media.telegram"), url: "https://t.me/+380676397018" },
+    {
+      name: t("footer.social_media.telegram"),
+      url: "https://t.me/marynaprokhorova_design",
+    },
   ];
 
   const businessHours = [
