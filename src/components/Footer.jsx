@@ -34,7 +34,7 @@ const Footer = ({ settings }) => {
     },
     {
       name: t("footer.social_media.instagram"),
-      url: "https://www.instagram.com/oda_archetecture/?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr",
+      url: "https://www.instagram.com/_svidoma_/",
     },
     {
       name: t("footer.social_media.telegram"),

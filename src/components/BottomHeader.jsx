@@ -53,7 +53,7 @@ function BottomHeader() {
     return (
       <div className="bottomHeader-left">
         <a
-          href="https://instagram.com/oda_archetecture?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr"
+          href="https://www.instagram.com/_svidoma_/"
           className="nav_icons_width social-icon-link"
           target="_blank"
           rel="noopener noreferrer"

@@ -179,11 +179,11 @@ const ContactsPage = () => {
                     {t("contactsPage.instagram")}:{" "}
                     <a
                       className="text-dark"
-                      href="https://www.instagram.com/oda_archetecture/"
+                      href="https://www.instagram.com/_svidoma_/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      @oda_archetecture
+                      @_svidoma_
                     </a>
                   </li>
                 </ul>
