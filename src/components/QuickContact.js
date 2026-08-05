@@ -6,12 +6,19 @@ import "./QuickContact.css";
 // clears both the bottom-right "scroll to top" button and the hero's bottom
 // bar). Numbers are the studio's real line: +380 67 639 70 18.
 const channels = [
-  { href: "tel:+380676397018", Icon: FaPhoneAlt, label: "Подзвонити", cls: "qc-call" },
+  {
+    href: "tel:+380676397018",
+    Icon: FaPhoneAlt,
+    label: "Подзвонити",
+    cls: "qc-call",
+    event: "contact-call",
+  },
   {
     href: "viber://chat?number=%2B380676397018",
     Icon: FaViber,
     label: "Viber",
     cls: "qc-viber",
+    event: "contact-viber",
   },
   {
     href: "https://wa.me/380676397018",
@@ -19,6 +26,7 @@ const channels = [
     label: "WhatsApp",
     cls: "qc-whatsapp",
     newTab: true,
+    event: "contact-whatsapp",
   },
   {
     href: "https://t.me/marynaprokhorova_design",
@@ -26,19 +34,21 @@ const channels = [
     label: "Telegram",
     cls: "qc-telegram",
     newTab: true,
+    event: "contact-telegram",
   },
 ];
 
 const QuickContact = () => {
   return (
     <div className="quick-contact" aria-label="Швидкий контакт">
-      {channels.map(({ href, Icon, label, cls, newTab }) => (
+      {channels.map(({ href, Icon, label, cls, newTab, event }) => (
         <a
           key={label}
           href={href}
           className={`qc-btn ${cls}`}
           aria-label={label}
           title={label}
+          data-umami-event={event}
           {...(newTab
             ? { target: "_blank", rel: "noopener noreferrer" }
             : {})}

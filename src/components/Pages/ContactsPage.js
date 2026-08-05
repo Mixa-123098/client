@@ -31,6 +31,8 @@ const InquiryForm = () => {
       });
       if (!response.ok) throw new Error("failed");
       setStatus("success");
+      // Record the conversion in analytics (Behavior → Events in Umami).
+      window.umami?.track?.("lead-form-submit");
       setForm({ name: "", contact: "", message: "", website: "" });
     } catch (error) {
       console.error("Error submitting inquiry:", error);
